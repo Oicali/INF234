@@ -23,7 +23,7 @@ public class FinalProject_ATM extends frames {
         this.add(intro);
 
         // Set up a timer to close the frame after the GIF duration (in milliseconds)
-        int gifDuration = 4500; // 5 seconds
+        int gifDuration = 4100; 
         Timer timer = new Timer(gifDuration, e -> {
             this.dispose();
 
@@ -40,6 +40,7 @@ public class FinalProject_ATM extends frames {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             FinalProject_ATM frame1 = new FinalProject_ATM();
+            frame1.show();
             sfx.playOpening();
             
  

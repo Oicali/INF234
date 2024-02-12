@@ -10,16 +10,16 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class logIn extends frames {
-    
+
     // Global variables 
     static int attempt = 3;
     static JPasswordField passwordField = new JPasswordField();
-    static final JPasswordField PIN = new JPasswordField();
+    static final JPasswordField PIN = new roundPasswordField(20);
     static sounds sfx = new sounds();
-    
+
     
     // Generate and redesign the opening frame
-    logIn(){
+    logIn() {
         super();
         JDialog.setDefaultLookAndFeelDecorated(true);
 
@@ -43,14 +43,13 @@ public class logIn extends frames {
         lbl2.setBounds(555, 200, 400, 40);
         pnl1.add(lbl2);
 
-        
         PIN.setBounds(583, 255, 350, 50);
         PIN.setFont(new Font("Source Sans Pro", Font.BOLD, 25));
         PIN.setBorder(null);
         ((JTextField) PIN).setHorizontalAlignment(JTextField.CENTER);
         pnl1.add(PIN);
 
-        final JButton loginBtn = new JButton("Enter");
+        /*final JButton loginBtn = new JButton("Enter");
         loginBtn.setBounds(677, 340, 160, 46);
         loginBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         loginBtn.setContentAreaFilled(true);
@@ -58,19 +57,26 @@ public class logIn extends frames {
         loginBtn.setFocusPainted(false);
         loginBtn.setOpaque(false);
         loginBtn.setForeground(new Color(0, 0, 0));
-        pnl1.add(loginBtn);
+        pnl1.add(loginBtn);*/
+        
+        final JButton logInBtn = new roundButton("Log In");
+        logInBtn.setBounds(677, 340, 160, 46);
+        logInBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
+        logInBtn.setForeground(Color.WHITE);
+        pnl1.add(logInBtn);
 
-        //frameSettings.addCancelButton(pnl1);
+        buttons.addCancelButton(pnl1);
+        buttons.addVolumeButton(pnl1);
 
-        final JButton changePass = new JButton("<html><i><u>Change Password</u></i></html>");
-        changePass.setBounds(680, 440, 160, 35);
-        changePass.setFont(new Font("Source Sans Pro", Font.PLAIN, 18));
-        changePass.setContentAreaFilled(false);
-        changePass.setBorderPainted(false);
-        changePass.setFocusPainted(false);
-        changePass.setOpaque(false);
-        changePass.setForeground(new Color(255, 222, 89));
-        pnl1.add(changePass);
+        final JButton forgotPass = new JButton("<html><i><u>Forgot Password?</u></i></html>");
+        forgotPass.setBounds(680, 440, 160, 35);
+        forgotPass.setFont(new Font("Source Sans Pro", Font.PLAIN, 18));
+        forgotPass.setContentAreaFilled(false);
+        forgotPass.setBorderPainted(false);
+        forgotPass.setFocusPainted(false);
+        forgotPass.setOpaque(false);
+        forgotPass.setForeground(new Color(255, 222, 89));
+        pnl1.add(forgotPass);
 
         JLabel logInBG = new JLabel();
         logInBG.setIcon(
@@ -80,20 +86,20 @@ public class logIn extends frames {
 
         this.show();
 
-
         // Buttons Functions starts here...
         PIN.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent ke) {
                 if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
                     PIN.setEditable(true);
+                    sfx.playClick();
+
                 } else {
                     PIN.setEditable(false);
                 }
             }
         });
 
-        loginBtn.addActionListener(new ActionListener() {
-
+        logInBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!PIN.getText().equals(account.getPassword())) {
@@ -105,7 +111,7 @@ public class logIn extends frames {
                             JOptionPane.WARNING_MESSAGE);
                     PIN.setText("");
                     PIN.requestFocus();
-                    getRootPane().setDefaultButton(loginBtn);
+                    getRootPane().setDefaultButton(logInBtn);
                     if (attempt < 1) {
                         JOptionPane.showMessageDialog(null, "You have reached maximum attempt!", "",
                                 JOptionPane.WARNING_MESSAGE);
@@ -113,14 +119,115 @@ public class logIn extends frames {
                     }
                 } else {
                     sfx.playConfirm();
-                    
+
                     JOptionPane.showMessageDialog(null, "Login Successful!");
                     dispose();
+                    new Menu();
                 }
             }
         });
 
-        changePass.addActionListener(new ActionListener() {
+        forgotPass.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                sfx.playWarning();
+
+                // Generate OTP
+                String otp = generateOTP();
+
+                JOptionPane.showMessageDialog(null, "You will receive a 5-number OTP \n      to change your password.", "Request to change password", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Your OTP: " + otp, "OTP Verification", JOptionPane.INFORMATION_MESSAGE);
+
+                JTextField otpField = new JTextField();
+                otpField.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        char c = e.getKeyChar();
+                        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE)) {
+                            e.consume(); // Ignore the event
+                        }
+                    }
+                });
+
+                Object[] otpPanel = {"Enter the OTP: ", otpField};
+                int option = JOptionPane.showConfirmDialog(null, otpPanel, "OTP Verification", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                if (option == JOptionPane.OK_OPTION) {
+                    String enteredOTP = otpField.getText();
+                    if (enteredOTP.equals(otp)) {
+                        verifyPassword();
+                    } else {
+                        sfx.playError();
+                        JOptionPane.showMessageDialog(null, "Invalid OTP. Password change aborted.", "OTP Verification", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                forgotPass.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                forgotPass.setCursor(Cursor.getDefaultCursor());
+
+            }
+        });
+
+    }
+
+    
+    // Recursion
+    public static void verifyPassword() {
+        
+        int option = JOptionPane.showConfirmDialog(null, passwordField, "Enter your new password",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            if (passwordField.getPassword().length > 0) {
+                char[] newPasswordChars = passwordField.getPassword();
+                account.user.setPassword(new String(newPasswordChars));
+
+                JOptionPane.showMessageDialog(null, "You have successfully changed your password!",
+                        "Change Password", JOptionPane.INFORMATION_MESSAGE);
+                PIN.setText("");
+                PIN.requestFocus();
+            } else {
+                sfx.playError();
+                JOptionPane.showMessageDialog(null, "New password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+                verifyPassword();
+            }
+        } else {
+
+            PIN.requestFocus();
+        }
+    }
+
+    
+    // Method to generate OTP
+    private String generateOTP() {
+        StringBuilder otpBuilder = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            otpBuilder.append((char) ((int) (Math.random() * 10) + '0'));
+        }
+        return otpBuilder.toString();
+    }
+
+    
+    /*changePass.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sfx.playWarning();
@@ -145,31 +252,5 @@ public class logIn extends frames {
 
                 else PIN.requestFocus();
             }
-        });
-    }
-    
-    // Recursion
-    public static void verifyPassword() {
-        int option = JOptionPane.showConfirmDialog(null, passwordField, "Enter your new password",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-    
-        if (option == JOptionPane.OK_OPTION) {
-            if (passwordField.getPassword().length > 0) {
-                char[] newPasswordChars = passwordField.getPassword();
-                account.user.setPassword(new String(newPasswordChars));
-    
-                JOptionPane.showMessageDialog(null, "You have successfully changed your password!",
-                        "Change Password", JOptionPane.INFORMATION_MESSAGE);
-                        PIN.requestFocus();
-            } else {
-                sfx.playError();
-                JOptionPane.showMessageDialog(null, "Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-                verifyPassword();
-            }
-        }
-
-        else PIN.requestFocus();
-    }
-    
-    
+        });*/
 }

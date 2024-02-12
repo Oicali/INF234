@@ -23,7 +23,6 @@ public class frames extends JFrame {
         this.setIconImage(image.getImage());
         this.getContentPane().setBackground(new Color(255, 255, 255));
         this.setLocationRelativeTo(null);
-        this.show();
     }
  
 }
