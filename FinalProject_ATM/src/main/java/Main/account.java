@@ -10,20 +10,20 @@ public class account {
     // Variables 
     String name;
     private String password, UID;
-    private double balance;
+    private double current, savings;
 
     
     // Constructor
-    account(String name, String UID, String password, double balance) {
+    account(String name, String UID, String password, double current, double savings) {
         this.setName(name);
         this.UID = UID;
         this.setPassword(password);
-        this.setBalance(balance);
+        this.setCurrent(current);
     }
 
     
     // instantiate a user
-    static account user = new account("User1", "700530800559", "123456", 10000);
+    static account user = new account("User1", "700530800559", "123456", 1000, 1000);
 
     
     // Getters
@@ -39,8 +39,12 @@ public class account {
         return user.password;
     }
 
-    public static double getBalance() {
-        return user.balance;
+    public static double getCurrent() {
+        return user.current;
+    }
+    
+    public static double getSavings() {
+        return user.savings;
     }
 
     
@@ -53,8 +57,12 @@ public class account {
         this.password = password;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void setCurrent(double current) {
+        this.current = current;
+    }
+    
+    public void setSavings(double savings) {
+        this.current = savings;
     }
     
 }

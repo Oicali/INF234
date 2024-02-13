@@ -16,10 +16,10 @@ public class logIn extends frames {
     static JPasswordField passwordField = new JPasswordField();
     static final JPasswordField PIN = new roundPasswordField(20);
     static sounds sfx = new sounds();
+    static transaction transact1 = new transaction();
 
-    
-    // Generate and redesign the opening frame
-    logIn() {
+    // Generate and redesign the Log In frame
+    public logIn() {
         super();
         JDialog.setDefaultLookAndFeelDecorated(true);
 
@@ -33,43 +33,39 @@ public class logIn extends frames {
         lbl1.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 30));
         lbl1.setHorizontalAlignment(JLabel.CENTER);
         lbl1.setForeground(new Color(255, 222, 89));
-        lbl1.setBounds(550, 40, 400, 40);
+        lbl1.setBounds(555, 40, 400, 40);
         pnl1.add(lbl1);
+
+        JLabel logo = new JLabel();
+        logo.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\logo2.png"));
+        logo.setBounds(707, 135, 110, 110);
+        pnl1.add(logo);
 
         JLabel lbl2 = new JLabel("Enter your PIN");
         lbl2.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         lbl2.setHorizontalAlignment(JLabel.CENTER);
         lbl2.setForeground(new Color(255, 222, 89));
-        lbl2.setBounds(555, 200, 400, 40);
+        lbl2.setBounds(555, 255, 400, 40);
         pnl1.add(lbl2);
 
-        PIN.setBounds(583, 255, 350, 50);
+        PIN.setBounds(583, 299, 350, 50);
         PIN.setFont(new Font("Source Sans Pro", Font.BOLD, 25));
         PIN.setBorder(null);
         ((JTextField) PIN).setHorizontalAlignment(JTextField.CENTER);
         pnl1.add(PIN);
 
-        /*final JButton loginBtn = new JButton("Enter");
-        loginBtn.setBounds(677, 340, 160, 46);
-        loginBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
-        loginBtn.setContentAreaFilled(true);
-        //loginBtn.setBorderPainted(false);
-        loginBtn.setFocusPainted(false);
-        loginBtn.setOpaque(false);
-        loginBtn.setForeground(new Color(0, 0, 0));
-        pnl1.add(loginBtn);*/
-        
-        final JButton logInBtn = new roundButton("Log In");
-        logInBtn.setBounds(677, 340, 160, 46);
+        final JButton logInBtn = new roundButton("Login");
+        logInBtn.setBounds(677, 390, 160, 46);
         logInBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         logInBtn.setForeground(Color.WHITE);
         pnl1.add(logInBtn);
 
         buttons.addCancelButton(pnl1);
-        buttons.addVolumeButton(pnl1);
+        //buttons.addVolumeButton(pnl1);
 
         final JButton forgotPass = new JButton("<html><i><u>Forgot Password?</u></i></html>");
-        forgotPass.setBounds(680, 440, 160, 35);
+        forgotPass.setBounds(680, 490, 160, 35);
         forgotPass.setFont(new Font("Source Sans Pro", Font.PLAIN, 18));
         forgotPass.setContentAreaFilled(false);
         forgotPass.setBorderPainted(false);
@@ -84,7 +80,7 @@ public class logIn extends frames {
         logInBG.setBounds(0, -15, 1050, 700);
         pnl1.add(logInBG);
 
-        this.show();
+        //this.show();
 
         // Buttons Functions starts here...
         PIN.addKeyListener(new KeyAdapter() {
@@ -121,8 +117,11 @@ public class logIn extends frames {
                     sfx.playConfirm();
 
                     JOptionPane.showMessageDialog(null, "Login Successful!");
-                    dispose();
-                    new Menu();
+                    FinalProject_ATM.logIn1.dispose();
+                    PIN.setText("");
+                    
+                    transact1.show();
+                    
                 }
             }
         });
@@ -187,12 +186,20 @@ public class logIn extends frames {
             }
         });
 
+        passwordField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE)) {
+                    e.consume(); // Ignore the event
+                }
+            }
+        });
     }
 
-    
     // Recursion
     public static void verifyPassword() {
-        
+
         int option = JOptionPane.showConfirmDialog(null, passwordField, "Enter your new password",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
@@ -205,6 +212,7 @@ public class logIn extends frames {
                         "Change Password", JOptionPane.INFORMATION_MESSAGE);
                 PIN.setText("");
                 PIN.requestFocus();
+                passwordField.setText("");
             } else {
                 sfx.playError();
                 JOptionPane.showMessageDialog(null, "New password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -216,7 +224,6 @@ public class logIn extends frames {
         }
     }
 
-    
     // Method to generate OTP
     private String generateOTP() {
         StringBuilder otpBuilder = new StringBuilder();
@@ -226,7 +233,6 @@ public class logIn extends frames {
         return otpBuilder.toString();
     }
 
-    
     /*changePass.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

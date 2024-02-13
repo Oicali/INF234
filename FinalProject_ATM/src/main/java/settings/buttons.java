@@ -7,7 +7,7 @@ package settings;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import Main.account;
+import Main.*;
 
 public class buttons extends JButton {
 
@@ -15,13 +15,13 @@ public class buttons extends JButton {
     static sounds sfx = new sounds();
     static boolean isUnmute = true;
 
-    // Cancel button
+    // Cancel button to system exit
     public static void addCancelButton(JPanel panel) {
         JLabel cancel_Button = new JLabel();
         cancel_Button.setIcon(
                 new ImageIcon(
-                        "C:\\Users\\jairus\\Documents\\GitHub\\ATM\\BIT_ATM\\src\\ATM_resources\\cancelButton.png"));
-        cancel_Button.setBounds(18, 619, 156, 37);
+                        "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
+        cancel_Button.setBounds(15, 35, 55, 55);
         panel.add(cancel_Button);
 
         cancel_Button.addMouseListener(new MouseListener() {
@@ -39,6 +39,7 @@ public class buttons extends JButton {
             public void mouseReleased(MouseEvent e) {
                 sfx.playWarning();
 
+                cancel_Button.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
                 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?",
                         "Exit Confirmation", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
@@ -51,7 +52,7 @@ public class buttons extends JButton {
                 cancel_Button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 cancel_Button.setIcon(
                         new ImageIcon(
-                                "C:\\Users\\jairus\\Documents\\GitHub\\ATM\\BIT_ATM\\src\\ATM_resources\\cancelButton2.png"));
+                                "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton2.png"));
             }
 
             @Override
@@ -59,31 +60,34 @@ public class buttons extends JButton {
                 cancel_Button.setCursor(Cursor.getDefaultCursor());
                 cancel_Button.setIcon(
                         new ImageIcon(
-                                "C:\\Users\\jairus\\Documents\\GitHub\\ATM\\BIT_ATM\\src\\ATM_resources\\cancelButton.png"));
+                                "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
             }
         });
     }
 
-    
     // Volume Button
     public static void addVolumeButton(JPanel panel) {
-        
+
         JLabel volumeButton = new JLabel();
 
         if (isUnmute) {
+            System.out.println("Unmuted1");
             volumeButton.setIcon(
                     new ImageIcon(
                             "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+            
+            System.out.println("Unmuted2");
 
         } else {
+            System.out.println("muted1");
             volumeButton.setIcon(
                     new ImageIcon(
                             "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+            System.out.println("muted2");
         }
 
         volumeButton.setBounds(975, 619, 40, 37);
         panel.add(volumeButton);
-      
 
         volumeButton.addMouseListener(new MouseListener() {
             @Override
@@ -103,11 +107,11 @@ public class buttons extends JButton {
                             new ImageIcon(
                                     "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     isUnmute = false;
-                    
+
                 } else {
                     volumeButton.setIcon(
-                    new ImageIcon(
-                            "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                            new ImageIcon(
+                                    "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
 
                     isUnmute = true;
                     sfx.playWarning();
@@ -126,13 +130,6 @@ public class buttons extends JButton {
             }
         });
     }
-    
-    
-    
 
     
-
 }
-
-
-
