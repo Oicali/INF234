@@ -69,7 +69,7 @@ public class typeAmount extends frames {
                     dispose();
                    
                     logIn.attempt = 3; 
-                    FinalProject_ATM.logIn1.show();
+                    FinalProject_ATM.logInFrame.show();
                 }
             }
 

@@ -31,7 +31,7 @@ public class typeAccount extends frames {
         lbl1.setBounds(450, 40, 400, 40);
         pnl1.add(lbl1);
         
-        //buttons.addVolumeButton(pnl1);
+        buttons.addVolumeButton(pnl1);
         
         JLabel cancelBtn = new JLabel();
         cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
@@ -87,7 +87,7 @@ public class typeAccount extends frames {
                     dispose();
                    
                     logIn.attempt = 3; 
-                    FinalProject_ATM.logIn1.show();
+                    FinalProject_ATM.logInFrame.show();
                 }
             }
 
@@ -184,7 +184,7 @@ public class typeAccount extends frames {
                 sfx.playClick();
 
                 dispose();
-                logIn.transact1.show();
+                logIn.transactionFrame.show();
                 
             }
 

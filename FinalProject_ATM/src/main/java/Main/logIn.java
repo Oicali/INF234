@@ -16,7 +16,7 @@ public class logIn extends frames {
     static JPasswordField passwordField = new JPasswordField();
     static final JPasswordField PIN = new roundPasswordField(20);
     static sounds sfx = new sounds();
-    static transaction transact1 = new transaction();
+    static transaction transactionFrame = new transaction();
 
     // Generate and redesign the Log In frame
     public logIn() {
@@ -117,10 +117,10 @@ public class logIn extends frames {
                     sfx.playConfirm();
 
                     JOptionPane.showMessageDialog(null, "Login Successful!");
-                    FinalProject_ATM.logIn1.dispose();
+                    FinalProject_ATM.logInFrame.dispose();
                     PIN.setText("");
                     
-                    transact1.show();
+                    transactionFrame.show();
                     
                 }
             }

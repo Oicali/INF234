@@ -88,10 +88,10 @@ public class transaction extends frames {
                 if (choice == JOptionPane.YES_OPTION) {
 
                     
-                    logIn.transact1.dispose();
+                    logIn.transactionFrame.dispose();
                    
                     logIn.attempt = 3; 
-                    FinalProject_ATM.logIn1.show();
+                    FinalProject_ATM.logInFrame.show();
                 }
             }
 

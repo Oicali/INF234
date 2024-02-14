@@ -10,7 +10,7 @@ public class FinalProject_ATM extends frames {
     
     // Instatiate class to allow this class to call other methods
     static sounds sfx = new sounds();
-    static logIn logIn1 = new logIn();
+    static logIn logInFrame = new logIn();
     
     // Generate and redesign the opening frame
     FinalProject_ATM(){
@@ -39,16 +39,16 @@ public class FinalProject_ATM extends frames {
     // Open and go to next frame
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            FinalProject_ATM frame1 = new FinalProject_ATM();
-            frame1.show();
+            FinalProject_ATM openingFrame = new FinalProject_ATM();
+            openingFrame.show();
             sfx.playOpening();
             
  
-            frame1.addWindowListener(new java.awt.event.WindowAdapter() {
+            openingFrame.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                     
-                    logIn1.show();
+                    logInFrame.show();
                     
                 }
             });

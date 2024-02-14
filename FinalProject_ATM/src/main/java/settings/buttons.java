@@ -71,19 +71,19 @@ public class buttons extends JButton {
         JLabel volumeButton = new JLabel();
 
         if (isUnmute) {
-            System.out.println("Unmuted1");
+            
             volumeButton.setIcon(
                     new ImageIcon(
                             "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
             
-            System.out.println("Unmuted2");
+            
 
         } else {
-            System.out.println("muted1");
+            
             volumeButton.setIcon(
                     new ImageIcon(
                             "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-            System.out.println("muted2");
+            
         }
 
         volumeButton.setBounds(975, 619, 40, 37);
