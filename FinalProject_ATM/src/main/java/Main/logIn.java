@@ -84,16 +84,28 @@ public class logIn extends frames {
 
         // Buttons Functions starts here...
         PIN.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent ke) {
-                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                    PIN.setEditable(true);
-                    sfx.playClick();
-
-                } else {
-                    PIN.setEditable(false);
-                }
+         public void keyPressed(KeyEvent a) {
+            String value = PIN.getText();
+            int l = value.length();
+            if(l>=6)
+            {
+                sfx.playError();
+                JOptionPane.showMessageDialog(null, "6 characters only", "Invalid password",  JOptionPane.ERROR_MESSAGE);
+                PIN.setText("");
+                PIN.requestFocus();
             }
-        });
+                if (a.getKeyChar() >= '0' && a.getKeyChar() <= '9' || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
+                sfx.playClick();
+                    PIN.setEditable(true);
+                PIN.setForeground(Color.BLACK);
+                } else {
+                PIN.setEditable(false);
+
+                }
+                
+            }
+         
+      });
 
         logInBtn.addActionListener(new ActionListener() {
             @Override
@@ -109,7 +121,8 @@ public class logIn extends frames {
                     PIN.requestFocus();
                     getRootPane().setDefaultButton(logInBtn);
                     if (attempt < 1) {
-                        JOptionPane.showMessageDialog(null, "You have reached maximum attempt!", "",
+                        sfx.playWarning();
+                        JOptionPane.showMessageDialog(null, "You have reached maximum attempt!", "System Security",
                                 JOptionPane.WARNING_MESSAGE);
                         System.exit(0);
                     }
@@ -147,6 +160,8 @@ public class logIn extends frames {
                 JOptionPane.showMessageDialog(null, "You will receive a 5-number OTP \n      to change your password.", "Request to change password", JOptionPane.INFORMATION_MESSAGE);
                 JOptionPane.showMessageDialog(null, "Your OTP: " + otp, "OTP Verification", JOptionPane.INFORMATION_MESSAGE);
 
+                
+                // Field for inputting OTP
                 JTextField otpField = new JTextField();
                 otpField.addKeyListener(new KeyAdapter() {
                     @Override
@@ -154,7 +169,7 @@ public class logIn extends frames {
                         char c = e.getKeyChar();
                         if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE)) {
                             e.consume(); // Ignore the event
-                        }
+                        } else sfx.playClick();
                     }
                 });
 
@@ -186,13 +201,14 @@ public class logIn extends frames {
             }
         });
 
+        // Field to input new password
         passwordField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE)) {
                     e.consume(); // Ignore the event
-                }
+                } else sfx.playClick();
             }
         });
     }
@@ -200,28 +216,45 @@ public class logIn extends frames {
     // Recursion
     public static void verifyPassword() {
 
+        sfx.playWarning();
         int option = JOptionPane.showConfirmDialog(null, passwordField, "Enter your new password",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-        if (option == JOptionPane.OK_OPTION) {
-            if (passwordField.getPassword().length > 0) {
-                char[] newPasswordChars = passwordField.getPassword();
-                account.user.setPassword(new String(newPasswordChars));
-
-                JOptionPane.showMessageDialog(null, "You have successfully changed your password!",
-                        "Change Password", JOptionPane.INFORMATION_MESSAGE);
-                PIN.setText("");
-                PIN.requestFocus();
-                passwordField.setText("");
-            } else {
-                sfx.playError();
-                JOptionPane.showMessageDialog(null, "New password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-                verifyPassword();
+if (option == JOptionPane.OK_OPTION) {
+    char[] newPasswordChars = passwordField.getPassword();
+    
+    // Check if the password length is exactly 6
+    if (newPasswordChars.length == 6) {
+        // Check if all characters are digits
+        boolean isValidPassword = true;
+        for (char c : newPasswordChars) {
+            if (!Character.isDigit(c)) {
+                isValidPassword = false;
+                break;
             }
-        } else {
-
-            PIN.requestFocus();
         }
+        
+        if (isValidPassword) {
+            account.user.setPassword(new String(newPasswordChars));
+            JOptionPane.showMessageDialog(null, "You have successfully changed your password!",
+                    "Changed Password", JOptionPane.INFORMATION_MESSAGE);
+            sfx.playConfirm();
+            PIN.setText("");
+            PIN.requestFocus();
+            attempt = 3;
+            passwordField.setText("");
+        } 
+    } else {
+        // Display error message if the password length is not 6
+        sfx.playError();
+        JOptionPane.showMessageDialog(null, "Password must be exactly 6 digits long!", "Invalid Password", JOptionPane.ERROR_MESSAGE);
+        passwordField.setText("");
+        verifyPassword();
+    }
+} else {
+    PIN.requestFocus();
+}
+
     }
 
     // Method to generate OTP
@@ -232,31 +265,4 @@ public class logIn extends frames {
         }
         return otpBuilder.toString();
     }
-
-    /*changePass.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sfx.playWarning();
-
-                int choice2 = JOptionPane.showConfirmDialog(null, "Are you sure you want to change your password?",
-                        "Change Password", JOptionPane.YES_NO_OPTION);
-                if (choice2 == JOptionPane.YES_OPTION) {
-                    
-                    // Add KeyListener to the password field
-                    passwordField.addKeyListener(new KeyAdapter() {
-                        @Override
-                        public void keyTyped(KeyEvent e) {
-                            char c = e.getKeyChar();
-                            if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE)) {
-                                e.consume(); // Ignore the event
-                            }
-                        }
-                    });
-
-                    verifyPassword();
-                }
-
-                else PIN.requestFocus();
-            }
-        });*/
 }
