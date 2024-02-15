@@ -27,7 +27,7 @@ public class roundButton extends JButton {
 
         // Define the gradient colors
         Color color1 = new Color(1,207, 22);
-        Color color2 = new Color(222, 255, 99); // You can change this to any color you want
+        Color color2 = new Color(1,207, 22);; // You can change this to any color you want
 
         // Create a gradient paint
         GradientPaint gradient = new GradientPaint(0, 0, color1, width, height, color2);
