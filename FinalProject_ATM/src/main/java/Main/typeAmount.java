@@ -11,7 +11,7 @@ import javax.swing.*;
 
 public class typeAmount extends frames {
     
-    static JPanel pnl1 = new JPanel();
+    static JPanel typeAmountPnl = new JPanel();
     static sounds sfx = new sounds();
     
     // Generate and redesign the transaction frame
@@ -19,30 +19,30 @@ public class typeAmount extends frames {
         super();
         JDialog.setDefaultLookAndFeelDecorated(true);
 
-        pnl1.setSize(1244, 700);
-        pnl1.setBackground(Color.BLACK);
-        pnl1.setLayout(null);
-        this.add(pnl1);
+        typeAmountPnl.setSize(1244, 700);
+        typeAmountPnl.setBackground(Color.BLACK);
+        typeAmountPnl.setLayout(null);
+        this.add(typeAmountPnl);
 
         JLabel lbl1 = new JLabel("Enter Amount");
         lbl1.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 30));
         lbl1.setHorizontalAlignment(JLabel.CENTER);
         lbl1.setForeground(new Color(255, 222, 89));
         lbl1.setBounds(450, 40, 400, 40);
-        pnl1.add(lbl1);
+        typeAmountPnl.add(lbl1);
 
         JLabel cancelBtn2 = new JLabel();
         cancelBtn2.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
         cancelBtn2.setBounds(15, 35, 55, 55);
-        pnl1.add(cancelBtn2);
+        typeAmountPnl.add(cancelBtn2);
         
-        //buttons.addVolumeButton(pnl1);
+        
         
         JLabel amountBG = new JLabel();
         amountBG.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\typeAmountBG.png"));
         amountBG.setBounds(0, -15, 1050, 700);
-        pnl1.add(amountBG);
+        typeAmountPnl.add(amountBG);
         
         
         // Buttons Functions

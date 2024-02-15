@@ -18,49 +18,49 @@ public class typeAccount extends frames {
         super();
         JDialog.setDefaultLookAndFeelDecorated(true);
 
-        JPanel pnl1 = new JPanel();
-        pnl1.setSize(1244, 700);
-        pnl1.setBackground(Color.BLACK);
-        pnl1.setLayout(null);
-        this.add(pnl1);
+        JPanel typeAccountPnl = new JPanel();
+        typeAccountPnl.setSize(1244, 700);
+        typeAccountPnl.setBackground(Color.BLACK);
+        typeAccountPnl.setLayout(null);
+        this.add(typeAccountPnl);
 
         JLabel lbl1 = new JLabel("Choose which account");
         lbl1.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 30));
         lbl1.setHorizontalAlignment(JLabel.CENTER);
         lbl1.setForeground(new Color(255, 222, 89));
         lbl1.setBounds(450, 40, 400, 40);
-        pnl1.add(lbl1);
+        typeAccountPnl.add(lbl1);
         
-        buttons.addVolumeButton(pnl1);
+
         
         JLabel cancelBtn = new JLabel();
         cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
         cancelBtn.setBounds(15, 35, 55, 55);
-        pnl1.add(cancelBtn);
+        typeAccountPnl.add(cancelBtn);
         
         JLabel currentBtn = new JLabel();
         currentBtn.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\currentButton.png"));
         currentBtn.setBounds(475, 185,365, 70);
-        pnl1.add(currentBtn);
+        typeAccountPnl.add(currentBtn);
         
         JLabel savingsBtn = new JLabel();
         savingsBtn.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\savingsButton.png"));
         savingsBtn.setBounds(475, 305,365, 70);
-        pnl1.add(savingsBtn);
+        typeAccountPnl.add(savingsBtn);
         
         JLabel backBtn = new JLabel();
         backBtn.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backButton.png"));
         backBtn.setBounds(475, 435,365, 70);
-        pnl1.add(backBtn);
+        typeAccountPnl.add(backBtn);
         
         JLabel typeAccountBG = new JLabel();
         typeAccountBG.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\transactionBG.png"));
         typeAccountBG.setBounds(0, -15, 1050, 700);
-        pnl1.add(typeAccountBG);
+        typeAccountPnl.add(typeAccountBG);
         
         
         // Buttons Functions

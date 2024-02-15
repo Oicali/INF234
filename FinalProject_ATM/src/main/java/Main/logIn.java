@@ -14,58 +14,63 @@ import javax.swing.event.DocumentListener;
 public class logIn extends frames {
 
     // Global variables 
+    static JPanel logInPnl = new JPanel();
     static int attempt = 3;
     static JPasswordField passwordField = new JPasswordField();
     static final JPasswordField PIN = new roundPasswordField(20);
     static sounds sfx = new sounds();
+    static buttons volumeBtn = new buttons(logInPnl);;
     static transaction transactionFrame = new transaction();
+    public static boolean isUnmute = true;
 
     // Generate and redesign the Log In frame
     public logIn() {
         super();
         JDialog.setDefaultLookAndFeelDecorated(true);
 
-        JPanel pnl1 = new JPanel();
-        pnl1.setSize(1244, 700);
-        pnl1.setBackground(Color.BLACK);
-        pnl1.setLayout(null);
-        this.add(pnl1);
+        
+        logInPnl.setSize(1244, 700);
+        logInPnl.setBackground(Color.BLACK);
+        logInPnl.setLayout(null);
+        this.add(logInPnl);
 
         JLabel lbl1 = new JLabel("Log in to your Account");
         lbl1.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 30));
         lbl1.setHorizontalAlignment(JLabel.CENTER);
         lbl1.setForeground(new Color(255, 222, 89));
         lbl1.setBounds(555, 40, 400, 40);
-        pnl1.add(lbl1);
+        logInPnl.add(lbl1);
 
         JLabel logo = new JLabel();
         logo.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\logo2.png"));
         logo.setBounds(707, 135, 110, 110);
-        pnl1.add(logo);
+        logInPnl.add(logo);
 
         JLabel lbl2 = new JLabel("Enter your PIN");
         lbl2.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         lbl2.setHorizontalAlignment(JLabel.CENTER);
         lbl2.setForeground(new Color(255, 222, 89));
         lbl2.setBounds(555, 255, 400, 40);
-        pnl1.add(lbl2);
+        logInPnl.add(lbl2);
 
         PIN.setBounds(583, 299, 350, 50);
         PIN.setFont(new Font("Source Sans Pro", Font.BOLD, 25));
         PIN.setBorder(null);
         ((JTextField) PIN).setHorizontalAlignment(JTextField.CENTER);
-        pnl1.add(PIN);
+        logInPnl.add(PIN);
 
         final JButton logInBtn = new roundButton("Login");
         logInBtn.setBounds(677, 390, 160, 46);
         logInBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         logInBtn.setForeground(Color.WHITE);
         logInBtn.setEnabled(false);
-        pnl1.add(logInBtn);
+        logInPnl.add(logInBtn);
 
-        buttons.addCancelButton(pnl1);
-        //buttons.addVolumeButton(pnl1);
+        buttons.addCancelButton(logInPnl);
+        
+        
+       
 
         final JButton forgotPass = new JButton("<html><i><u>Forgot Password?</u></i></html>");
         forgotPass.setBounds(680, 490, 160, 35);
@@ -75,13 +80,13 @@ public class logIn extends frames {
         forgotPass.setFocusPainted(false);
         forgotPass.setOpaque(false);
         forgotPass.setForeground(new Color(255, 222, 89));
-        pnl1.add(forgotPass);
+        logInPnl.add(forgotPass);
 
         JLabel logInBG = new JLabel();
         logInBG.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\logIn_BG.png"));
         logInBG.setBounds(0, -15, 1050, 700);
-        pnl1.add(logInBG);
+        logInPnl.add(logInBG);
 
         
         // Listeners starts here...
