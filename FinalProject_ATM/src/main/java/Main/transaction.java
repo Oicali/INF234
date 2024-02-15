@@ -37,7 +37,6 @@ public class transaction extends frames {
         cancel_Button2.setBounds(15, 35, 55, 55);
         transactionPnl.add(cancel_Button2);
         
-        transactionPnl.add(logIn.volumeBtn);
         
         
         

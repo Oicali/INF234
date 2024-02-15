@@ -31,7 +31,7 @@ public class sounds {
     }
 
     public static void playError() {
-        if (buttons.isUnmute) {
+        
             File file1 = new File("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\error.wav");
             try {
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(file1);
@@ -45,11 +45,11 @@ public class sounds {
             } catch (LineUnavailableException error) {
                 error.printStackTrace();
             }
-        }
+        
     }
 
     public static void playWarning() {
-        if (buttons.isUnmute) {
+        
             File file2 = new File("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\warning.wav");
 
             try {
@@ -62,11 +62,11 @@ public class sounds {
             } catch (LineUnavailableException error) {
                 error.printStackTrace();
             }
-        }
+        
     }
 
     public static void playConfirm() {
-        if (buttons.isUnmute) {
+        
             File file3 = new File("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\confirm.wav");
 
             try {
@@ -79,11 +79,11 @@ public class sounds {
             } catch (LineUnavailableException error) {
                 error.printStackTrace();
             }
-        }
+        
     }
 
     public static void playClick() {
-        if (buttons.isUnmute) {
+        
             File file = new File("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\click.wav");
 
             try {
@@ -97,6 +97,6 @@ public class sounds {
                 e.printStackTrace();
             }
         }
-    }
+    
 
 }

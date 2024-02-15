@@ -19,16 +19,14 @@ public class logIn extends frames {
     static JPasswordField passwordField = new JPasswordField();
     static final JPasswordField PIN = new roundPasswordField(20);
     static sounds sfx = new sounds();
-    static buttons volumeBtn = new buttons(logInPnl);;
     static transaction transactionFrame = new transaction();
-    public static boolean isUnmute = true;
+
 
     // Generate and redesign the Log In frame
     public logIn() {
         super();
         JDialog.setDefaultLookAndFeelDecorated(true);
 
-        
         logInPnl.setSize(1244, 700);
         logInPnl.setBackground(Color.BLACK);
         logInPnl.setLayout(null);
@@ -44,36 +42,38 @@ public class logIn extends frames {
         JLabel logo = new JLabel();
         logo.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\logo2.png"));
-        logo.setBounds(707, 135, 110, 110);
+        logo.setBounds(712, 135, 110, 110);
         logInPnl.add(logo);
 
         JLabel lbl2 = new JLabel("Enter your PIN");
-        lbl2.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
+        lbl2.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 21));
         lbl2.setHorizontalAlignment(JLabel.CENTER);
         lbl2.setForeground(new Color(255, 222, 89));
-        lbl2.setBounds(555, 255, 400, 40);
+        lbl2.setBounds(560, 250, 400, 40);
         logInPnl.add(lbl2);
 
-        PIN.setBounds(583, 299, 350, 50);
+        PIN.setBounds(588, 295, 350, 50);
         PIN.setFont(new Font("Source Sans Pro", Font.BOLD, 25));
         PIN.setBorder(null);
         ((JTextField) PIN).setHorizontalAlignment(JTextField.CENTER);
         logInPnl.add(PIN);
 
         final JButton logInBtn = new roundButton("Login");
-        logInBtn.setBounds(677, 390, 160, 46);
+        logInBtn.setBounds(682, 395, 160, 46);
         logInBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         logInBtn.setForeground(Color.WHITE);
         logInBtn.setEnabled(false);
         logInPnl.add(logInBtn);
-
-        buttons.addCancelButton(logInPnl);
         
+        JLabel cancelButton = new JLabel();
+        cancelButton.setIcon(
+                new ImageIcon(
+                        "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
+        cancelButton.setBounds(15, 35, 55, 55);
+        logInPnl.add(cancelButton);
         
-       
-
         final JButton forgotPass = new JButton("<html><i><u>Forgot Password?</u></i></html>");
-        forgotPass.setBounds(680, 490, 160, 35);
+        forgotPass.setBounds(685, 510, 160, 35);
         forgotPass.setFont(new Font("Source Sans Pro", Font.PLAIN, 18));
         forgotPass.setContentAreaFilled(false);
         forgotPass.setBorderPainted(false);
@@ -200,8 +200,8 @@ public class logIn extends frames {
                 }
             }
         });
-
-                
+  
+        
         // For forgot password field
         forgotPass.addMouseListener(new MouseListener() {
             @Override
@@ -269,6 +269,7 @@ public class logIn extends frames {
             }
         });
 
+        
         // Field to input new password
         passwordField.addKeyListener(new KeyAdapter() {
             @Override
@@ -281,6 +282,49 @@ public class logIn extends frames {
                 }
             }
         });
+    
+        
+        // For cancel button to exit system
+        cancelButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                sfx.playWarning();
+
+                cancelButton.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
+                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?",
+                        "Exit Confirmation", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                cancelButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                cancelButton.setIcon(
+                        new ImageIcon(
+                                "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton2.png"));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                cancelButton.setCursor(Cursor.getDefaultCursor());
+                cancelButton.setIcon(
+                        new ImageIcon(
+                                "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
+            }
+        });
+    
     }
 
     
@@ -337,4 +381,5 @@ public class logIn extends frames {
         }
         return otpBuilder.toString();
     }
+        
 }

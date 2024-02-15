@@ -19,7 +19,7 @@ public class FinalProject_ATM extends frames {
         JLabel intro = new JLabel();
         intro.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\Opening.gif"));
-        intro.setBounds(-95, -10, 1244, 700);
+        intro.setBounds(-95, -15, 1244, 700);
         this.add(intro);
 
         // Set up a timer to close the frame after the GIF duration (in milliseconds)
