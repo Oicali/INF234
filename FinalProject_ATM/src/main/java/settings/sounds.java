@@ -6,12 +6,16 @@ package settings;
 
 import java.io.*;
 import javax.sound.sampled.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class sounds {
 
     // Global variables 
     static float value;
     static Clip clip, clip1, clip2, clip3, clip4;
+    public static boolean isUnmute = true;
 
     // Sound methods
     public static void playOpening() {
@@ -31,7 +35,12 @@ public class sounds {
     }
 
     public static void playError() {
+<<<<<<< Updated upstream
         
+=======
+<<<<<<< Updated upstream
+        if (buttons.isUnmute) {
+>>>>>>> Stashed changes
             File file1 = new File("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\error.wav");
             try {
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(file1);
@@ -85,18 +94,90 @@ public class sounds {
     public static void playClick() {
         
             File file = new File("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\click.wav");
+=======
 
-            try {
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-                clip4 = AudioSystem.getClip();
-                clip4.open(audioStream);
-                clip4.start();
-            } catch (UnsupportedAudioFileException | IOException e) {
-                e.printStackTrace(); // Or handle the exception in a way that makes sense for your application
-            } catch (LineUnavailableException e) {
-                e.printStackTrace();
-            }
+        if(isUnmute){
+        File file1 = new File("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\error.wav");
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file1);
+            clip1 = AudioSystem.getClip();
+            clip1.open(audioStream);
+
+            clip1.start();
+        } catch (UnsupportedAudioFileException | IOException error) {
+            error.printStackTrace(); // Or handle the exception in a way that makes sense for your
+            // application
+        } catch (LineUnavailableException error) {
+            error.printStackTrace();
         }
+<<<<<<< Updated upstream
     
+=======
+        }
 
-}
+    }
+>>>>>>> Stashed changes
+
+    public static void playWarning() {
+
+        if(isUnmute){
+        File file2 = new File("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\warning.wav");
+
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file2);
+            clip2 = AudioSystem.getClip();
+            clip2.open(audioStream);
+            clip2.start();
+        } catch (UnsupportedAudioFileException | IOException error) {
+            error.printStackTrace(); // Or handle the exception in a way that makes sense for your application
+        } catch (LineUnavailableException error) {
+            error.printStackTrace();
+        }
+        }
+
+    }
+
+    public static void playConfirm() {
+
+        if(isUnmute){
+        File file3 = new File("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\confirm.wav");
+
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file3);
+            clip3 = AudioSystem.getClip();
+            clip3.open(audioStream);
+            clip3.start();
+        } catch (UnsupportedAudioFileException | IOException error) {
+            error.printStackTrace(); // Or handle the exception in a way that makes sense for your application
+        } catch (LineUnavailableException error) {
+            error.printStackTrace();
+        }
+        }
+
+    }
+
+    public static void playClick() {
+        if(isUnmute){
+        File file = new File("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\click.wav");
+>>>>>>> Stashed changes
+
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+            clip4 = AudioSystem.getClip();
+            clip4.open(audioStream);
+            clip4.start();
+        } catch (UnsupportedAudioFileException | IOException e) {
+            e.printStackTrace(); // Or handle the exception in a way that makes sense for your application
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+<<<<<<< Updated upstream
+=======
+        }
+        
+>>>>>>> Stashed changes
+    }
+
+
+    
+    }

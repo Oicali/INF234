@@ -18,9 +18,19 @@ public class logIn extends frames {
     static int attempt = 3;
     static JPasswordField passwordField = new JPasswordField();
     static final JPasswordField PIN = new roundPasswordField(20);
+    public static JLabel logInVolume = new JLabel();
     static sounds sfx = new sounds();
     static transaction transactionFrame = new transaction();
+<<<<<<< Updated upstream
 
+=======
+<<<<<<< Updated upstream
+    public static boolean isUnmute = true;
+=======
+    
+
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
     // Generate and redesign the Log In frame
     public logIn() {
@@ -65,12 +75,23 @@ public class logIn extends frames {
         logInBtn.setEnabled(false);
         logInPnl.add(logInBtn);
         
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+        addVolumeEffects(logInPnl);
+        
+>>>>>>> Stashed changes
         JLabel cancelButton = new JLabel();
         cancelButton.setIcon(
                 new ImageIcon(
                         "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
         cancelButton.setBounds(15, 35, 55, 55);
         logInPnl.add(cancelButton);
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         
         final JButton forgotPass = new JButton("<html><i><u>Forgot Password?</u></i></html>");
         forgotPass.setBounds(685, 510, 160, 35);
@@ -195,6 +216,17 @@ public class logIn extends frames {
                     FinalProject_ATM.logInFrame.dispose();
                     PIN.setText("");
 
+                    // update volume button image
+                    if(sounds.isUnmute){
+                        transaction.transactionVolume.setIcon(
+                            new ImageIcon(
+                                    "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    } else {
+                        transaction.transactionVolume.setIcon(
+                            new ImageIcon(
+                                    "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+                    
                     transactionFrame.show();
 
                 }
@@ -381,5 +413,69 @@ public class logIn extends frames {
         }
         return otpBuilder.toString();
     }
+<<<<<<< Updated upstream
         
+=======
+<<<<<<< Updated upstream
+=======
+        
+    
+    
+    // add volume settings
+    private static void addVolumeEffects(JPanel panel) {
+
+        
+
+        logInVolume.setIcon(
+                new ImageIcon(
+                        "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+        logInVolume.setBounds(975, 620, 40, 37);
+        panel.add(logInVolume);
+
+        logInVolume.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (sounds.isUnmute) {
+                    logInVolume.setIcon(
+                            new ImageIcon(
+                                    "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    
+                    sounds.isUnmute = false;
+
+                } else {
+                    logInVolume.setIcon(
+                            new ImageIcon(
+                                    "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    sounds.isUnmute = true;
+                    sfx.playWarning();
+                }
+                
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                logInVolume.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                logInVolume.setCursor(Cursor.getDefaultCursor());
+            }
+        });
+    }
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 }
