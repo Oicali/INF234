@@ -11,9 +11,11 @@ import javax.swing.*;
 
 public class transaction extends frames {
 
+    // Global variables 
     static JPanel transactionPnl = new JPanel();
     static sounds sfx = new sounds();
     static typeAccount typeAccountFrame = new typeAccount();
+    public static JLabel transactionVolume = new JLabel();
 
     // Generate and redesign the transaction frame
     transaction() {
@@ -32,13 +34,13 @@ public class transaction extends frames {
         lbl1.setBounds(450, 40, 400, 40);
         transactionPnl.add(lbl1);
 
-        JLabel cancel_Button2 = new JLabel();
-        cancel_Button2.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-        cancel_Button2.setBounds(15, 35, 55, 55);
-        transactionPnl.add(cancel_Button2);
+        JLabel cancelBtn = new JLabel();
+        cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
+        cancelBtn.setBounds(15, 35, 55, 55);
+        transactionPnl.add(cancelBtn);
         
         
-        
+       addVolumeEffects(transactionPnl);
         
         
         JLabel withdrawBtn = new JLabel();
@@ -70,7 +72,7 @@ public class transaction extends frames {
         
         
         // Buttons Functions
-        cancel_Button2.addMouseListener(new MouseListener() {
+        cancelBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // No action needed for mouseClicked
@@ -85,7 +87,7 @@ public class transaction extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playWarning();
 
-                cancel_Button2.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
+                cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
                 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?", "Exit Confirmation", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
 
@@ -93,25 +95,33 @@ public class transaction extends frames {
                     logIn.transactionFrame.dispose();
                    
                     logIn.attempt = 3; 
+                    
+                    // Update volume icon
+                    if(sounds.isUnmute){
+                        logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+                    
                     FinalProject_ATM.logInFrame.show();
                 }
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                cancel_Button2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                cancel_Button2.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton2.png"));
+                cancelBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                cancel_Button2.setCursor(Cursor.getDefaultCursor());
-                cancel_Button2.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
+                cancelBtn.setCursor(Cursor.getDefaultCursor());
+                cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
             }
         });
-        
-        
-        
         
         withdrawBtn.addMouseListener(new MouseListener() {
             @Override
@@ -127,6 +137,17 @@ public class transaction extends frames {
             @Override
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
+                
+                
+                // Update volume icon
+                    if(sounds.isUnmute){
+                        typeAccount.typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAccount.typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
 
                 typeAccountFrame.show();
                 dispose();
@@ -159,6 +180,16 @@ public class transaction extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
 
+                // Update volume icon
+                    if(sounds.isUnmute){
+                        typeAccount.typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAccount.typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+                
                 typeAccountFrame.show();
                 dispose();
                 
@@ -174,8 +205,6 @@ public class transaction extends frames {
                // Do nothing
             }
         });
-        
-        
         
         balanceBtn.addMouseListener(new MouseListener() {
             @Override
@@ -191,6 +220,16 @@ public class transaction extends frames {
             @Override
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
+                
+                // Update volume icon
+                    if(sounds.isUnmute){
+                        typeAccount.typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAccount.typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
 
                 typeAccountFrame.show();
                 dispose();
@@ -209,11 +248,57 @@ public class transaction extends frames {
         });
     }
 
-    public static void main(String[]args){
-        transaction a = new transaction();
-        a.show();
-    }
     
+    // Add mute features
+    private static void addVolumeEffects(JPanel panel) {
+        transactionVolume.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+        transactionVolume.setBounds(980, 620, 40, 40);
+        panel.add(transactionVolume);
+
+        transactionVolume.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (sounds.isUnmute) {
+                    transactionVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+
+                    sounds.isUnmute = false;
+
+
+
+                } else {
+                    transactionVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    sounds.isUnmute = true;
+                    sfx.playWarning();
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                transactionVolume.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                transactionVolume.setCursor(Cursor.getDefaultCursor());
+
+            }
+        });
+
+    }
     
 
 }

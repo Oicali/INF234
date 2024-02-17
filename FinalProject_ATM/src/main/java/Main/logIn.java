@@ -20,6 +20,7 @@ public class logIn extends frames {
     static final JPasswordField PIN = new roundPasswordField(20);
     static sounds sfx = new sounds();
     static transaction transactionFrame = new transaction();
+    public static JLabel logInVolume = new JLabel();
 
 
     // Generate and redesign the Log In frame
@@ -65,12 +66,16 @@ public class logIn extends frames {
         logInBtn.setEnabled(false);
         logInPnl.add(logInBtn);
         
-        JLabel cancelButton = new JLabel();
-        cancelButton.setIcon(
+        addVolumeEffects(logInPnl);
+        
+        
+        
+        JLabel cancelBtn = new JLabel();
+        cancelBtn.setIcon(
                 new ImageIcon(
                         "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-        cancelButton.setBounds(15, 35, 55, 55);
-        logInPnl.add(cancelButton);
+        cancelBtn.setBounds(15, 35, 55, 55);
+        logInPnl.add(cancelBtn);
         
         final JButton forgotPass = new JButton("<html><i><u>Forgot Password?</u></i></html>");
         forgotPass.setBounds(685, 510, 160, 35);
@@ -194,7 +199,18 @@ public class logIn extends frames {
                     JOptionPane.showMessageDialog(null, "Login Successful!" ,"", JOptionPane.INFORMATION_MESSAGE);
                     FinalProject_ATM.logInFrame.dispose();
                     PIN.setText("");
-
+                    
+                    
+                    // Update volume icon
+                    if(sounds.isUnmute){
+                        transaction.transactionVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        transaction.transactionVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+                    
                     transactionFrame.show();
 
                 }
@@ -285,7 +301,7 @@ public class logIn extends frames {
     
         
         // For cancel button to exit system
-        cancelButton.addMouseListener(new MouseListener() {
+        cancelBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // No action needed for mouseClicked
@@ -300,7 +316,7 @@ public class logIn extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playWarning();
 
-                cancelButton.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
+                cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
                 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?",
                         "Exit Confirmation", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
@@ -310,16 +326,16 @@ public class logIn extends frames {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                cancelButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                cancelButton.setIcon(
+                cancelBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                cancelBtn.setIcon(
                         new ImageIcon(
                                 "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                cancelButton.setCursor(Cursor.getDefaultCursor());
-                cancelButton.setIcon(
+                cancelBtn.setCursor(Cursor.getDefaultCursor());
+                cancelBtn.setIcon(
                         new ImageIcon(
                                 "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
             }
@@ -382,4 +398,55 @@ public class logIn extends frames {
         return otpBuilder.toString();
     }
         
+    
+    // Add mute features
+    private static void addVolumeEffects(JPanel panel) {
+        logInVolume.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+        logInVolume.setBounds(980, 620, 40, 40);
+        panel.add(logInVolume);
+
+        logInVolume.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (sounds.isUnmute) {
+                    logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+
+                    sounds.isUnmute = false;
+
+
+
+                } else {
+                    logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    sounds.isUnmute = true;
+                    sfx.playWarning();
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                logInVolume.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                logInVolume.setCursor(Cursor.getDefaultCursor());
+
+            }
+        });
+
+    }
 }

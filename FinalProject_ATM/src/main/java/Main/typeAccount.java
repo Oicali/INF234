@@ -10,10 +10,12 @@ import javax.swing.*;
 
 public class typeAccount extends frames {
     
+    // Global variables 
     static sounds sfx = new sounds();
     static typeAmount typeAmountFrame = new typeAmount();
+    public static JLabel typeAccountVolume = new JLabel();
     
-    // Generate and redesign the Log In frame
+    // Generate and redesign the account selection frame
     typeAccount() {
         super();
         JDialog.setDefaultLookAndFeelDecorated(true);
@@ -31,7 +33,7 @@ public class typeAccount extends frames {
         lbl1.setBounds(450, 40, 400, 40);
         typeAccountPnl.add(lbl1);
         
-
+        addVolumeEffects(typeAccountPnl);
         
         JLabel cancelBtn = new JLabel();
         cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
@@ -58,12 +60,14 @@ public class typeAccount extends frames {
         
         JLabel typeAccountBG = new JLabel();
         typeAccountBG.setIcon(
-                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\transactionBG.png"));
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\typeAccountBG.png"));
         typeAccountBG.setBounds(0, -15, 1050, 700);
         typeAccountPnl.add(typeAccountBG);
         
         
         // Buttons Functions
+        
+        // For cancel button
         cancelBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -87,6 +91,17 @@ public class typeAccount extends frames {
                     dispose();
                    
                     logIn.attempt = 3; 
+                    
+                    // Update volume icon
+                    if(sounds.isUnmute){
+                        logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+                    
                     FinalProject_ATM.logInFrame.show();
                 }
             }
@@ -120,6 +135,16 @@ public class typeAccount extends frames {
             @Override
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
+                
+                // Update volume icon
+                    if(sounds.isUnmute){
+                        typeAmount.typeAmountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAmount.typeAmountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
 
                 typeAmountFrame.show();
                 dispose();
@@ -151,6 +176,16 @@ public class typeAccount extends frames {
             @Override
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
+                
+                // Update volume icon
+                    if(sounds.isUnmute){
+                        typeAmount.typeAmountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAmount.typeAmountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
 
                 typeAmountFrame.show();
                 dispose();
@@ -184,6 +219,17 @@ public class typeAccount extends frames {
                 sfx.playClick();
 
                 dispose();
+                
+                // Update volume icon
+                    if(sounds.isUnmute){
+                        transaction.transactionVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        transaction.transactionVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+                
                 logIn.transactionFrame.show();
                 
             }
@@ -202,8 +248,54 @@ public class typeAccount extends frames {
         
     }
     
-    public static void main(String[]args){
-        typeAccount a = new typeAccount();
-        a.show();
+    // Add mute features
+    private static void addVolumeEffects(JPanel panel) {
+        typeAccountVolume.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+        typeAccountVolume.setBounds(980, 620, 40, 40);
+        panel.add(typeAccountVolume);
+
+        typeAccountVolume.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (sounds.isUnmute) {
+                    typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+
+                    sounds.isUnmute = false;
+
+
+
+                } else {
+                    typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    sounds.isUnmute = true;
+                    sfx.playWarning();
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                typeAccountVolume.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                typeAccountVolume.setCursor(Cursor.getDefaultCursor());
+
+            }
+        });
+
     }
 }

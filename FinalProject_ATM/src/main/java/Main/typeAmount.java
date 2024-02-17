@@ -11,10 +11,12 @@ import javax.swing.*;
 
 public class typeAmount extends frames {
     
+    // Global variables 
     static JPanel typeAmountPnl = new JPanel();
     static sounds sfx = new sounds();
+    public static JLabel typeAmountVolume = new JLabel();
     
-    // Generate and redesign the transaction frame
+    // Generate and redesign the input amount frame
     typeAmount() {
         super();
         JDialog.setDefaultLookAndFeelDecorated(true);
@@ -36,7 +38,7 @@ public class typeAmount extends frames {
         cancelBtn2.setBounds(15, 35, 55, 55);
         typeAmountPnl.add(cancelBtn2);
         
-        
+        addVolumeEffects(typeAmountPnl);
         
         JLabel amountBG = new JLabel();
         amountBG.setIcon(
@@ -69,6 +71,18 @@ public class typeAmount extends frames {
                     dispose();
                    
                     logIn.attempt = 3; 
+                    
+                    // Update volume icon
+                    if(sounds.isUnmute){
+                        logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+                    
+                    
                     FinalProject_ATM.logInFrame.show();
                 }
             }
@@ -86,4 +100,57 @@ public class typeAmount extends frames {
             }
         });
     }
+    
+    // Add mute features
+    private static void addVolumeEffects(JPanel panel) {
+        typeAmountVolume.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+        typeAmountVolume.setBounds(980, 620, 40, 40);
+        panel.add(typeAmountVolume);
+
+        typeAmountVolume.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (sounds.isUnmute) {
+                    typeAmountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+
+                    sounds.isUnmute = false;
+
+
+
+                } else {
+                    typeAmountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    sounds.isUnmute = true;
+                    sfx.playWarning();
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                typeAmountVolume.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                typeAmountVolume.setCursor(Cursor.getDefaultCursor());
+
+            }
+        });
+
+    }
+    
+    
 }
