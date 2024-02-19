@@ -19,32 +19,33 @@ public class account {
         this.UID = UID;
         this.setPassword(password);
         this.setCurrent(current);
+        this.setSavings(savings);
     }
 
     
     // instantiate a user
-    static account user = new account("User1", "700530800559", "123456", 1000, 1000);
+    static account user = new account("Juan Dela Cruz", "700530800559", "123456", 1000, 1500);
 
     
     // Getters
-    public static String getName() {
-        return user.name;
+    public String getName() {
+        return name;
     }
 
-    public static String getUID() {
-        return user.UID;
+    public String getUID() {
+        return UID;
     }
 
-    public static String getPassword() {
-        return user.password;
+    public String getPassword() {
+        return password;
     }
 
-    public static double getCurrent() {
-        return user.current;
+    public double getCurrent() {
+        return current;
     }
     
-    public static double getSavings() {
-        return user.savings;
+    public double getSavings() {
+        return savings;
     }
 
     
@@ -62,7 +63,7 @@ public class account {
     }
     
     public void setSavings(double savings) {
-        this.current = savings;
+        this.savings = savings;
     }
     
 }

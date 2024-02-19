@@ -16,6 +16,7 @@ public class transaction extends frames {
     static sounds sfx = new sounds();
     static typeAccount typeAccountFrame = new typeAccount();
     public static JLabel transactionVolume = new JLabel();
+    static String transactionType = "null";
 
     // Generate and redesign the transaction frame
     transaction() {
@@ -106,6 +107,7 @@ public class transaction extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
                     
+                    transactionType = "";
                     FinalProject_ATM.logInFrame.show();
                 }
             }
@@ -138,7 +140,6 @@ public class transaction extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
                 
-                
                 // Update volume icon
                     if(sounds.isUnmute){
                         typeAccount.typeAccountVolume.setIcon(
@@ -149,6 +150,9 @@ public class transaction extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
 
+                // Set transaction
+                transactionType = "Withdraw";
+                 
                 typeAccountFrame.show();
                 dispose();
                 
@@ -190,6 +194,9 @@ public class transaction extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
                 
+                // Set transaction
+                transactionType = "Deposit";    
+                    
                 typeAccountFrame.show();
                 dispose();
                 
@@ -230,6 +237,9 @@ public class transaction extends frames {
                         typeAccount.typeAccountVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
+                    
+                // Set transaction
+                transactionType = "Balance";     
 
                 typeAccountFrame.show();
                 dispose();

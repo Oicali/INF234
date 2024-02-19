@@ -6,6 +6,7 @@ package Main;
 import settings.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import javax.swing.*;
 
 public class typeAccount extends frames {
@@ -13,7 +14,10 @@ public class typeAccount extends frames {
     // Global variables 
     static sounds sfx = new sounds();
     static typeAmount typeAmountFrame = new typeAmount();
+    static viewBalance viewBalanceFrame = new viewBalance();
     public static JLabel typeAccountVolume = new JLabel();
+    static String accountType = "null";
+    DecimalFormat format = new DecimalFormat("0.00");
     
     // Generate and redesign the account selection frame
     typeAccount() {
@@ -87,9 +91,8 @@ public class typeAccount extends frames {
                 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?", "Exit Confirmation", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
 
-                    
-                    dispose();
-                   
+                    // Set account type
+                    accountType = "";
                     logIn.attempt = 3; 
                     
                     // Update volume icon
@@ -102,6 +105,8 @@ public class typeAccount extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
                     
+                    
+                    dispose();
                     FinalProject_ATM.logInFrame.show();
                 }
             }
@@ -119,8 +124,6 @@ public class typeAccount extends frames {
             }
         });
         
-        
-        
         currentBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -136,7 +139,12 @@ public class typeAccount extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
                 
-                // Update volume icon
+                // Set account type
+                accountType = "Current";
+                viewBalance.lbl2.setText(accountType);
+                viewBalance.lbl7.setText(format.format(account.user.getCurrent()));
+                
+                // Update volume icon for typeAmount Frame
                     if(sounds.isUnmute){
                         typeAmount.typeAmountVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
@@ -145,9 +153,32 @@ public class typeAccount extends frames {
                         typeAmount.typeAmountVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
+                    
+                // Update volume icon for viewBalanceBG Frame
+                    if(sounds.isUnmute){
+                        viewBalance.viewBalanceVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        viewBalance.viewBalanceVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
 
-                typeAmountFrame.show();
-                dispose();
+
+                    
+                dispose(); 
+                
+                if(transaction.transactionType.equals("Withdraw") && accountType.equals("Current")){
+                    typeAmountFrame.show();
+                } else if(transaction.transactionType.equals("Deposit") && accountType.equals("Current")){
+                    typeAmountFrame.show();
+                } else if (transaction.transactionType.equals("Balance") && accountType.equals("Current")){
+                    
+                    viewBalanceFrame.show();
+                }
+                
+                
+                
                 
             }
 
@@ -177,7 +208,12 @@ public class typeAccount extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
                 
-                // Update volume icon
+                // Set account type
+                accountType = "Savings"; 
+                viewBalance.lbl2.setText(accountType);
+                viewBalance.lbl7.setText(format.format(account.user.getSavings()));
+                
+                // Update volume icon for typeAmountVolume Frame
                     if(sounds.isUnmute){
                         typeAmount.typeAmountVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
@@ -186,9 +222,31 @@ public class typeAccount extends frames {
                         typeAmount.typeAmountVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
+                    
+                // Update volume icon for viewBalanceBG Frame
+                    if(sounds.isUnmute){
+                        viewBalance.viewBalanceVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        viewBalance.viewBalanceVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
 
-                typeAmountFrame.show();
+                  
+                  
                 dispose();
+                
+                if(transaction.transactionType.equals("Withdraw") && accountType.equals("Savings")){
+                    typeAmountFrame.show();
+                } else if(transaction.transactionType.equals("Deposit") && accountType.equals("Savings")){
+                    typeAmountFrame.show();
+                } else if (transaction.transactionType.equals("Balance") && accountType.equals("Savings")){
+                    viewBalanceFrame.show();
+                }
+                
+     
+                
                 
             }
 

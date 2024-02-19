@@ -177,7 +177,7 @@ public class logIn extends frames {
         logInBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!PIN.getText().equals(account.getPassword())) {
+                if (!PIN.getText().equals(account.user.getPassword())) {
                     sfx.playError();
 
                     JOptionPane.showMessageDialog(null, "Wrong password!", "PIN Incorrect", JOptionPane.ERROR_MESSAGE);

@@ -23,7 +23,7 @@ public class FinalProject_ATM extends frames {
         this.add(intro);
 
         // Set up a timer to close the frame after the GIF duration (in milliseconds)
-        int gifDuration = 4100; 
+        int gifDuration = 4500; 
         Timer timer = new Timer(gifDuration, e -> {
             this.dispose();
 

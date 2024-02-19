@@ -16,6 +16,7 @@ public class typeAmount extends frames {
     static sounds sfx = new sounds();
     public static JLabel typeAmountVolume = new JLabel();
     
+    
     // Generate and redesign the input amount frame
     typeAmount() {
         super();
@@ -33,10 +34,10 @@ public class typeAmount extends frames {
         lbl1.setBounds(450, 40, 400, 40);
         typeAmountPnl.add(lbl1);
 
-        JLabel cancelBtn2 = new JLabel();
-        cancelBtn2.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-        cancelBtn2.setBounds(15, 35, 55, 55);
-        typeAmountPnl.add(cancelBtn2);
+        JLabel cancelBtn = new JLabel();
+        cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
+        cancelBtn.setBounds(15, 35, 55, 55);
+        typeAmountPnl.add(cancelBtn);
         
         addVolumeEffects(typeAmountPnl);
         
@@ -47,8 +48,10 @@ public class typeAmount extends frames {
         typeAmountPnl.add(amountBG);
         
         
+        
+        
         // Buttons Functions
-        cancelBtn2.addMouseListener(new MouseListener() {
+        cancelBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // No action needed for mouseClicked
@@ -63,7 +66,7 @@ public class typeAmount extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playWarning();
 
-                cancelBtn2.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
+                cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
                 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?", "Exit Confirmation", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
 
@@ -89,14 +92,14 @@ public class typeAmount extends frames {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                cancelBtn2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                cancelBtn2.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton2.png"));
+                cancelBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                cancelBtn2.setCursor(Cursor.getDefaultCursor());
-                cancelBtn2.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
+                cancelBtn.setCursor(Cursor.getDefaultCursor());
+                cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
             }
         });
     }
