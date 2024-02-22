@@ -142,7 +142,6 @@ public class typeAccount extends frames {
                 accountType = "Current";
                 viewBalance.lbl2.setText(accountType);
                 viewBalance.lbl7.setText(format.format(account.user.getCurrent()));
-                typeAmount.lbl1.setText(transaction.transactionType + " from " + accountType);
                 
                 // Update volume icon for typeAmount Frame
                     if(sounds.isUnmute){
@@ -168,11 +167,12 @@ public class typeAccount extends frames {
                 dispose(); 
                 
                 if(transaction.transactionType.equals("Withdraw") && accountType.equals("Current")){ 
+                    typeAmount.lbl1.setText(transaction.transactionType + " from your " + accountType);
                     typeAmountFrame.show();
                 } else if(transaction.transactionType.equals("Deposit") && accountType.equals("Current")){
+                    typeAmount.lbl1.setText(transaction.transactionType + " into your " + accountType);
                     typeAmountFrame.show();
                 } else if (transaction.transactionType.equals("Balance") && accountType.equals("Current")){
-                    
                     viewBalanceFrame.show();
                 }
                                 
@@ -210,7 +210,6 @@ public class typeAccount extends frames {
                 accountType = "Savings"; 
                 viewBalance.lbl2.setText(accountType);
                 viewBalance.lbl7.setText(format.format(account.user.getSavings()));
-                typeAmount.lbl1.setText(transaction.transactionType + " to " + accountType);
                 
                 // Update volume icon for typeAmountVolume Frame
                     if(sounds.isUnmute){
@@ -235,8 +234,10 @@ public class typeAccount extends frames {
                 dispose();
                 
                 if(transaction.transactionType.equals("Withdraw") && accountType.equals("Savings")){
+                    typeAmount.lbl1.setText(transaction.transactionType + " from your " + accountType);                    
                     typeAmountFrame.show();
                 } else if(transaction.transactionType.equals("Deposit") && accountType.equals("Savings")){
+                    typeAmount.lbl1.setText(transaction.transactionType + " into your " + accountType); 
                     typeAmountFrame.show();
                 } else if (transaction.transactionType.equals("Balance") && accountType.equals("Savings")){
                     viewBalanceFrame.show();

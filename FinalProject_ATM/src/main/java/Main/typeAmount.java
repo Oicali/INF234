@@ -32,7 +32,7 @@ public class typeAmount extends frames {
         lbl1.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 30));
         lbl1.setHorizontalAlignment(JLabel.CENTER);
         lbl1.setForeground(new Color(255, 222, 89));
-        lbl1.setBounds(450, 40, 400, 40);
+        lbl1.setBounds(450, 40, 450, 40);
         typeAmountPnl.add(lbl1);
         
         JLabel lbl2 = new JLabel("Enter amount");
