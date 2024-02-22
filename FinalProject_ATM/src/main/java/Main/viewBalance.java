@@ -15,21 +15,22 @@ public class viewBalance extends frames {
     // Global variables 
     static JPanel viewBalancePnl = new JPanel();
     static sounds sfx = new sounds();
-    public static JLabel viewBalanceVolume = new JLabel();
-    public static JLabel lbl2 = new JLabel();
-    public static JLabel lbl7 = new JLabel();
-    public static double balance = 0;
+    static JLabel viewBalanceVolume = new JLabel();
+    static JLabel lbl2 = new JLabel();
+    static JLabel lbl7 = new JLabel();
+    static double balance = 0;
     static String str1 = account.user.getUID().substring(0, 8);
     static String str2 = account.user.getUID().substring(8);
-        // Replace each character with "*"
-        static String maskedStr1 = String.join("", Collections.nCopies(str1.length(), "*"));
+        
+    // Replace each character with "*"
+    static String maskedStr1 = String.join("", Collections.nCopies(str1.length(), "*"));
         
     static String str3 = maskedStr1 + str2; 
 
+    
     // Generate and redesign the balance frame
     viewBalance() {
         super();
-        JDialog.setDefaultLookAndFeelDecorated(true);
 
         viewBalancePnl.setSize(1244, 700);
         viewBalancePnl.setBackground(Color.BLACK);
@@ -42,18 +43,19 @@ public class viewBalance extends frames {
         lbl1.setForeground(new Color(255, 222, 89));
         lbl1.setBounds(515, 40, 400, 40);
         viewBalancePnl.add(lbl1);
-
-        lbl2.setFont(new Font("Source Sans Pro", Font.BOLD, 25));
+        
+        // Displays accountType
+        lbl2.setFont(new Font("Source Sans Pro", Font.BOLD, 28));
         lbl2.setHorizontalAlignment(JLabel.CENTER);
-        lbl2.setForeground(new Color(255, 222, 89));
-        lbl2.setBounds(598, 148, 115, 40);
+        lbl2.setForeground(Color.WHITE);
+        lbl2.setBounds(608, 175, 115, 40);
         viewBalancePnl.add(lbl2);
 
         JLabel lbl3 = new JLabel("Account");
-        lbl3.setFont(new Font("Source Sans Pro", Font.PLAIN, 25));
+        lbl3.setFont(new Font("Source Sans Pro", Font.BOLD, 28));
         lbl3.setHorizontalAlignment(JLabel.CENTER);
         lbl3.setForeground(Color.WHITE);
-        lbl3.setBounds(733, 148, 115, 40);
+        lbl3.setBounds(723, 175, 115, 40);
         viewBalancePnl.add(lbl3);
 
         JLabel lbl4 = new JLabel(account.user.getName());
@@ -63,6 +65,7 @@ public class viewBalance extends frames {
         lbl4.setBounds(580, 263, 340, 40);
         viewBalancePnl.add(lbl4);
 
+        // Displays UID
         JLabel lbl5 = new JLabel(str3);
         lbl5.setFont(new Font("Source Sans Pro", Font.PLAIN, 15));
         lbl5.setHorizontalAlignment(JLabel.LEFT);
@@ -77,10 +80,11 @@ public class viewBalance extends frames {
         lbl6.setBounds(585, 345, 340, 40);
         viewBalancePnl.add(lbl6);
         
+        // Displays current or savings balance amount
         lbl7.setFont(new Font("Source Sans Pro", Font.BOLD, 35));
         lbl7.setHorizontalAlignment(JLabel.RIGHT);
         lbl7.setForeground(Color.BLACK);
-        lbl7.setBounds(585, 385, 340, 40);
+        lbl7.setBounds(560, 385, 365, 40);
         viewBalancePnl.add(lbl7);
         
         JLabel lbl8 = new JLabel("PHP");
@@ -109,7 +113,10 @@ public class viewBalance extends frames {
         viewBalanceBG.setBounds(0, -15, 1050, 700);
         viewBalancePnl.add(viewBalanceBG);
 
+        
         // Buttons Functions
+        
+        // For cancel button to return to log in frame
         cancelBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -126,23 +133,19 @@ public class viewBalance extends frames {
                 sfx.playWarning();
 
                 cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?", "Exit Confirmation", JOptionPane.YES_NO_OPTION);
+                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?", "Cancel Transaction", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
-
-                    dispose();
-
-                    logIn.attempt = 3;
 
                     // Update volume icon
                     if (sounds.isUnmute) {
                         logIn.logInVolume.setIcon(
                                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
-
                     } else {
                         logIn.logInVolume.setIcon(
                                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
 
+                    dispose();
                     FinalProject_ATM.logInFrame.show();
                 }
             }
@@ -160,6 +163,8 @@ public class viewBalance extends frames {
             }
         });
         
+        
+        // For back button to return to typeAccount frame
         backBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -175,8 +180,6 @@ public class viewBalance extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
 
-                dispose();
-                
                 // Update volume icon
                     if(sounds.isUnmute){
                         typeAccount.typeAccountVolume.setIcon(
@@ -187,22 +190,24 @@ public class viewBalance extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
                 
+                dispose();
                 transaction.typeAccountFrame.show();
                 
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                //Do nothing
+                backBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               // Do nothing
+               backBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
     }
 
+    
     // Add mute features
     private static void addVolumeEffects(JPanel panel) {
         viewBalanceVolume.setIcon(
@@ -228,7 +233,6 @@ public class viewBalance extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
 
                     sounds.isUnmute = false;
-
                 } else {
                     viewBalanceVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
@@ -240,20 +244,14 @@ public class viewBalance extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 viewBalanceVolume.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 viewBalanceVolume.setCursor(Cursor.getDefaultCursor());
-
             }
         });
 
     }
-
-    public static void main(String[] args) {
-        viewBalance a = new viewBalance();
-        a.show();
-    }
+    
 }

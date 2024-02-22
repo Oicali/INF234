@@ -15,13 +15,12 @@ public class transaction extends frames {
     static JPanel transactionPnl = new JPanel();
     static sounds sfx = new sounds();
     static typeAccount typeAccountFrame = new typeAccount();
-    public static JLabel transactionVolume = new JLabel();
+    static JLabel transactionVolume = new JLabel();
     static String transactionType = "null";
 
     // Generate and redesign the transaction frame
     transaction() {
         super();
-        JDialog.setDefaultLookAndFeelDecorated(true);
 
         transactionPnl.setSize(1244, 700);
         transactionPnl.setBackground(Color.BLACK);
@@ -40,9 +39,7 @@ public class transaction extends frames {
         cancelBtn.setBounds(15, 35, 55, 55);
         transactionPnl.add(cancelBtn);
         
-        
        addVolumeEffects(transactionPnl);
-        
         
         JLabel withdrawBtn = new JLabel();
         withdrawBtn.setIcon(
@@ -62,17 +59,16 @@ public class transaction extends frames {
         balanceBtn.setBounds(475, 435,365, 70);
         transactionPnl.add(balanceBtn);
         
-
         JLabel transactionBG = new JLabel();
         transactionBG.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\transactionBG.png"));
         transactionBG.setBounds(0, -15, 1050, 700);
         transactionPnl.add(transactionBG);
 
-        //this.show();
-        
-        
+                
         // Buttons Functions
+        
+        // For cancel button to return to log in frame
         cancelBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -89,14 +85,9 @@ public class transaction extends frames {
                 sfx.playWarning();
 
                 cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?", "Exit Confirmation", JOptionPane.YES_NO_OPTION);
+                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?", "Cancel Transaction", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
 
-                    
-                    logIn.transactionFrame.dispose();
-                   
-                    logIn.attempt = 3; 
-                    
                     // Update volume icon
                     if(sounds.isUnmute){
                         logIn.logInVolume.setIcon(
@@ -108,7 +99,9 @@ public class transaction extends frames {
                     }
                     
                     transactionType = "";
+                    logIn.transactionFrame.dispose();
                     FinalProject_ATM.logInFrame.show();
+                    
                 }
             }
 
@@ -125,6 +118,8 @@ public class transaction extends frames {
             }
         });
         
+        
+        // For withdraw button and go to typeAccount frame
         withdrawBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -140,6 +135,9 @@ public class transaction extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
                 
+                // Set transaction
+                transactionType = "Withdraw";
+                
                 // Update volume icon
                     if(sounds.isUnmute){
                         typeAccount.typeAccountVolume.setIcon(
@@ -150,25 +148,24 @@ public class transaction extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
 
-                // Set transaction
-                transactionType = "Withdraw";
-                 
-                typeAccountFrame.show();
                 dispose();
-                
+                typeAccountFrame.show();
+                   
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                //Do nothing
+                withdrawBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               // Do nothing
+               withdrawBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
         
+        
+        // For deposit button and go to typeAccount frame
         depositBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -183,6 +180,9 @@ public class transaction extends frames {
             @Override
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
+                
+                // Set transaction
+                transactionType = "Deposit";  
 
                 // Update volume icon
                     if(sounds.isUnmute){
@@ -194,25 +194,24 @@ public class transaction extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
                 
-                // Set transaction
-                transactionType = "Deposit";    
-                    
-                typeAccountFrame.show();
                 dispose();
+                typeAccountFrame.show();
                 
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                //Do nothing
+                depositBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               // Do nothing
+               depositBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
         
+        
+        // For balance button and go to typeAccount frame
         balanceBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -228,6 +227,9 @@ public class transaction extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
                 
+                // Set transaction
+                transactionType = "Balance"; 
+                
                 // Update volume icon
                     if(sounds.isUnmute){
                         typeAccount.typeAccountVolume.setIcon(
@@ -238,22 +240,19 @@ public class transaction extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
                     
-                // Set transaction
-                transactionType = "Balance";     
-
-                typeAccountFrame.show();
                 dispose();
+                typeAccountFrame.show();
                 
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                //Do nothing
+                balanceBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               // Do nothing
+               balanceBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
     }
@@ -284,9 +283,6 @@ public class transaction extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
 
                     sounds.isUnmute = false;
-
-
-
                 } else {
                     transactionVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
@@ -298,16 +294,13 @@ public class transaction extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 transactionVolume.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 transactionVolume.setCursor(Cursor.getDefaultCursor());
-
             }
         });
-
     }
     
 

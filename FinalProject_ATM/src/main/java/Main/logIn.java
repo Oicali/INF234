@@ -8,8 +8,7 @@ import settings.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.event.*;
 
 public class logIn extends frames {
 
@@ -17,17 +16,16 @@ public class logIn extends frames {
     static JPanel logInPnl = new JPanel();
     static int attempt = 3;
     static JPasswordField passwordField = new JPasswordField();
-    static final JPasswordField PIN = new roundPasswordField(20);
+    static final JPasswordField PINStr = new roundPasswordField(20);
     static sounds sfx = new sounds();
     static transaction transactionFrame = new transaction();
-    public static JLabel logInVolume = new JLabel();
+    static JLabel logInVolume = new JLabel();
 
 
     // Generate and redesign the Log In frame
     public logIn() {
         super();
-        JDialog.setDefaultLookAndFeelDecorated(true);
-
+        
         logInPnl.setSize(1244, 700);
         logInPnl.setBackground(Color.BLACK);
         logInPnl.setLayout(null);
@@ -53,11 +51,11 @@ public class logIn extends frames {
         lbl2.setBounds(560, 250, 400, 40);
         logInPnl.add(lbl2);
 
-        PIN.setBounds(588, 295, 350, 50);
-        PIN.setFont(new Font("Source Sans Pro", Font.BOLD, 25));
-        PIN.setBorder(null);
-        ((JTextField) PIN).setHorizontalAlignment(JTextField.CENTER);
-        logInPnl.add(PIN);
+        PINStr.setBounds(588, 295, 350, 50);
+        PINStr.setFont(new Font("Source Sans Pro", Font.BOLD, 25));
+        PINStr.setBorder(null);
+        ((JTextField) PINStr).setHorizontalAlignment(JTextField.CENTER);
+        logInPnl.add(PINStr);
 
         final JButton logInBtn = new roundButton("Login");
         logInBtn.setBounds(682, 395, 160, 46);
@@ -68,24 +66,22 @@ public class logIn extends frames {
         
         addVolumeEffects(logInPnl);
         
-        
-        
         JLabel cancelBtn = new JLabel();
         cancelBtn.setIcon(
                 new ImageIcon(
                         "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-        cancelBtn.setBounds(15, 35, 55, 55);
+        cancelBtn.setBounds(15, 34, 55, 55);
         logInPnl.add(cancelBtn);
         
-        final JButton forgotPass = new JButton("<html><i><u>Forgot Password?</u></i></html>");
-        forgotPass.setBounds(685, 510, 160, 35);
-        forgotPass.setFont(new Font("Source Sans Pro", Font.PLAIN, 18));
-        forgotPass.setContentAreaFilled(false);
-        forgotPass.setBorderPainted(false);
-        forgotPass.setFocusPainted(false);
-        forgotPass.setOpaque(false);
-        forgotPass.setForeground(new Color(255, 222, 89));
-        logInPnl.add(forgotPass);
+        final JButton forgotPIN = new JButton("<html><i><u>Forgot PIN?</u></i></html>");
+        forgotPIN.setBounds(680, 510, 160, 35);
+        forgotPIN.setFont(new Font("Source Sans Pro", Font.PLAIN, 18));
+        forgotPIN.setContentAreaFilled(false);
+        forgotPIN.setBorderPainted(false);
+        forgotPIN.setFocusPainted(false);
+        forgotPIN.setOpaque(false);
+        forgotPIN.setForeground(new Color(255, 222, 89));
+        logInPnl.add(forgotPIN);
 
         JLabel logInBG = new JLabel();
         logInBG.setIcon(
@@ -97,29 +93,29 @@ public class logIn extends frames {
         // Listeners starts here...
         
         // For PIN password field
-        PIN.addKeyListener(new KeyAdapter() {
+        PINStr.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent a) {
-                String value = PIN.getText();
+                String value = PINStr.getText();
                 int l = value.length();
                 if (l >= 6) {
                     sfx.playError();
-                    JOptionPane.showMessageDialog(null, "6 characters only!", "Invalid password", JOptionPane.ERROR_MESSAGE);
-                    PIN.setText("");
-                    PIN.requestFocus();
+                    JOptionPane.showMessageDialog(null, "6 characters only!", "Invalid PIN", JOptionPane.ERROR_MESSAGE);
+                    PINStr.setText("");
+                    PINStr.requestFocus();
                 }
                 if (a.getKeyChar() >= '0' && a.getKeyChar() <= '9' || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
                     sfx.playClick();
-                    PIN.setEditable(true);
-                    PIN.setForeground(Color.BLACK);
+                    PINStr.setEditable(true);
+                    PINStr.setForeground(Color.BLACK);
                 } else {
-                    PIN.setEditable(false);
+                    PINStr.setEditable(false);
 
                 }
 
             }});
 
         // Add a DocumentListener to the PIN JPasswordField to enable/disable the login button
-        PIN.getDocument().addDocumentListener(new DocumentListener() {
+        PINStr.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 updateLoginButton();
@@ -137,13 +133,13 @@ public class logIn extends frames {
 
             // Method to enable/disable the login button based on the PIN length
             private void updateLoginButton() {
-                String pinText = PIN.getText().trim();
+                String pinText = PINStr.getText().trim();
                 logInBtn.setEnabled(pinText.length() == 6);
             }
         });
 
         // Add DocumentListener to enable/disable login button
-        PIN.getDocument().addDocumentListener(new DocumentListener() {
+        PINStr.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 updateLoginButton();
@@ -161,35 +157,31 @@ public class logIn extends frames {
 
             // Method to enable/disable the login button based on the PIN length
             private void updateLoginButton() {
-                String pinText = PIN.getText().trim();
+                String pinText = PINStr.getText().trim();
                 logInBtn.setEnabled(pinText.length() == 6);
             }
         });
 
        
         // For Log In Button
-        // Change cursor to hand cursor when hovering over the login button
-        logInBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        // Change cursor to hand cursor when hovering over the login button
         logInBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         logInBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!PIN.getText().equals(account.user.getPassword())) {
+                if (!PINStr.getText().equals(account.user.getPIN())) {
                     sfx.playError();
 
-                    JOptionPane.showMessageDialog(null, "Wrong password!", "PIN Incorrect", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "PIN Incorrect", JOptionPane.ERROR_MESSAGE);
                     attempt--;
                     JOptionPane.showMessageDialog(null, "Attempts remaining: " + attempt, "PIN Incorrect",
                             JOptionPane.WARNING_MESSAGE);
-                    PIN.setText("");
-                    PIN.requestFocus();
+                    PINStr.setText("");
+                    PINStr.requestFocus();
                     getRootPane().setDefaultButton(logInBtn);
                     if (attempt < 1) {
                         sfx.playWarning();
-                        JOptionPane.showMessageDialog(null, "You have reached maximum attempt!", "System Security",
+                        JOptionPane.showMessageDialog(null, "You have reached your maximum attempt!", "System Security",
                                 JOptionPane.WARNING_MESSAGE);
                         System.exit(0);
                     }
@@ -197,9 +189,7 @@ public class logIn extends frames {
                     sfx.playConfirm();
 
                     JOptionPane.showMessageDialog(null, "Login Successful!" ,"", JOptionPane.INFORMATION_MESSAGE);
-                    FinalProject_ATM.logInFrame.dispose();
-                    PIN.setText("");
-                    
+                    attempt = 3;
                     
                     // Update volume icon
                     if(sounds.isUnmute){
@@ -211,7 +201,10 @@ public class logIn extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
                     
+                    FinalProject_ATM.logInFrame.dispose();
+                    PINStr.setText("");
                     transactionFrame.show();
+                    
 
                 }
             }
@@ -219,7 +212,7 @@ public class logIn extends frames {
   
         
         // For forgot password field
-        forgotPass.addMouseListener(new MouseListener() {
+        forgotPIN.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // No action needed for mouseClicked
@@ -237,10 +230,10 @@ public class logIn extends frames {
                 // Generate OTP
                 String otp = generateOTP();
 
-                JLabel label = new JLabel("<html><center>You will receive a 5-number OTP. <br> Kindly remember them to change <br> your password.");
+                JLabel label = new JLabel("<html><center>You will receive a 5-number OTP. <br> Kindly remember them to change <br> your PIN.");
                 label.setHorizontalAlignment(SwingConstants.CENTER);
                 
-                JOptionPane.showMessageDialog(null, label, "Request to change password", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, label, "Request to change PIN", JOptionPane.INFORMATION_MESSAGE);
                 JOptionPane.showMessageDialog(null, "Your OTP: " + otp, "OTP Verification", JOptionPane.INFORMATION_MESSAGE);
 
                 // Field for inputting OTP
@@ -263,10 +256,10 @@ public class logIn extends frames {
                 if (option == JOptionPane.OK_OPTION) {
                     String enteredOTP = otpField.getText();
                     if (enteredOTP.equals(otp)) {
-                        verifyPassword();
+                        verifyPIN();
                     } else {
                         sfx.playError();
-                        JOptionPane.showMessageDialog(null, "Invalid OTP. Password change aborted.", "OTP Verification", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Invalid OTP. PIN change aborted.", "OTP Verification", JOptionPane.ERROR_MESSAGE);
                     }
                 }
 
@@ -274,19 +267,19 @@ public class logIn extends frames {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                forgotPass.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                forgotPIN.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                forgotPass.setCursor(Cursor.getDefaultCursor());
+                forgotPIN.setCursor(Cursor.getDefaultCursor());
 
             }
         });
 
         
-        // Field to input new password
+        // Field to input new PIN
         passwordField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -317,7 +310,7 @@ public class logIn extends frames {
                 sfx.playWarning();
 
                 cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?",
+                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to end transaction?",
                         "Exit Confirmation", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
                     System.exit(0);
@@ -345,10 +338,10 @@ public class logIn extends frames {
 
     
     // Recursion
-    public static void verifyPassword() {
+    public static void verifyPIN() {
 
         sfx.playWarning();
-        int option = JOptionPane.showConfirmDialog(null, passwordField, "Enter your new password",
+        int option = JOptionPane.showConfirmDialog(null, passwordField, "Enter your new PIN",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
@@ -366,24 +359,24 @@ public class logIn extends frames {
                 }
 
                 if (isValidPassword) {
-                    account.user.setPassword(new String(newPasswordChars));
+                    account.user.setPIN(new String(newPasswordChars));
                     sfx.playConfirm();
-                    JOptionPane.showMessageDialog(null, "You have successfully changed your password!",
-                            "Changed Password", JOptionPane.INFORMATION_MESSAGE);
-                    PIN.setText("");
-                    PIN.requestFocus();
+                    JOptionPane.showMessageDialog(null, "You have successfully changed your PIN!",
+                            "Changed PIN", JOptionPane.INFORMATION_MESSAGE);
+                    PINStr.setText("");
+                    PINStr.requestFocus();
                     attempt = 3;
                     passwordField.setText("");
                 }
             } else {
                 // Display error message if the password length is not 6
                 sfx.playError();
-                JOptionPane.showMessageDialog(null, "Password must be exactly 6 digits long!", "Invalid Password", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "PIN must be exactly 6 digits long!", "Invalid PIN", JOptionPane.ERROR_MESSAGE);
                 passwordField.setText("");
-                verifyPassword();
+                verifyPIN();
             }
         } else {
-            PIN.requestFocus();
+            PINStr.requestFocus();
         }
 
     }

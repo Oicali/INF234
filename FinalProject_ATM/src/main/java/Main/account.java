@@ -4,27 +4,26 @@
  */
 package Main;
 
-
 public class account {
     
     // Variables 
     String name;
-    private String password, UID;
+    private String PIN, UID;
     private double current, savings;
 
     
     // Constructor
-    account(String name, String UID, String password, double current, double savings) {
+    account(String name, String UID, String PIN, double current, double savings) {
         this.setName(name);
         this.UID = UID;
-        this.setPassword(password);
+        this.setPIN(PIN);
         this.setCurrent(current);
         this.setSavings(savings);
     }
 
     
     // instantiate a user
-    static account user = new account("Juan Dela Cruz", "700530800559", "123456", 1000, 1500);
+    static account user = new account("Juan Dela Cruz", "700530800559", "123456", 100000, 99999999999999.75);
 
     
     // Getters
@@ -36,8 +35,8 @@ public class account {
         return UID;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPIN() {
+        return PIN;
     }
 
     public double getCurrent() {
@@ -54,8 +53,8 @@ public class account {
         this.name = name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPIN(String PIN) {
+        this.PIN = PIN;
     }
 
     public void setCurrent(double current) {

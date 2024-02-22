@@ -15,14 +15,13 @@ public class typeAccount extends frames {
     static sounds sfx = new sounds();
     static typeAmount typeAmountFrame = new typeAmount();
     static viewBalance viewBalanceFrame = new viewBalance();
-    public static JLabel typeAccountVolume = new JLabel();
+    static JLabel typeAccountVolume = new JLabel();
     static String accountType = "null";
-    DecimalFormat format = new DecimalFormat("0.00");
+    
     
     // Generate and redesign the account selection frame
     typeAccount() {
         super();
-        JDialog.setDefaultLookAndFeelDecorated(true);
 
         JPanel typeAccountPnl = new JPanel();
         typeAccountPnl.setSize(1244, 700);
@@ -71,7 +70,7 @@ public class typeAccount extends frames {
         
         // Buttons Functions
         
-        // For cancel button
+        // For cancel button to return to log in frame
         cancelBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -88,12 +87,11 @@ public class typeAccount extends frames {
                 sfx.playWarning();
 
                 cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?", "Exit Confirmation", JOptionPane.YES_NO_OPTION);
+                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel transaction?", "Cancel Transaction", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
 
                     // Set account type
                     accountType = "";
-                    logIn.attempt = 3; 
                     
                     // Update volume icon
                     if(sounds.isUnmute){
@@ -104,8 +102,7 @@ public class typeAccount extends frames {
                         logIn.logInVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
-                    
-                    
+                                
                     dispose();
                     FinalProject_ATM.logInFrame.show();
                 }
@@ -124,6 +121,8 @@ public class typeAccount extends frames {
             }
         });
         
+        
+        // For current button and go to typeAccount frame or viewBalance frame
         currentBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -143,6 +142,7 @@ public class typeAccount extends frames {
                 accountType = "Current";
                 viewBalance.lbl2.setText(accountType);
                 viewBalance.lbl7.setText(format.format(account.user.getCurrent()));
+                typeAmount.lbl1.setText(transaction.transactionType + " from " + accountType);
                 
                 // Update volume icon for typeAmount Frame
                     if(sounds.isUnmute){
@@ -165,10 +165,9 @@ public class typeAccount extends frames {
                     }
 
 
-                    
                 dispose(); 
                 
-                if(transaction.transactionType.equals("Withdraw") && accountType.equals("Current")){
+                if(transaction.transactionType.equals("Withdraw") && accountType.equals("Current")){ 
                     typeAmountFrame.show();
                 } else if(transaction.transactionType.equals("Deposit") && accountType.equals("Current")){
                     typeAmountFrame.show();
@@ -176,23 +175,22 @@ public class typeAccount extends frames {
                     
                     viewBalanceFrame.show();
                 }
-                
-                
-                
-                
+                                
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                //Do nothing
+                currentBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               // Do nothing
+               currentBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
         
+        
+        // For savings button and go to typeAccount frame or viewBalance frame
         savingsBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -212,6 +210,7 @@ public class typeAccount extends frames {
                 accountType = "Savings"; 
                 viewBalance.lbl2.setText(accountType);
                 viewBalance.lbl7.setText(format.format(account.user.getSavings()));
+                typeAmount.lbl1.setText(transaction.transactionType + " to " + accountType);
                 
                 // Update volume icon for typeAmountVolume Frame
                     if(sounds.isUnmute){
@@ -233,8 +232,6 @@ public class typeAccount extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
 
-                  
-                  
                 dispose();
                 
                 if(transaction.transactionType.equals("Withdraw") && accountType.equals("Savings")){
@@ -244,23 +241,22 @@ public class typeAccount extends frames {
                 } else if (transaction.transactionType.equals("Balance") && accountType.equals("Savings")){
                     viewBalanceFrame.show();
                 }
-                
-     
-                
-                
+            
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                //Do nothing
+                savingsBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               // Do nothing
+               savingsBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
         
+        
+        // For back button and go to transaction frame
         backBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -276,8 +272,6 @@ public class typeAccount extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
 
-                dispose();
-                
                 // Update volume icon
                     if(sounds.isUnmute){
                         transaction.transactionVolume.setIcon(
@@ -288,23 +282,24 @@ public class typeAccount extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
                 
+                dispose();
                 logIn.transactionFrame.show();
                 
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                //Do nothing
+                backBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               // Do nothing
+               backBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
         
-        
     }
+    
     
     // Add mute features
     private static void addVolumeEffects(JPanel panel) {
@@ -331,9 +326,6 @@ public class typeAccount extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
 
                     sounds.isUnmute = false;
-
-
-
                 } else {
                     typeAccountVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
@@ -345,15 +337,13 @@ public class typeAccount extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 typeAccountVolume.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 typeAccountVolume.setCursor(Cursor.getDefaultCursor());
-
             }
         });
-
     }
+    
 }
