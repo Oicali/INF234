@@ -18,7 +18,6 @@ public class viewBalance extends frames {
     static JLabel viewBalanceVolume = new JLabel();
     static JLabel lbl2 = new JLabel();
     static JLabel lbl7 = new JLabel();
-    static double balance = 0;
     static String str1 = account.user.getUID().substring(0, 8);
     static String str2 = account.user.getUID().substring(8);
         

@@ -31,7 +31,7 @@ public class frames extends JFrame {
         this.setLocationRelativeTo(null);
         
         JDialog.setDefaultLookAndFeelDecorated(true);
-        
+   
         // Create a rounded frame
         Shape roundedRectangle = new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 20, 20);
         setShape(roundedRectangle);
