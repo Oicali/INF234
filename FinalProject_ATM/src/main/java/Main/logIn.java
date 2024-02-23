@@ -57,22 +57,6 @@ public class logIn extends frames {
         ((JTextField) PINStr).setHorizontalAlignment(JTextField.CENTER);
         logInPnl.add(PINStr);
 
-        final JButton logInBtn = new roundButton("Login");
-        logInBtn.setBounds(682, 395, 160, 46);
-        logInBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
-        logInBtn.setForeground(Color.WHITE);
-        logInBtn.setEnabled(false);
-        logInPnl.add(logInBtn);
-        
-        addVolumeEffects(logInPnl);
-        
-        JLabel cancelBtn = new JLabel();
-        cancelBtn.setIcon(
-                new ImageIcon(
-                        "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-        cancelBtn.setBounds(15, 34, 55, 55);
-        logInPnl.add(cancelBtn);
-        
         final JButton forgotPIN = new JButton("<html><i><u>Forgot PIN?</u></i></html>");
         forgotPIN.setBounds(680, 510, 160, 35);
         forgotPIN.setFont(new Font("Source Sans Pro", Font.PLAIN, 18));
@@ -82,6 +66,24 @@ public class logIn extends frames {
         forgotPIN.setOpaque(false);
         forgotPIN.setForeground(new Color(255, 222, 89));
         logInPnl.add(forgotPIN);
+        
+        final JButton logInBtn = new roundButton("Login", new Color(1,207,22), new Color(1,207,22));
+        logInBtn.setBounds(685, 395, 150, 46);
+        logInBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
+        logInBtn.setForeground(Color.WHITE);
+        logInBtn.setEnabled(false);
+        logInPnl.add(logInBtn);
+        
+        
+        
+        addVolumeEffects(logInPnl);
+        
+        JLabel cancelBtn = new JLabel();
+        cancelBtn.setIcon(
+                new ImageIcon(
+                        "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
+        cancelBtn.setBounds(15, 34, 55, 55);
+        logInPnl.add(cancelBtn);
 
         JLabel logInBG = new JLabel();
         logInBG.setIcon(
@@ -138,31 +140,7 @@ public class logIn extends frames {
             }
         });
 
-        // Add DocumentListener to enable/disable login button
-        PINStr.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                updateLoginButton();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                updateLoginButton();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                updateLoginButton();
-            }
-
-            // Method to enable/disable the login button based on the PIN length
-            private void updateLoginButton() {
-                String pinText = PINStr.getText().trim();
-                logInBtn.setEnabled(pinText.length() == 6);
-            }
-        });
-
-       
+        
         // For Log In Button
         logInBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
