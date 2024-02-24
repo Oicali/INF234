@@ -7,6 +7,7 @@ package Main;
 import settings.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDateTime;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -20,7 +21,10 @@ public class typeAmount extends frames {
     static JLabel typeAmountVolume = new JLabel();
     static JLabel lbl1 = new JLabel();
     static double amountToTransact = 0;
-    static splashScreen process = new splashScreen();
+    static splashScreen process = new splashScreen(); 
+    static String dateOfTransaction = "";
+    static String refNo = "";
+    static viewReceipt viewReceiptFrame = new viewReceipt();
 
     // Generate and redesign the input amount frame
     typeAmount() {
@@ -323,16 +327,6 @@ public class typeAmount extends frames {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                // Update volume icon
-                if (sounds.isUnmute) {
-                    viewReceipt.viewReceiptVolume.setIcon(
-                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
-
-                } else {
-                    viewReceipt.viewReceiptVolume.setIcon(
-                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                }
-
                 try {
                     amountToTransact = Double.parseDouble(amountField.getText());
 
@@ -708,21 +702,63 @@ public class typeAmount extends frames {
         });
 
     }
-
+    
+    
     public static void askReceipt() {
         typeAccount.typeAmountFrame.show();
         sfx.playConfirm();
+        
+        LocalDateTime now = LocalDateTime.now();
+        dateOfTransaction = dtf.format(now);
+        System.out.println(dateOfTransaction);
+        
+        refNo = generateRefNo();
+        System.out.println(refNo);
+        
+        // Set Jlabels for receipt
+        viewReceipt.lbl6.setText(transaction.transactionType);
+        if(transaction.transactionType.equals("Withdraw")){
+            viewReceipt.lbl8.setText("- ₱" + format.format(amountToTransact));
+        } else if (transaction.transactionType.equals("Deposit")){
+             viewReceipt.lbl8.setText("+ ₱" + format.format(amountToTransact));
+        }
+        viewReceipt.lbl9.setText(typeAccount.accountType + " Balance :");
+        
+        if(typeAccount.accountType.equals("Current")){
+            viewReceipt.lbl10.setText("₱" + format.format(account.user.getCurrent()));
+        } else if (typeAccount.accountType.equals("Savings")){
+            viewReceipt.lbl10.setText("₱" + format.format(account.user.getSavings()));
+        }
+        viewReceipt.lbl12.setText(refNo);
+        viewReceipt.lbl13.setText(dateOfTransaction);
+        
+        
+        
 
         int choice = JOptionPane.showConfirmDialog(null, "Do you want to print receipt?",
                 "Transaction Complete!", JOptionPane.YES_NO_OPTION);
+
         if (choice == JOptionPane.YES_OPTION) {
+            // Update volume icon
+            if (sounds.isUnmute) {
+                viewReceipt.viewReceiptVolume.setIcon(
+                        new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+            } else {
+                viewReceipt.viewReceiptVolume.setIcon(
+                        new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+            }
+            
             typeAccount.typeAmountFrame.dispose();
+            viewReceiptFrame.show();
+            
+            
+            
         } else {
             // Update volume icon
             if (sounds.isUnmute) {
                 logIn.logInVolume.setIcon(
                         new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
-
             } else {
                 logIn.logInVolume.setIcon(
                         new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
@@ -733,6 +769,17 @@ public class typeAmount extends frames {
         }
 
     }
+    
+    // Method to generate Reference number
+    private static String generateRefNo() {
+        StringBuilder otpBuilder = new StringBuilder();
+        for (int i = 0; i < 12; i++) {
+            otpBuilder.append((char) ((int) (Math.random() * 10) + '0'));
+        }
+        return otpBuilder.toString();
+    }
 
-    /* Remove the system.out.print */
 }
+
+/* Remove the system.out.print */
+ /* Not limiting to 6 digits in amount Field*/
