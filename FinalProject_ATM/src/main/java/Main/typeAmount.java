@@ -20,6 +20,7 @@ public class typeAmount extends frames {
     static JLabel typeAmountVolume = new JLabel();
     static JLabel lbl1 = new JLabel();
     static double amountToTransact = 0;
+    static splashScreen process = new splashScreen();
 
     // Generate and redesign the input amount frame
     typeAmount() {
@@ -128,14 +129,13 @@ public class typeAmount extends frames {
 
         addVolumeEffects(typeAmountPnl);
 
-        JLabel amountBG = new JLabel();
-        amountBG.setIcon(
+        JLabel typeAmountBG = new JLabel();
+        typeAmountBG.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\typeAmountBG.png"));
-        amountBG.setBounds(0, -15, 1050, 700);
-        typeAmountPnl.add(amountBG);
+        typeAmountBG.setBounds(0, -15, 1050, 700);
+        typeAmountPnl.add(typeAmountBG);
 
         /* Listeners start here... */
-        
         // For amount field to type amount
         amountField.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent a) {
@@ -188,7 +188,6 @@ public class typeAmount extends frames {
             }
         });
 
-        
         /* Buttons Functions */
         // For cancel button to end transaction
         cancelBtn.addMouseListener(new MouseListener() {
@@ -324,41 +323,80 @@ public class typeAmount extends frames {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                // Update volume icon
+                if (sounds.isUnmute) {
+                    viewReceipt.viewReceiptVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                } else {
+                    viewReceipt.viewReceiptVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                }
 
                 try {
                     amountToTransact = Double.parseDouble(amountField.getText());
-                    
+
                     // Withdraw if sufficient current or savings balance
                     if (transaction.transactionType.equals("Withdraw") && typeAccount.accountType.equals("Current")) {
                         if (amountToTransact <= account.user.getCurrent()) {
                             sfx.playClick();
-                            
+
+                            // Computation
                             account.user.setCurrent(account.user.getCurrent() - amountToTransact);
                             System.out.println(account.user.getCurrent());
+
+                            // Show Process and ask for recceipt
+                            typeAccount.typeAmountFrame.dispose();
+                            process.show();
+                            process.fill(new Runnable() {
+                                public void run() {
+
+                                    process.dispose();
+                                    askReceipt();
+                                    // Call the method to proceed with your application logic
+                                    // For example: someMethod();
+                                }
+                            });
+
                         } else {
                             sfx.playError();
                             JOptionPane.showMessageDialog(null, "You do not have enough balance!", "Insufficient balance!",
                                     JOptionPane.ERROR_MESSAGE);
-                            
+
                             JOptionPane.showMessageDialog(null, "Current balance: ₱" + format.format(account.user.getCurrent()), "Available balance",
                                     JOptionPane.INFORMATION_MESSAGE);
-                            
+
                             amountField.setText("");
                         }
 
                     } else if (transaction.transactionType.equals("Withdraw") && typeAccount.accountType.equals("Savings")) {
                         if (amountToTransact <= account.user.getSavings()) {
                             sfx.playClick();
-                            
+
+                            // Computation
                             account.user.setSavings(account.user.getSavings() - amountToTransact);
                             System.out.println(account.user.getSavings());
+
+                            // Show Process and ask for recceipt
+                            typeAccount.typeAmountFrame.dispose();
+                            process.show();
+                            process.fill(new Runnable() {
+                                public void run() {
+
+                                    process.dispose();
+                                    askReceipt();
+                                    // Call the method to proceed with your application logic
+                                    // For example: someMethod();
+                                }
+                            });
+
                         } else {
                             sfx.playError();
                             JOptionPane.showMessageDialog(null, "You do not have enough balance!", "Insufficient balance!",
                                     JOptionPane.ERROR_MESSAGE);
                             JOptionPane.showMessageDialog(null, "Savings balance: ₱" + format.format(account.user.getSavings()), "Available balance",
                                     JOptionPane.INFORMATION_MESSAGE);
-                            
+
                             amountField.setText("");
                         }
                     }
@@ -366,8 +404,25 @@ public class typeAmount extends frames {
                     // Deposit to current or savings balance if less than 99,999,999,999,999.00
                     if (transaction.transactionType.equals("Deposit") && typeAccount.accountType.equals("Current")) {
                         if (amountToTransact + account.user.getCurrent() < 99999999999999.0) {
+                            sfx.playClick();
+
+                            // Computation
                             account.user.setCurrent(account.user.getCurrent() + amountToTransact);
                             System.out.println(account.user.getCurrent());
+
+                            // Show Process and ask for recceipt
+                            typeAccount.typeAmountFrame.dispose();
+                            process.show();
+                            process.fill(new Runnable() {
+                                public void run() {
+
+                                    process.dispose();
+                                    askReceipt();
+                                    // Call the method to proceed with your application logic
+                                    // For example: someMethod();
+                                }
+                            });
+
                         } else {
                             sfx.playError();
                             JOptionPane.showMessageDialog(null, "Amount exceeds balance limit!", "Error!",
@@ -377,8 +432,24 @@ public class typeAmount extends frames {
 
                     } else if (transaction.transactionType.equals("Deposit") && typeAccount.accountType.equals("Savings")) {
                         if (amountToTransact + account.user.getSavings() < 99999999999999.0) {
+                            sfx.playClick();
+
+                            // Computation
                             account.user.setSavings(account.user.getSavings() + amountToTransact);
                             System.out.println(account.user.getSavings());
+
+                            // Show Process and ask for recceipt
+                            typeAccount.typeAmountFrame.dispose();
+                            process.show();
+                            process.fill(new Runnable() {
+                                public void run() {
+
+                                    process.dispose();
+                                    askReceipt();
+
+                                }
+                            });
+
                         } else {
                             sfx.playError();
                             JOptionPane.showMessageDialog(null, "Amount exceeds balance limit!", "Error!",
@@ -638,8 +709,30 @@ public class typeAmount extends frames {
 
     }
 
-    public static void main(String[] args) {
-        typeAmount a = new typeAmount();
-        a.show();
+    public static void askReceipt() {
+        typeAccount.typeAmountFrame.show();
+        sfx.playConfirm();
+
+        int choice = JOptionPane.showConfirmDialog(null, "Do you want to print receipt?",
+                "Transaction Complete!", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            typeAccount.typeAmountFrame.dispose();
+        } else {
+            // Update volume icon
+            if (sounds.isUnmute) {
+                logIn.logInVolume.setIcon(
+                        new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+            } else {
+                logIn.logInVolume.setIcon(
+                        new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+            }
+
+            typeAccount.typeAmountFrame.dispose();
+            FinalProject_ATM.logInFrame.show();
+        }
+
     }
+
+    /* Remove the system.out.print */
 }
