@@ -18,6 +18,7 @@ public class transaction extends frames {
     static JLabel transactionVolume = new JLabel();
     static String transactionType = "null";
 
+    
     // Generate and redesign the transaction frame
     transaction() {
         super();
@@ -66,7 +67,7 @@ public class transaction extends frames {
         transactionPnl.add(transactionBG);
 
                 
-        // Buttons Functions
+        /* Buttons functions start here... */
         
         // For cancel button to return to log in frame
         cancelBtn.addMouseListener(new MouseListener() {
@@ -303,5 +304,4 @@ public class transaction extends frames {
         });
     }
     
-
 }

@@ -24,7 +24,7 @@ public class viewBalance extends frames {
     // Replace each character with "*"
     static String maskedStr1 = String.join("", Collections.nCopies(str1.length(), "*"));
         
-    static String str3 = maskedStr1 + str2; 
+    static String censoredUID = maskedStr1 + str2; 
 
     
     // Generate and redesign the balance frame
@@ -65,7 +65,7 @@ public class viewBalance extends frames {
         viewBalancePnl.add(lbl4);
 
         // Displays UID
-        JLabel lbl5 = new JLabel(str3);
+        JLabel lbl5 = new JLabel(censoredUID);
         lbl5.setFont(new Font("Source Sans Pro", Font.PLAIN, 15));
         lbl5.setHorizontalAlignment(JLabel.LEFT);
         lbl5.setForeground(Color.BLACK);
@@ -104,6 +104,7 @@ public class viewBalance extends frames {
         backBtn.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backButton.png"));
         backBtn.setBounds(540, 500,365, 70);
+        //backBtn.setBounds(808, 488, 125, 50);
         viewBalancePnl.add(backBtn);
 
         JLabel viewBalanceBG = new JLabel();
@@ -113,7 +114,7 @@ public class viewBalance extends frames {
         viewBalancePnl.add(viewBalanceBG);
 
         
-        // Buttons Functions
+        /* Buttons functions starts here... */
         
         // For cancel button to return to log in frame
         cancelBtn.addMouseListener(new MouseListener() {

@@ -7,22 +7,20 @@ package settings;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class roundPasswordField extends JPasswordField {
-    
-    // Global variables
-    private int arcWidth = 15;
-    private int arcHeight = 15;
 
-    
-    public roundPasswordField(int columns) {
+    private int arcWidth = 55;
+    private int arcHeight = 55;
+    private float opacity;
+
+    public roundPasswordField(int columns, float opacity) {
         super(columns);
-        setOpaque(false);
+        this.opacity = opacity;
+        setOpaque(false); // Make the component transparent
+        setBackground(new Color(5, 38, 59)); // Set the background color
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Optional: Add padding
     }
 
-    
-    // Modify password field shape
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
@@ -31,11 +29,22 @@ public class roundPasswordField extends JPasswordField {
         int width = getWidth();
         int height = getHeight();
 
+        // Draw the background with transparency
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, width, height, arcWidth, arcHeight);
 
+        // Set the transparency back to opaque for drawing text
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         super.paintComponent(g2);
 
         g2.dispose();
+    }
+
+    
+    // Set the caret color to white
+    @Override
+    public Color getCaretColor() {
+        return Color.WHITE; 
     }
 }

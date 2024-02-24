@@ -6,20 +6,22 @@ package settings;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.RoundRectangle2D;
 
 public class roundTextField extends JTextField {
     // Global variables
-    private int arcWidth = 15;
-    private int arcHeight = 15;
+    private int arcWidth = 55;
+    private int arcHeight = 55;
+    private float opacity;
 
-    public roundTextField(int columns) {
+    public roundTextField(int columns, float opacity) {
         super(columns);
-        setOpaque(false);
+        this.opacity = opacity;
+        setOpaque(false); // Make the component transparent
+        setBackground(new Color(5, 38, 59)); // Set the background color
+        setForeground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Optional: Add padding
     }
 
-    // Modify text field shape
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
@@ -28,12 +30,23 @@ public class roundTextField extends JTextField {
         int width = getWidth();
         int height = getHeight();
 
+        // Draw the background with transparency
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
         g2.setColor(getBackground());
-        g2.fill(new RoundRectangle2D.Double(0, 0, width, height, arcWidth, arcHeight));
+        g2.fillRoundRect(0, 0, width, height, arcWidth, arcHeight);
 
+        // Set the transparency back to opaque for drawing text
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         super.paintComponent(g2);
 
         g2.dispose();
+    }
+
+    
+    // Set the caret color to white
+    @Override
+    public Color getCaretColor() {
+        return Color.WHITE; 
     }
 }
 
