@@ -12,7 +12,7 @@ import java.text.DecimalFormat;
 public class frames extends JFrame {
     
     // Global variables
-    public static DecimalFormat format = new DecimalFormat("##,###,###,###,###.00");
+    public static DecimalFormat format = new DecimalFormat("##,###,###,###,##0.00");
     ImageIcon image = new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\Logo.png");
 
     

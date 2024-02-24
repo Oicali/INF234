@@ -68,7 +68,7 @@ public class typeAccount extends frames {
         typeAccountPnl.add(typeAccountBG);
         
         
-        // Buttons Functions
+        /* Buttons functions start here... */
         
         // For cancel button to return to log in frame
         cancelBtn.addMouseListener(new MouseListener() {
@@ -163,7 +163,7 @@ public class typeAccount extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
 
-
+                typeAmount.amountField.setText("");
                 dispose(); 
                 
                 if(transaction.transactionType.equals("Withdraw") && accountType.equals("Current")){ 
@@ -231,6 +231,7 @@ public class typeAccount extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
 
+                typeAmount.amountField.setText("");
                 dispose();
                 
                 if(transaction.transactionType.equals("Withdraw") && accountType.equals("Savings")){

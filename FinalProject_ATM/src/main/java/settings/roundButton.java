@@ -11,6 +11,7 @@ public class roundButton extends JButton {
     private int arcHeight = 45;
     private Color color1;
     private Color color2;
+    
     public roundButton(String text,Color color1a,Color color2a) {
         super(text);
         setContentAreaFilled(false);
