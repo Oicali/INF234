@@ -132,10 +132,7 @@ public class viewReceipt extends frames {
         lbl13.setBounds(425, 465, 300, 40);
         viewReceiptPnl.add(lbl13);
         
-        
-        
-        
-        
+      
         JLabel cancelBtn = new JLabel();
         cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
         cancelBtn.setBounds(15, 35, 55, 55);
@@ -253,8 +250,4 @@ public class viewReceipt extends frames {
         });
     }
     
-    public static void main (String[]args){
-        viewReceipt a = new viewReceipt();
-        a.show();
-    }
 }

@@ -73,13 +73,3 @@ public class splashScreen extends JFrame {
     }
 
 }
-
-    
-    /*public static void main (String[]args){
-        splashScreen a = new splashScreen();
-        a.show();
-        a.fill();
-        a.dispose();
-        
-       
-    }*/

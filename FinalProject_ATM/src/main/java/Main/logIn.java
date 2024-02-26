@@ -35,7 +35,7 @@ public class logIn extends frames {
         lbl1.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 30));
         lbl1.setHorizontalAlignment(JLabel.CENTER);
         lbl1.setForeground(new Color(255, 222, 89));
-        lbl1.setBounds(555, 40, 400, 40);
+        lbl1.setBounds(558, 40, 400, 40);
         logInPnl.add(lbl1);
 
         JLabel logo = new JLabel();
