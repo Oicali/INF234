@@ -8,13 +8,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
 
 public class frames extends JFrame {
     
     // Global variables
     public static DecimalFormat format = new DecimalFormat("##,###,###,###,##0.00");
+    public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
     ImageIcon image = new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\Logo.png");
-
+    
     
     // Default frame settings
     public frames() {

@@ -15,6 +15,12 @@ public class viewReceipt extends frames {
     static JPanel viewReceiptPnl = new JPanel();
     static sounds sfx = new sounds();
     static JLabel viewReceiptVolume = new JLabel();
+    static JLabel lbl6 = new JLabel();
+    static JLabel lbl8 = new JLabel();
+    static JLabel lbl9 = new JLabel();
+    static JLabel lbl10 = new JLabel();
+    static JLabel lbl12 = new JLabel();
+    static JLabel lbl13 = new JLabel();
     
     // Generate and redesign the view receipt frame
     viewReceipt(){
@@ -59,18 +65,74 @@ public class viewReceipt extends frames {
         lbl4.setBounds(416, 284, 200, 40);
         viewReceiptPnl.add(lbl4);
         
-     
         JLabel lbl5 = new JLabel();
-        lbl5.setText("Date of transaction: ");
+        lbl5.setText("Transaction : ");
         lbl5.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         lbl5.setHorizontalAlignment(JLabel.LEFT);
         lbl5.setForeground(Color.BLACK);
-        lbl5.setBounds(275, 225, 200, 40);
+        lbl5.setBounds(295, 345, 200, 40);
+        viewReceiptPnl.add(lbl5);
         
+        // Display type of transaction
+        lbl6.setFont(new Font("Source Sans Pro", Font.PLAIN, 20));
+        lbl6.setHorizontalAlignment(JLabel.RIGHT);
+        lbl6.setForeground(Color.BLACK);
+        lbl6.setBounds(515, 345, 210, 40);
+        viewReceiptPnl.add(lbl6);
         
+        JLabel lbl7 = new JLabel();
+        lbl7.setText("Amount : ");
+        lbl7.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
+        lbl7.setHorizontalAlignment(JLabel.LEFT);
+        lbl7.setForeground(Color.BLACK);
+        lbl7.setBounds(295, 380, 200, 40);
+        viewReceiptPnl.add(lbl7);
         
+        // Display amount of transaction
+        lbl8.setFont(new Font("Source Sans Pro", Font.PLAIN, 20));
+        lbl8.setHorizontalAlignment(JLabel.RIGHT);
+        lbl8.setForeground(Color.BLACK);
+        lbl8.setBounds(515, 380, 210, 40);
+        viewReceiptPnl.add(lbl8);
         
+        // Display type of account  balance
+        lbl9.setText("Savings Balance :");
+        lbl9.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
+        lbl9.setHorizontalAlignment(JLabel.LEFT);
+        lbl9.setForeground(Color.BLACK);
+        lbl9.setBounds(295, 415, 200, 40);
+        viewReceiptPnl.add(lbl9);
         
+        // Display amount of transaction
+        lbl10.setFont(new Font("Source Sans Pro", Font.PLAIN, 20));
+        lbl10.setHorizontalAlignment(JLabel.RIGHT);
+        lbl10.setForeground(Color.BLACK);
+        lbl10.setBounds(425, 415, 300, 40);
+        viewReceiptPnl.add(lbl10);
+        
+        JLabel lbl11 = new JLabel();
+        lbl11.setText("Ref No. ");
+        lbl11.setFont(new Font("Source Sans Pro", Font.PLAIN, 15));
+        lbl11.setHorizontalAlignment(JLabel.LEFT);
+        lbl11.setForeground(Color.BLACK);
+        lbl11.setBounds(295, 465, 200, 40);
+        viewReceiptPnl.add(lbl11);
+        
+        // Display Reference Number
+        lbl12.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
+        lbl12.setHorizontalAlignment(JLabel.LEFT);
+        lbl12.setForeground(Color.BLACK);
+        lbl12.setBounds(350, 465, 200, 40);
+        viewReceiptPnl.add(lbl12);
+        
+        // Display Date and time
+        lbl13.setFont(new Font("Source Sans Pro", Font.PLAIN, 15));
+        lbl13.setHorizontalAlignment(JLabel.RIGHT);
+        lbl13.setForeground(Color.BLACK);
+        lbl13.setBounds(425, 465, 300, 40);
+        viewReceiptPnl.add(lbl13);
+        
+      
         JLabel cancelBtn = new JLabel();
         cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
         cancelBtn.setBounds(15, 35, 55, 55);
@@ -188,8 +250,4 @@ public class viewReceipt extends frames {
         });
     }
     
-    public static void main (String[]args){
-        viewReceipt a = new viewReceipt();
-        a.show();
-    }
 }
