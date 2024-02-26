@@ -166,7 +166,7 @@ public class viewReceipt extends frames {
                 sfx.playWarning();
 
                 cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to return to log in page?", "Finish Transaction", JOptionPane.YES_NO_OPTION);
+                int choice = JOptionPane.showConfirmDialog(null, "Thank you for choosing BIT! \n Do you want to return to log in page?", "Finish Transaction", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
 
                     // Update volume icon

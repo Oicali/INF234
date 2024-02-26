@@ -15,6 +15,7 @@ public class transaction extends frames {
     static JPanel transactionPnl = new JPanel();
     static sounds sfx = new sounds();
     static typeAccount typeAccountFrame = new typeAccount();
+    static viewHistory viewHistoryFrame = new viewHistory();
     static JLabel transactionVolume = new JLabel();
     static String transactionType = "null";
 
@@ -32,7 +33,7 @@ public class transaction extends frames {
         lbl1.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 30));
         lbl1.setHorizontalAlignment(JLabel.CENTER);
         lbl1.setForeground(new Color(255, 222, 89));
-        lbl1.setBounds(450, 40, 400, 40);
+        lbl1.setBounds(460, 40, 400, 40);
         transactionPnl.add(lbl1);
 
         JLabel cancelBtn = new JLabel();
@@ -45,20 +46,26 @@ public class transaction extends frames {
         JLabel withdrawBtn = new JLabel();
         withdrawBtn.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\withdrawButton.png"));
-        withdrawBtn.setBounds(475, 185,365, 70);
+        withdrawBtn.setBounds(475, 145,365, 70);
         transactionPnl.add(withdrawBtn);
         
         JLabel depositBtn = new JLabel();
         depositBtn.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\depositButton.png"));
-        depositBtn.setBounds(475, 305,365, 70);
+        depositBtn.setBounds(475, 265,365, 70);
         transactionPnl.add(depositBtn);
         
         JLabel balanceBtn = new JLabel();
         balanceBtn.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\balanceButton.png"));
-        balanceBtn.setBounds(475, 435,365, 70);
+        balanceBtn.setBounds(475, 385,365, 70);
         transactionPnl.add(balanceBtn);
+        
+        JLabel historyBtn = new JLabel();
+        historyBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\historyButton.png"));
+        historyBtn.setBounds(475, 505,365, 70);
+        transactionPnl.add(historyBtn);
         
         JLabel transactionBG = new JLabel();
         transactionBG.setIcon(
@@ -256,6 +263,49 @@ public class transaction extends frames {
                balanceBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
+        
+        // For history button and go to transactional history frame
+        historyBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                sfx.playClick();
+                
+                
+                // Update volume icon
+                    if(sounds.isUnmute){
+                        viewHistory.viewHistoryVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        viewHistory.viewHistoryVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+                    
+                dispose();
+                viewHistoryFrame.show();
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                historyBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+               historyBtn.setCursor(Cursor.getDefaultCursor());
+            }
+        });
     }
 
     
@@ -302,6 +352,11 @@ public class transaction extends frames {
                 transactionVolume.setCursor(Cursor.getDefaultCursor());
             }
         });
+    }
+    
+    public static void main(String[] args) {
+        transaction a = new transaction();
+        a.show();
     }
     
 }

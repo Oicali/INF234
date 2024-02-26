@@ -707,6 +707,7 @@ public class typeAmount extends frames {
     public static void askReceipt() {
         typeAccount.typeAmountFrame.show();
         sfx.playConfirm();
+        double generalBalance = 0;
         
         LocalDateTime now = LocalDateTime.now();
         dateOfTransaction = dtf.format(now);
@@ -726,13 +727,17 @@ public class typeAmount extends frames {
         
         if(typeAccount.accountType.equals("Current")){
             viewReceipt.lbl10.setText("₱" + format.format(account.user.getCurrent()));
+            generalBalance = account.user.getCurrent();
         } else if (typeAccount.accountType.equals("Savings")){
             viewReceipt.lbl10.setText("₱" + format.format(account.user.getSavings()));
+            generalBalance = account.user.getSavings();
         }
         viewReceipt.lbl12.setText(refNo);
         viewReceipt.lbl13.setText(dateOfTransaction);
         
         
+        // Set viewHistoryTransaction
+        viewHistory.addTransactionPanel(transaction.transactionType, typeAccount.accountType, refNo, dateOfTransaction, amountToTransact, generalBalance);
         
 
         int choice = JOptionPane.showConfirmDialog(null, "Do you want to print receipt?",
