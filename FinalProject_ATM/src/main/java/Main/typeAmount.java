@@ -21,7 +21,7 @@ public class typeAmount extends frames {
     static JLabel typeAmountVolume = new JLabel();
     static JLabel lbl1 = new JLabel();
     static double amountToTransact = 0;
-    static splashScreen process = new splashScreen(); 
+    static splashScreen process = new splashScreen();
     static String dateOfTransaction = "";
     static String refNo = "";
     static viewReceipt viewReceiptFrame = new viewReceipt();
@@ -57,7 +57,7 @@ public class typeAmount extends frames {
         amountField.setHorizontalAlignment(JTextField.CENTER);
         typeAmountPnl.add(amountField);
 
-        JLabel lbl3 = new JLabel("Enter amount from ₱100 up to ₱100,000");
+        JLabel lbl3 = new JLabel("Enter amount from ₱100 up to ₱50,000");
         lbl3.setFont(new Font("Source Sans Pro", Font.ITALIC, 17));
         lbl3.setHorizontalAlignment(JLabel.CENTER);
         lbl3.setForeground(new Color(255, 222, 89));
@@ -166,25 +166,30 @@ public class typeAmount extends frames {
         amountField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                updateLoginButton();
+                updateEnterButton();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                updateLoginButton();
+                updateEnterButton();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                updateLoginButton();
+                updateEnterButton();
             }
 
             // Method to enable/disable the enter button based on the amount typed
-            private void updateLoginButton() {
+            private void updateEnterButton() {
                 String amountText = amountField.getText().trim();
                 try {
                     amountToTransact = Double.parseDouble(amountText);
-                    enterBtn.setEnabled((amountToTransact >= 100 && amountToTransact < 100001) && amountToTransact % 100 == 0);
+
+                    if ((amountToTransact >= 100 && amountToTransact < 50001) && amountToTransact % 100 == 0) {
+                        enterBtn.setEnabled(true);
+                    } else {
+                        enterBtn.setEnabled(false);
+                    }
                 } catch (NumberFormatException ex) {
                     // Not a valid number, disable the button
                     enterBtn.setEnabled(false);
@@ -251,7 +256,7 @@ public class typeAmount extends frames {
                 sfx.playWarning();
 
                 cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-                int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to return to log in page?", "Cancel Transaction", JOptionPane.YES_NO_OPTION);
+                int choice = JOptionPane.showConfirmDialog(null, "Do you want to return to log in page?", "Cancel Transaction", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
 
                     // Update volume icon
@@ -314,19 +319,9 @@ public class typeAmount extends frames {
         });
 
         // For enter button
-        enterBtn.addMouseListener(new MouseListener() {
+        enterBtn.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                // No action needed for mouseClicked
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // No action needed for mousePressed
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 try {
                     amountToTransact = Double.parseDouble(amountField.getText());
 
@@ -344,11 +339,8 @@ public class typeAmount extends frames {
                             process.show();
                             process.fill(new Runnable() {
                                 public void run() {
-
                                     process.dispose();
                                     askReceipt();
-                                    // Call the method to proceed with your application logic
-                                    // For example: someMethod();
                                 }
                             });
 
@@ -376,11 +368,8 @@ public class typeAmount extends frames {
                             process.show();
                             process.fill(new Runnable() {
                                 public void run() {
-
                                     process.dispose();
                                     askReceipt();
-                                    // Call the method to proceed with your application logic
-                                    // For example: someMethod();
                                 }
                             });
 
@@ -409,11 +398,8 @@ public class typeAmount extends frames {
                             process.show();
                             process.fill(new Runnable() {
                                 public void run() {
-
                                     process.dispose();
                                     askReceipt();
-                                    // Call the method to proceed with your application logic
-                                    // For example: someMethod();
                                 }
                             });
 
@@ -437,10 +423,8 @@ public class typeAmount extends frames {
                             process.show();
                             process.fill(new Runnable() {
                                 public void run() {
-
                                     process.dispose();
                                     askReceipt();
-
                                 }
                             });
 
@@ -455,17 +439,6 @@ public class typeAmount extends frames {
                 } catch (NumberFormatException ex) {
                     // Not a valid number, disable the button
                 }
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // Do nothing
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Do nothing
             }
         });
 
@@ -702,43 +675,40 @@ public class typeAmount extends frames {
         });
 
     }
-    
-    
+
     public static void askReceipt() {
         typeAccount.typeAmountFrame.show();
         sfx.playConfirm();
         double generalBalance = 0;
-        
+
         LocalDateTime now = LocalDateTime.now();
         dateOfTransaction = dtf.format(now);
         System.out.println(dateOfTransaction);
-        
+
         refNo = generateRefNo();
         System.out.println(refNo);
-        
+
         // Set Jlabels for receipt
         viewReceipt.lbl6.setText(transaction.transactionType);
-        if(transaction.transactionType.equals("Withdraw")){
+        if (transaction.transactionType.equals("Withdraw")) {
             viewReceipt.lbl8.setText("- ₱" + format.format(amountToTransact));
-        } else if (transaction.transactionType.equals("Deposit")){
-             viewReceipt.lbl8.setText("+ ₱" + format.format(amountToTransact));
+        } else if (transaction.transactionType.equals("Deposit")) {
+            viewReceipt.lbl8.setText("+ ₱" + format.format(amountToTransact));
         }
         viewReceipt.lbl9.setText(typeAccount.accountType + " Balance :");
-        
-        if(typeAccount.accountType.equals("Current")){
+
+        if (typeAccount.accountType.equals("Current")) {
             viewReceipt.lbl10.setText("₱" + format.format(account.user.getCurrent()));
             generalBalance = account.user.getCurrent();
-        } else if (typeAccount.accountType.equals("Savings")){
+        } else if (typeAccount.accountType.equals("Savings")) {
             viewReceipt.lbl10.setText("₱" + format.format(account.user.getSavings()));
             generalBalance = account.user.getSavings();
         }
         viewReceipt.lbl12.setText(refNo);
         viewReceipt.lbl13.setText(dateOfTransaction);
-        
-        
+
         // Set viewHistoryTransaction
         viewHistory.addTransactionPanel(transaction.transactionType, typeAccount.accountType, refNo, dateOfTransaction, amountToTransact, generalBalance);
-        
 
         int choice = JOptionPane.showConfirmDialog(null, "Do you want to print receipt?",
                 "Transaction Complete!", JOptionPane.YES_NO_OPTION);
@@ -753,12 +723,10 @@ public class typeAmount extends frames {
                 viewReceipt.viewReceiptVolume.setIcon(
                         new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
             }
-            
+
             typeAccount.typeAmountFrame.dispose();
             viewReceiptFrame.show();
-            
-            
-            
+
         } else {
             // Update volume icon
             if (sounds.isUnmute) {
@@ -774,7 +742,7 @@ public class typeAmount extends frames {
         }
 
     }
-    
+
     // Method to generate Reference number
     private static String generateRefNo() {
         StringBuilder otpBuilder = new StringBuilder();
@@ -787,4 +755,6 @@ public class typeAmount extends frames {
 }
 
 /* Remove the system.out.print */
- /* Not limiting to 6 digits in amount Field*/
+ /* Not limiting to 6 digits in amount Field */
+ /* changed updateEnterButton */
+/* changed actionlistener for enterbutton */

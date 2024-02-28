@@ -23,7 +23,7 @@ public class account {
 
     
     // instantiate a user
-    static account user = new account("Juan Dela Cruz", "700530800559", "123456", 1000, 1500);
+    static account user = new account("Juan Dela Cruz", "700530800559", "123456", 1000, 1000);
 
     
     // Getters
