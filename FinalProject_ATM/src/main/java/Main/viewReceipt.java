@@ -132,11 +132,6 @@ public class viewReceipt extends frames {
         lbl13.setBounds(425, 465, 300, 40);
         viewReceiptPnl.add(lbl13);
         
-      
-        JLabel cancelBtn = new JLabel();
-        cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-        cancelBtn.setBounds(15, 35, 55, 55);
-        viewReceiptPnl.add(cancelBtn);
         
         addVolumeEffects(viewReceiptPnl);
         
@@ -147,60 +142,7 @@ public class viewReceipt extends frames {
         viewReceiptPnl.add(viewReceiptBG);
         
         
-        /* Button functions start here... */
-        
-        // For cancel button to return to log in frame
-        cancelBtn.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // No action needed for mouseClicked
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // No action needed for mousePressed
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                sfx.playWarning();
-
-                cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-                int choice = JOptionPane.showConfirmDialog(null, "Thank you for choosing BIT! \n Do you want to return to log in page?", "Finish Transaction", JOptionPane.YES_NO_OPTION);
-                if (choice == JOptionPane.YES_OPTION) {
-
-                    // Update volume icon
-                    if (sounds.isUnmute) {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
-
-                    } else {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                    }
-
-                    dispose();
-                    FinalProject_ATM.logInFrame.show();
-
-                }
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                cancelBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                cancelBtn.setIcon(
-                        new ImageIcon(
-                                "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton2.png"));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                cancelBtn.setCursor(Cursor.getDefaultCursor());
-                cancelBtn.setIcon(
-                        new ImageIcon(
-                                "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
-            }
-        });
+       
     }
     
     

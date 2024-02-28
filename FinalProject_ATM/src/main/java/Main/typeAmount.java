@@ -332,7 +332,6 @@ public class typeAmount extends frames {
 
                             // Computation
                             account.user.setCurrent(account.user.getCurrent() - amountToTransact);
-                            System.out.println(account.user.getCurrent());
 
                             // Show Process and ask for recceipt
                             typeAccount.typeAmountFrame.dispose();
@@ -361,7 +360,6 @@ public class typeAmount extends frames {
 
                             // Computation
                             account.user.setSavings(account.user.getSavings() - amountToTransact);
-                            System.out.println(account.user.getSavings());
 
                             // Show Process and ask for recceipt
                             typeAccount.typeAmountFrame.dispose();
@@ -391,7 +389,6 @@ public class typeAmount extends frames {
 
                             // Computation
                             account.user.setCurrent(account.user.getCurrent() + amountToTransact);
-                            System.out.println(account.user.getCurrent());
 
                             // Show Process and ask for recceipt
                             typeAccount.typeAmountFrame.dispose();
@@ -416,7 +413,6 @@ public class typeAmount extends frames {
 
                             // Computation
                             account.user.setSavings(account.user.getSavings() + amountToTransact);
-                            System.out.println(account.user.getSavings());
 
                             // Show Process and ask for recceipt
                             typeAccount.typeAmountFrame.dispose();
@@ -683,10 +679,8 @@ public class typeAmount extends frames {
 
         LocalDateTime now = LocalDateTime.now();
         dateOfTransaction = dtf.format(now);
-        System.out.println(dateOfTransaction);
 
         refNo = generateRefNo();
-        System.out.println(refNo);
 
         // Set Jlabels for receipt
         viewReceipt.lbl6.setText(transaction.transactionType);
@@ -727,6 +721,25 @@ public class typeAmount extends frames {
             typeAccount.typeAmountFrame.dispose();
             viewReceiptFrame.show();
 
+            // Set up a timer to close the frame
+            Timer timer = new Timer(5000, e -> {
+                // Update volume icon
+                if (sounds.isUnmute) {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                } else {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                }
+
+                viewReceiptFrame.dispose();
+                FinalProject_ATM.logInFrame.show();
+            });
+
+            // Start the timer
+            timer.setRepeats(false); // Set to false to execute only once
+            timer.start();
+
         } else {
             // Update volume icon
             if (sounds.isUnmute) {
@@ -754,7 +767,6 @@ public class typeAmount extends frames {
 
 }
 
-/* Remove the system.out.print */
  /* Not limiting to 6 digits in amount Field */
  /* changed updateEnterButton */
-/* changed actionlistener for enterbutton */
+ /* changed actionlistener for enterbutton */

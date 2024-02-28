@@ -41,7 +41,7 @@ public class transaction extends frames {
         cancelBtn.setBounds(15, 35, 55, 55);
         transactionPnl.add(cancelBtn);
         
-       addVolumeEffects(transactionPnl);
+        addVolumeEffects(transactionPnl);
         
         JLabel withdrawBtn = new JLabel();
         withdrawBtn.setIcon(
@@ -354,9 +354,5 @@ public class transaction extends frames {
         });
     }
     
-    public static void main(String[] args) {
-        transaction a = new transaction();
-        a.show();
-    }
     
 }
