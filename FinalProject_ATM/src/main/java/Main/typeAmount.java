@@ -7,7 +7,11 @@ package Main;
 import settings.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -17,10 +21,12 @@ public class typeAmount extends frames {
     // Global variables 
     static JPanel typeAmountPnl = new JPanel();
     final static roundTextField amountField = new roundTextField(20, 0.7f);
+    static JPasswordField pinField = new JPasswordField();
     static sounds sfx = new sounds();
     static JLabel typeAmountVolume = new JLabel();
     static JLabel lbl1 = new JLabel();
     static double amountToTransact = 0;
+    static double generalBalance = 0;
     static splashScreen process = new splashScreen();
     static String dateOfTransaction = "";
     static String refNo = "";
@@ -126,9 +132,12 @@ public class typeAmount extends frames {
         cancelBtn.setBounds(15, 35, 55, 55);
         typeAmountPnl.add(cancelBtn);
 
-        JLabel backBtn = new JLabel();
-        backBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backBtn.png"));
+        //JLabel backBtn = new JLabel();
+        //backBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backBtn.png"));
+        final JButton backBtn = new roundButton("Back",  new Color(53,51,205),  new Color(5, 38, 59));
         backBtn.setBounds(808, 488, 125, 50);
+        backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
+        backBtn.setForeground(Color.WHITE);
         typeAmountPnl.add(backBtn);
 
         addVolumeEffects(typeAmountPnl);
@@ -181,19 +190,35 @@ public class typeAmount extends frames {
 
             // Method to enable/disable the enter button based on the amount typed
             private void updateEnterButton() {
-                String amountText = amountField.getText().trim();
-                try {
-                    amountToTransact = Double.parseDouble(amountText);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        String amountText = amountField.getText().trim();
+                        try {
+                            amountToTransact = Double.parseDouble(amountText);
 
-                    if ((amountToTransact >= 100 && amountToTransact < 50001) && amountToTransact % 100 == 0) {
-                        enterBtn.setEnabled(true);
-                    } else {
-                        enterBtn.setEnabled(false);
+                            if ((amountToTransact >= 100 && amountToTransact < 50001) && amountToTransact % 100 == 0) {
+                                enterBtn.setEnabled(true);
+                            } else {
+                                enterBtn.setEnabled(false);
+                            }
+
+                            if (amountToTransact > 99999) {
+                                sfx.playError();
+                                JOptionPane.showMessageDialog(null, "5 Digits only!", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
+                                amountField.setText("");
+                                amountField.requestFocus();
+                            } else if (amountToTransact == 0) {
+                                amountField.setText("");
+                                amountField.requestFocus();
+                            }
+                        } catch (NumberFormatException ex) {
+                            // Not a valid number, disable the button
+                            enterBtn.setEnabled(false);
+                        }
                     }
-                } catch (NumberFormatException ex) {
-                    // Not a valid number, disable the button
-                    enterBtn.setEnabled(false);
-                }
+                });
+
             }
         });
 
@@ -255,7 +280,6 @@ public class typeAmount extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playWarning();
 
-                cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
                 int choice = JOptionPane.showConfirmDialog(null, "Do you want to return to log in page?", "Cancel Transaction", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
 
@@ -332,7 +356,6 @@ public class typeAmount extends frames {
 
                             // Computation
                             account.user.setCurrent(account.user.getCurrent() - amountToTransact);
-                            System.out.println(account.user.getCurrent());
 
                             // Show Process and ask for recceipt
                             typeAccount.typeAmountFrame.dispose();
@@ -343,6 +366,8 @@ public class typeAmount extends frames {
                                     askReceipt();
                                 }
                             });
+                            
+                            
 
                         } else {
                             sfx.playError();
@@ -358,10 +383,9 @@ public class typeAmount extends frames {
                     } else if (transaction.transactionType.equals("Withdraw") && typeAccount.accountType.equals("Savings")) {
                         if (amountToTransact <= account.user.getSavings()) {
                             sfx.playClick();
-
+                            
                             // Computation
                             account.user.setSavings(account.user.getSavings() - amountToTransact);
-                            System.out.println(account.user.getSavings());
 
                             // Show Process and ask for recceipt
                             typeAccount.typeAmountFrame.dispose();
@@ -389,9 +413,9 @@ public class typeAmount extends frames {
                         if (amountToTransact + account.user.getCurrent() < 99999999999999.0) {
                             sfx.playClick();
 
+                            
                             // Computation
                             account.user.setCurrent(account.user.getCurrent() + amountToTransact);
-                            System.out.println(account.user.getCurrent());
 
                             // Show Process and ask for recceipt
                             typeAccount.typeAmountFrame.dispose();
@@ -413,10 +437,9 @@ public class typeAmount extends frames {
                     } else if (transaction.transactionType.equals("Deposit") && typeAccount.accountType.equals("Savings")) {
                         if (amountToTransact + account.user.getSavings() < 99999999999999.0) {
                             sfx.playClick();
-
+                            
                             // Computation
                             account.user.setSavings(account.user.getSavings() + amountToTransact);
-                            System.out.println(account.user.getSavings());
 
                             // Show Process and ask for recceipt
                             typeAccount.typeAmountFrame.dispose();
@@ -627,6 +650,30 @@ public class typeAmount extends frames {
                 // Do nothing
             }
         });
+        
+        /* Listeners starts here... */
+        
+        /*pinField.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent a) {
+                String value = pinField.getText();
+                int l = value.length();
+                
+                if (l >= 6 && (a.getKeyChar() != KeyEvent.VK_BACK_SPACE && a.getKeyChar() != KeyEvent.VK_ENTER)) {
+                    sfx.playError();
+                    pinField.setEditable(false);
+                    JOptionPane.showMessageDialog(null, "6 characters only!", "Invalid PIN", JOptionPane.ERROR_MESSAGE);
+                    pinField.setText("");
+                    pinField.requestFocus();
+                }
+                if (a.getKeyChar() >= '0' && a.getKeyChar() <= '9' || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
+                    sfx.playClick();
+                    pinField.setEditable(true);
+                }                 
+                else {
+                    pinField.setEditable(false);
+                }
+
+            }});*/
     }
 
     // Add mute features
@@ -679,59 +726,128 @@ public class typeAmount extends frames {
     public static void askReceipt() {
         typeAccount.typeAmountFrame.show();
         sfx.playConfirm();
-        double generalBalance = 0;
 
         LocalDateTime now = LocalDateTime.now();
         dateOfTransaction = dtf.format(now);
-        System.out.println(dateOfTransaction);
 
         refNo = generateRefNo();
-        System.out.println(refNo);
 
         // Set Jlabels for receipt
-        viewReceipt.lbl6.setText(transaction.transactionType);
-        if (transaction.transactionType.equals("Withdraw")) {
-            viewReceipt.lbl8.setText("- ₱" + format.format(amountToTransact));
-        } else if (transaction.transactionType.equals("Deposit")) {
-            viewReceipt.lbl8.setText("+ ₱" + format.format(amountToTransact));
-        }
-        viewReceipt.lbl9.setText(typeAccount.accountType + " Balance :");
-
+        // lbl 8 or account type
         if (typeAccount.accountType.equals("Current")) {
-            viewReceipt.lbl10.setText("₱" + format.format(account.user.getCurrent()));
+            viewReceipt.lbl8.setText("Current");
+        } else if (typeAccount.accountType.equals("Savings")) {
+            viewReceipt.lbl8.setText("Savings");
+        }
+
+        // lbl 10 or transaction type
+        if (transaction.transactionType.equals("Withdraw")) {
+            viewReceipt.lbl10.setText("Withdraw");
+        } else if (transaction.transactionType.equals("Deposit")) {
+            viewReceipt.lbl10.setText("Deposit");
+        }
+
+        // lbl 12 or amount to transact  
+        if (transaction.transactionType.equals("Withdraw")) {
+            viewReceipt.lbl12.setText("- ₱" + format.format(amountToTransact));
+        } else if (transaction.transactionType.equals("Deposit")) {
+            viewReceipt.lbl12.setText("+ ₱" + format.format(amountToTransact));
+        }
+
+        // lbl14 or general balance 
+        if (typeAccount.accountType.equals("Current")) {
+            viewReceipt.lbl14.setText("₱" + format.format(account.user.getCurrent()));
             generalBalance = account.user.getCurrent();
         } else if (typeAccount.accountType.equals("Savings")) {
-            viewReceipt.lbl10.setText("₱" + format.format(account.user.getSavings()));
+            viewReceipt.lbl14.setText("₱" + format.format(account.user.getSavings()));
             generalBalance = account.user.getSavings();
         }
-        viewReceipt.lbl12.setText(refNo);
-        viewReceipt.lbl13.setText(dateOfTransaction);
+
+        // lbl15 and lbl 16 to remove recipient
+        viewReceipt.lbl15.setText("");
+        viewReceipt.lbl16.setText("");
+
+        // lbl 18 or add reference number
+        viewReceipt.lbl18.setText(refNo);
+
+        // lbl 19 or add date and time
+        viewReceipt.lbl19.setText(dateOfTransaction);
 
         // Set viewHistoryTransaction
         viewHistory.addTransactionPanel(transaction.transactionType, typeAccount.accountType, refNo, dateOfTransaction, amountToTransact, generalBalance);
+
+        // Update volume icon
+        if (sounds.isUnmute) {
+            viewReceipt.viewReceiptVolume.setIcon(
+                    new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+        } else {
+            viewReceipt.viewReceiptVolume.setIcon(
+                    new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+        }
 
         int choice = JOptionPane.showConfirmDialog(null, "Do you want to print receipt?",
                 "Transaction Complete!", JOptionPane.YES_NO_OPTION);
 
         if (choice == JOptionPane.YES_OPTION) {
-            // Update volume icon
-            if (sounds.isUnmute) {
-                viewReceipt.viewReceiptVolume.setIcon(
-                        new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
-
-            } else {
-                viewReceipt.viewReceiptVolume.setIcon(
-                        new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-            }
-
             typeAccount.typeAmountFrame.dispose();
             viewReceiptFrame.show();
 
+            // Timer
+            Timer timer = new Timer(5000, e -> {
+                sfx.playWarning();
+                int choice2 = JOptionPane.showConfirmDialog(null, "Do you want to get a copy of receipt?",
+                        "Print Receipt?", JOptionPane.YES_NO_OPTION);
+
+                if (choice2 == JOptionPane.YES_OPTION) {
+
+                    try {
+                        printPDFReceipts.printReceipt(transaction.transactionType, typeAccount.accountType, refNo, dateOfTransaction, amountToTransact, generalBalance);
+                    } catch (MalformedURLException ex) {
+                        Logger.getLogger(typeAmount.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(typeAmount.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    // Update volume Icon
+                    if (sounds.isUnmute) {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                    } else {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
+                    viewReceiptFrame.dispose();
+                    FinalProject_ATM.logInFrame.show();
+                } else {
+                    // Update volume Icon
+                    if (sounds.isUnmute) {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                    } else {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
+                    viewReceiptFrame.dispose();
+                    FinalProject_ATM.logInFrame.show();
+                }
+
+            });
+
+            // Start the timer
+            timer.setRepeats(false); // Set to false to execute only once
+            timer.start();
+
         } else {
-            // Update volume icon
+            // Update volume Icon
             if (sounds.isUnmute) {
                 logIn.logInVolume.setIcon(
                         new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
             } else {
                 logIn.logInVolume.setIcon(
                         new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
@@ -751,10 +867,35 @@ public class typeAmount extends frames {
         }
         return otpBuilder.toString();
     }
+    
+    /*private static void checkPIN(){
+        int option = JOptionPane.showConfirmDialog(null, pinField, "Enter your new PIN",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            if(pinField.getText().equals(account.user.getPIN())){
+                
+            } else {
+                sfx.playError();
+                
+                 JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
+                                    JOptionPane.ERROR_MESSAGE);
+                pinField.setText("");
+                pinField.requestFocus();
+                checkPIN();
+            }
+        } else {
+            amountField.setText("");
+            amountField.requestFocus();
+        }
+    }*/
+
+    public static void main(String[] args) {
+        typeAmount a = new typeAmount();
+        a.show();
+
+    }
 
 }
-
-/* Remove the system.out.print */
- /* Not limiting to 6 digits in amount Field */
- /* changed updateEnterButton */
-/* changed actionlistener for enterbutton */
+/* changed updateEnterButton */
+ /* changed actionlistener for enterbutton */
