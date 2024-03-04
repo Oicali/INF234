@@ -134,7 +134,7 @@ public class typeAmount extends frames {
 
         //JLabel backBtn = new JLabel();
         //backBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backBtn.png"));
-        final JButton backBtn = new roundButton("Back",  new Color(53,51,205),  new Color(5, 38, 59));
+        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171));
         backBtn.setBounds(808, 488, 125, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
@@ -205,7 +205,7 @@ public class typeAmount extends frames {
 
                             if (amountToTransact > 99999) {
                                 sfx.playError();
-                                JOptionPane.showMessageDialog(null, "5 Digits only!", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Amount entered exceed 5 Digits!", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
                                 amountField.setText("");
                                 amountField.requestFocus();
                             } else if (amountToTransact == 0) {
@@ -348,26 +348,15 @@ public class typeAmount extends frames {
             public void actionPerformed(ActionEvent e) {
                 try {
                     amountToTransact = Double.parseDouble(amountField.getText());
+                    
+                    pinField.setText("");
 
                     // Withdraw if sufficient current or savings balance
                     if (transaction.transactionType.equals("Withdraw") && typeAccount.accountType.equals("Current")) {
                         if (amountToTransact <= account.user.getCurrent()) {
                             sfx.playClick();
 
-                            // Computation
-                            account.user.setCurrent(account.user.getCurrent() - amountToTransact);
-
-                            // Show Process and ask for recceipt
-                            typeAccount.typeAmountFrame.dispose();
-                            process.show();
-                            process.fill(new Runnable() {
-                                public void run() {
-                                    process.dispose();
-                                    askReceipt();
-                                }
-                            });
-                            
-                            
+                            checkPIN1();
 
                         } else {
                             sfx.playError();
@@ -378,24 +367,14 @@ public class typeAmount extends frames {
                                     JOptionPane.INFORMATION_MESSAGE);
 
                             amountField.setText("");
+                            amountField.requestFocus();
                         }
 
                     } else if (transaction.transactionType.equals("Withdraw") && typeAccount.accountType.equals("Savings")) {
                         if (amountToTransact <= account.user.getSavings()) {
                             sfx.playClick();
-                            
-                            // Computation
-                            account.user.setSavings(account.user.getSavings() - amountToTransact);
 
-                            // Show Process and ask for recceipt
-                            typeAccount.typeAmountFrame.dispose();
-                            process.show();
-                            process.fill(new Runnable() {
-                                public void run() {
-                                    process.dispose();
-                                    askReceipt();
-                                }
-                            });
+                            checkPIN2();
 
                         } else {
                             sfx.playError();
@@ -405,6 +384,7 @@ public class typeAmount extends frames {
                                     JOptionPane.INFORMATION_MESSAGE);
 
                             amountField.setText("");
+                            amountField.requestFocus();
                         }
                     }
 
@@ -413,49 +393,28 @@ public class typeAmount extends frames {
                         if (amountToTransact + account.user.getCurrent() < 99999999999999.0) {
                             sfx.playClick();
 
-                            
-                            // Computation
-                            account.user.setCurrent(account.user.getCurrent() + amountToTransact);
-
-                            // Show Process and ask for recceipt
-                            typeAccount.typeAmountFrame.dispose();
-                            process.show();
-                            process.fill(new Runnable() {
-                                public void run() {
-                                    process.dispose();
-                                    askReceipt();
-                                }
-                            });
+                            checkPIN3();
 
                         } else {
                             sfx.playError();
                             JOptionPane.showMessageDialog(null, "Amount exceeds balance limit!", "Error!",
                                     JOptionPane.ERROR_MESSAGE);
                             amountField.setText("");
+                            amountField.requestFocus();
                         }
 
                     } else if (transaction.transactionType.equals("Deposit") && typeAccount.accountType.equals("Savings")) {
                         if (amountToTransact + account.user.getSavings() < 99999999999999.0) {
                             sfx.playClick();
-                            
-                            // Computation
-                            account.user.setSavings(account.user.getSavings() + amountToTransact);
 
-                            // Show Process and ask for recceipt
-                            typeAccount.typeAmountFrame.dispose();
-                            process.show();
-                            process.fill(new Runnable() {
-                                public void run() {
-                                    process.dispose();
-                                    askReceipt();
-                                }
-                            });
+                            checkPIN4();
 
                         } else {
                             sfx.playError();
                             JOptionPane.showMessageDialog(null, "Amount exceeds balance limit!", "Error!",
                                     JOptionPane.ERROR_MESSAGE);
                             amountField.setText("");
+                            amountField.requestFocus();
                         }
                     }
 
@@ -650,14 +609,13 @@ public class typeAmount extends frames {
                 // Do nothing
             }
         });
-        
+
         /* Listeners starts here... */
-        
-        /*pinField.addKeyListener(new KeyAdapter() {
+        pinField.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent a) {
                 String value = pinField.getText();
                 int l = value.length();
-                
+
                 if (l >= 6 && (a.getKeyChar() != KeyEvent.VK_BACK_SPACE && a.getKeyChar() != KeyEvent.VK_ENTER)) {
                     sfx.playError();
                     pinField.setEditable(false);
@@ -668,12 +626,12 @@ public class typeAmount extends frames {
                 if (a.getKeyChar() >= '0' && a.getKeyChar() <= '9' || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
                     sfx.playClick();
                     pinField.setEditable(true);
-                }                 
-                else {
+                } else {
                     pinField.setEditable(false);
                 }
 
-            }});*/
+            }
+        });
     }
 
     // Add mute features
@@ -867,28 +825,138 @@ public class typeAmount extends frames {
         }
         return otpBuilder.toString();
     }
-    
-    /*private static void checkPIN(){
-        int option = JOptionPane.showConfirmDialog(null, pinField, "Enter your new PIN",
+
+    // Withdraw current
+    private static void checkPIN1() {
+        int option = JOptionPane.showConfirmDialog(null, pinField, "Enter PIN to proceed",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
-            if(pinField.getText().equals(account.user.getPIN())){
-                
+            if (pinField.getText().equals(account.user.getPIN())) {
+                // Computation
+                account.user.setCurrent(account.user.getCurrent() - amountToTransact);
+
+                // Show Process and ask for recceipt
+                typeAccount.typeAmountFrame.dispose();
+                process.show();
+                process.fill(new Runnable() {
+                    public void run() {
+                        process.dispose();
+                        askReceipt();
+                    }
+                });
             } else {
                 sfx.playError();
-                
-                 JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
-                                    JOptionPane.ERROR_MESSAGE);
+
+                JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
+                        JOptionPane.ERROR_MESSAGE);
                 pinField.setText("");
                 pinField.requestFocus();
-                checkPIN();
+                checkPIN1();
             }
         } else {
-            amountField.setText("");
             amountField.requestFocus();
         }
-    }*/
+    }
+
+    // Withdraw savings
+    private static void checkPIN2() {
+        int option = JOptionPane.showConfirmDialog(null, pinField, "Enter PIN to proceed",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            if (pinField.getText().equals(account.user.getPIN())) {
+                // Computation
+                account.user.setSavings(account.user.getSavings() - amountToTransact);
+
+                // Show Process and ask for recceipt
+                typeAccount.typeAmountFrame.dispose();
+                process.show();
+                process.fill(new Runnable() {
+                    public void run() {
+                        process.dispose();
+                        askReceipt();
+                    }
+                });
+            } else {
+                sfx.playError();
+
+                JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
+                        JOptionPane.ERROR_MESSAGE);
+                pinField.setText("");
+                pinField.requestFocus();
+                checkPIN2();
+            }
+        } else {
+            amountField.requestFocus();
+        }
+    }
+
+    // Deposit Current
+    private static void checkPIN3() {
+        int option = JOptionPane.showConfirmDialog(null, pinField, "Enter PIN to proceed",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            if (pinField.getText().equals(account.user.getPIN())) {
+                // Computation
+                account.user.setCurrent(account.user.getCurrent() + amountToTransact);
+
+                // Show Process and ask for recceipt
+                typeAccount.typeAmountFrame.dispose();
+                process.show();
+                process.fill(new Runnable() {
+                    public void run() {
+                        process.dispose();
+                        askReceipt();
+                    }
+                });
+            } else {
+                sfx.playError();
+
+                JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
+                        JOptionPane.ERROR_MESSAGE);
+                pinField.setText("");
+                pinField.requestFocus();
+                checkPIN3();
+            }
+        } else {
+            amountField.requestFocus();
+        }
+    }
+
+    // Deposit Savings
+    private static void checkPIN4() {
+        int option = JOptionPane.showConfirmDialog(null, pinField, "Enter PIN to proceed",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            if (pinField.getText().equals(account.user.getPIN())) {
+                // Computation
+                account.user.setSavings(account.user.getSavings() + amountToTransact);
+
+                // Show Process and ask for recceipt
+                typeAccount.typeAmountFrame.dispose();
+                process.show();
+                process.fill(new Runnable() {
+                    public void run() {
+                        process.dispose();
+                        askReceipt();
+                    }
+                });
+            } else {
+                sfx.playError();
+
+                JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
+                        JOptionPane.ERROR_MESSAGE);
+                pinField.setText("");
+                pinField.requestFocus();
+                checkPIN4();
+            }
+        } else {
+            amountField.requestFocus();
+        }
+    }
 
     public static void main(String[] args) {
         typeAmount a = new typeAmount();

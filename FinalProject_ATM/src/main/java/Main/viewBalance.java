@@ -8,6 +8,11 @@ import settings.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class viewBalance extends frames {
@@ -100,11 +105,21 @@ public class viewBalance extends frames {
 
         addVolumeEffects(viewBalancePnl);
         
-        JLabel backBtn = new JLabel();
-        backBtn.setIcon(
-                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backButton.png"));
-        backBtn.setBounds(540, 500,365, 70);
+        final JButton printBtn = new roundButton("Print",  new Color(5, 38, 59), new Color(5, 38, 59));
+        printBtn.setBounds(515, 488, 125, 50);
+        printBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
+        printBtn.setForeground(Color.WHITE);
+        viewBalancePnl.add(printBtn);
+        
+        //JLabel backBtn = new JLabel();
+        //backBtn.setIcon(
+                //new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backButton.png"));
+        //backBtn.setBounds(540, 500,365, 70);
         //backBtn.setBounds(808, 488, 125, 50);
+        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171));
+        backBtn.setBounds(800, 488, 125, 50);
+        backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
+        backBtn.setForeground(Color.WHITE);
         viewBalancePnl.add(backBtn);
 
         JLabel viewBalanceBG = new JLabel();
@@ -205,6 +220,48 @@ public class viewBalance extends frames {
                backBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
+        
+        // For back button to return to typeAccount frame
+        printBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                sfx.playWarning();
+
+               int choice = JOptionPane.showConfirmDialog(null, "Do you want a copy of your balance?", "Print a copy?", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    LocalDateTime now = LocalDateTime.now();
+                    String date = dtf.format(now);
+                    
+                    try {
+                        printPDFReceipts.printBalance(typeAccount.accountType, date);
+                    } catch (MalformedURLException ex) {
+                        Logger.getLogger(viewBalance.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(viewBalance.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                printBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+               printBtn.setCursor(Cursor.getDefaultCursor());
+            }
+        });
     }
 
     
@@ -252,6 +309,11 @@ public class viewBalance extends frames {
             }
         });
 
+    }
+    
+    public static void main(String[]args){
+        viewBalance a = new viewBalance();
+        a.show();
     }
     
 }
