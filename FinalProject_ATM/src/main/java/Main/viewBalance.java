@@ -18,13 +18,13 @@ public class viewBalance extends frames {
     static JLabel viewBalanceVolume = new JLabel();
     static JLabel lbl2 = new JLabel();
     static JLabel lbl7 = new JLabel();
-    static String str1 = account.user.getUID().substring(0, 8);
-    static String str2 = account.user.getUID().substring(8);
+    public static String str1 = account.user.getUID().substring(0, 8);
+    public static String str2 = account.user.getUID().substring(8);
         
     // Replace each character with "*"
-    static String maskedStr1 = String.join("", Collections.nCopies(str1.length(), "*"));
+    public static String maskedStr1 = String.join("", Collections.nCopies(str1.length(), "*"));
         
-    static String censoredUID = maskedStr1 + str2; 
+    public static String censoredUID = maskedStr1 + str2; 
 
     
     // Generate and redesign the balance frame
