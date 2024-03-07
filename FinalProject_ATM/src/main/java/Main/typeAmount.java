@@ -70,49 +70,49 @@ public class typeAmount extends frames {
         lbl3.setBounds(475, 255, 475, 60);
         typeAmountPnl.add(lbl3);
 
-        final JButton fiveHBtn = new roundButton("₱500", new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton fiveHBtn = new roundButton("₱500", new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59));
         fiveHBtn.setBounds(508, 325, 125, 50);
         fiveHBtn.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         fiveHBtn.setForeground(Color.WHITE);
         fiveHBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(fiveHBtn);
 
-        final JButton oneKBtn = new roundButton("₱1,000", new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton oneKBtn = new roundButton("₱1,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59));
         oneKBtn.setBounds(658, 325, 125, 50);
         oneKBtn.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         oneKBtn.setForeground(Color.WHITE);
         oneKBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(oneKBtn);
 
-        final JButton twoKBtn = new roundButton("₱2,000", new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton twoKBtn = new roundButton("₱2,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59));
         twoKBtn.setBounds(808, 325, 125, 50);
         twoKBtn.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         twoKBtn.setForeground(Color.WHITE);
         twoKBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(twoKBtn);
 
-        final JButton fiveKBtn = new roundButton("₱5,000", new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton fiveKBtn = new roundButton("₱5,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59));
         fiveKBtn.setBounds(508, 410, 125, 50);
         fiveKBtn.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         fiveKBtn.setForeground(Color.WHITE);
         fiveKBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(fiveKBtn);
 
-        final JButton eightKBtn = new roundButton("₱8,000", new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton eightKBtn = new roundButton("₱8,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59));
         eightKBtn.setBounds(658, 410, 125, 50);
         eightKBtn.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         eightKBtn.setForeground(Color.WHITE);
         eightKBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(eightKBtn);
 
-        final JButton tenKBtn = new roundButton("₱10,000", new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton tenKBtn = new roundButton("₱10,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59));
         tenKBtn.setBounds(808, 410, 125, 50);
         tenKBtn.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         tenKBtn.setForeground(Color.WHITE);
         tenKBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(tenKBtn);
 
-        final JButton enterBtn = new roundButton("Enter", new Color(73, 223, 12), new Color(51, 168, 22));
+        final JButton enterBtn = new roundButton("Enter", new Color(73, 223, 12), new Color(51, 168, 22), new Color(73, 223, 12), new Color(51, 168, 22));
         enterBtn.setBounds(658, 490, 125, 50);
         enterBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         enterBtn.setForeground(Color.WHITE);
@@ -120,7 +120,7 @@ public class typeAmount extends frames {
         enterBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(enterBtn);
 
-        final JButton clearBtn = new roundButton("Clear", new Color(255, 217, 61), new Color(244, 124, 51));
+        final JButton clearBtn = new roundButton("Clear", new Color(255, 217, 61), new Color(244, 124, 51), new Color(255, 217, 61), new Color(244, 124, 51));
         clearBtn.setBounds(508, 490, 125, 50);
         clearBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         clearBtn.setForeground(Color.WHITE);
@@ -134,7 +134,7 @@ public class typeAmount extends frames {
 
         //JLabel backBtn = new JLabel();
         //backBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backBtn.png"));
-        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171));
+        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171), new Color(48,47,178), new Color(32,31,171));
         backBtn.setBounds(808, 488, 125, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
@@ -850,9 +850,14 @@ public class typeAmount extends frames {
 
                 JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
                         JOptionPane.ERROR_MESSAGE);
-                pinField.setText("");
-                pinField.requestFocus();
-                checkPIN1();
+                //pinField.setText("");
+                
+                JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
+                        JOptionPane.WARNING_MESSAGE);
+                
+                typeAccount.typeAmountFrame.dispose();
+                FinalProject_ATM.logInFrame.show();
+                
             }
         } else {
             amountField.requestFocus();
@@ -883,9 +888,11 @@ public class typeAmount extends frames {
 
                 JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
                         JOptionPane.ERROR_MESSAGE);
-                pinField.setText("");
-                pinField.requestFocus();
-                checkPIN2();
+                JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
+                        JOptionPane.WARNING_MESSAGE);
+                
+                typeAccount.typeAmountFrame.dispose();
+                FinalProject_ATM.logInFrame.show();
             }
         } else {
             amountField.requestFocus();
@@ -916,9 +923,11 @@ public class typeAmount extends frames {
 
                 JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
                         JOptionPane.ERROR_MESSAGE);
-                pinField.setText("");
-                pinField.requestFocus();
-                checkPIN3();
+                JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
+                        JOptionPane.WARNING_MESSAGE);
+                
+                typeAccount.typeAmountFrame.dispose();
+                FinalProject_ATM.logInFrame.show();
             }
         } else {
             amountField.requestFocus();
@@ -949,9 +958,11 @@ public class typeAmount extends frames {
 
                 JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
                         JOptionPane.ERROR_MESSAGE);
-                pinField.setText("");
-                pinField.requestFocus();
-                checkPIN4();
+                JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
+                        JOptionPane.WARNING_MESSAGE);
+                
+                typeAccount.typeAmountFrame.dispose();
+                FinalProject_ATM.logInFrame.show();
             }
         } else {
             amountField.requestFocus();

@@ -143,7 +143,7 @@ public class viewReceipt extends frames {
         lbl14.setBounds(225, 410, 500, 40);
         viewReceiptPnl.add(lbl14);
         
-        lbl15.setText("Recipient :");
+        lbl15.setText("Sent to :");
         lbl15.setFont(new Font("Source Sans Pro", Font.BOLD, 18));
         lbl15.setHorizontalAlignment(JLabel.LEFT);
         lbl15.setForeground(Color.BLACK);

@@ -44,13 +44,10 @@ public class viewHistory extends frames {
         JScrollPane scrollPane = new JScrollPane(transactionPanelContainer);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        // Change scroll pane size
         scrollPane.setBounds(138, 95, 762, 522);
         viewHistoryPnl.add(scrollPane, BorderLayout.CENTER); // Add scroll pane to center of frame
 
-        // Add some dummy transactions for testing
-        /*for (int i = 1; i <= 4; i++) {
-            addTransactionPanel("Deposit", "Savings", "019485285028", "12/12/2024 22:22");
-        }*/
         addVolumeEffects(viewHistoryPnl);
 
         JLabel cancelBtn = new JLabel();
@@ -121,6 +118,7 @@ public class viewHistory extends frames {
     public static void addTransactionPanel(String type, String account, String refNo, String date, double amount, double balance) {
         JPanel transactionPanel = new JPanel();
         transactionPanel.setLayout(null);
+        // Change panel size
         transactionPanel.setPreferredSize(new Dimension(759, 105));
         transactionPanel.setMaximumSize(new Dimension(759, 105));
         transactionPanel.setMinimumSize(new Dimension(759, 105));
