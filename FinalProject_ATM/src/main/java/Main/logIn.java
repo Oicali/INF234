@@ -67,8 +67,8 @@ public class logIn extends frames {
         forgotPIN.setForeground(new Color(255, 222, 89));
         logInPnl.add(forgotPIN);
         
-        final JButton logInBtn = new roundButton("Login", new Color(73,223,12), new Color(51,168,22));
-        logInBtn.setBounds(695, 395, 130, 40);
+        final JButton logInBtn = new roundButton("Login", new Color(73,223,12), new Color(51,168,22), new Color(73,223,12), new Color(51,168,22));
+        logInBtn.setBounds(695, 395, 130, 45);
         logInBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         logInBtn.setForeground(Color.WHITE);
         logInBtn.setEnabled(false);

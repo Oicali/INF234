@@ -113,7 +113,7 @@ public class printPDFReceipts extends frames {
         if(transactionType.equalsIgnoreCase("Deposit") || transactionType.equalsIgnoreCase("Withdraw")){
             p13.add("");
         } else {
-            p13.add("Recipient :");
+            p13.add("Sent to :");
         }
         p13.setFixedPosition(35, 135, 100);
         document.add(p13);

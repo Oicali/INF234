@@ -30,7 +30,7 @@ public class splashScreen extends JFrame {
         this.add(Pnl);
         
         bar.setValue(0);
-        bar.setBounds(170, 225, 350, 7);
+        bar.setBounds(170, 230, 350, 7);
         bar.setStringPainted(false);
         bar.setBackground(Color.GRAY);
         bar.setForeground(Color.WHITE);

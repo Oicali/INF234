@@ -105,7 +105,7 @@ public class viewBalance extends frames {
 
         addVolumeEffects(viewBalancePnl);
         
-        final JButton printBtn = new roundButton("Print",  new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton printBtn = new roundButton("Print",  new Color(5, 38, 59), new Color(5, 38, 59),  new Color(5, 38, 59), new Color(5, 38, 59));
         printBtn.setBounds(515, 488, 125, 50);
         printBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         printBtn.setForeground(Color.WHITE);
@@ -116,7 +116,7 @@ public class viewBalance extends frames {
                 //new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backButton.png"));
         //backBtn.setBounds(540, 500,365, 70);
         //backBtn.setBounds(808, 488, 125, 50);
-        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171));
+        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(48,47,178), new Color(32,31,171));
         backBtn.setBounds(800, 488, 125, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
