@@ -27,7 +27,7 @@ public class typeAmount extends frames {
     static JLabel lbl1 = new JLabel();
     static double amountToTransact = 0;
     static double generalBalance = 0;
-    static splashScreen process = new splashScreen();
+    static progressScreen process = new progressScreen();
     static String dateOfTransaction = "";
     static String refNo = "";
     static viewReceipt viewReceiptFrame = new viewReceipt();
@@ -134,7 +134,7 @@ public class typeAmount extends frames {
 
         //JLabel backBtn = new JLabel();
         //backBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backBtn.png"));
-        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171), new Color(48,47,178), new Color(32,31,171));
+        final JButton backBtn = new roundButton("Back", new Color(48, 47, 178), new Color(32, 31, 171), new Color(48, 47, 178), new Color(32, 31, 171));
         backBtn.setBounds(808, 488, 125, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
@@ -348,7 +348,7 @@ public class typeAmount extends frames {
             public void actionPerformed(ActionEvent e) {
                 try {
                     amountToTransact = Double.parseDouble(amountField.getText());
-                    
+
                     pinField.setText("");
 
                     // Withdraw if sufficient current or savings balance
@@ -681,7 +681,7 @@ public class typeAmount extends frames {
 
     }
 
-    public static void askReceipt() {
+    private static void askReceipt() {
         typeAccount.typeAmountFrame.show();
         sfx.playConfirm();
 
@@ -839,25 +839,38 @@ public class typeAmount extends frames {
                 // Show Process and ask for recceipt
                 typeAccount.typeAmountFrame.dispose();
                 process.show();
-                process.fill(new Runnable() {
-                    public void run() {
-                        process.dispose();
-                        askReceipt();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    process.fill(new Runnable() {
+                        public void run() {
+                            process.dispose();
+                            askReceipt();
+                        }
+                    });
                 });
+
             } else {
                 sfx.playError();
 
                 JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
                         JOptionPane.ERROR_MESSAGE);
                 //pinField.setText("");
-                
+
                 JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
                         JOptionPane.WARNING_MESSAGE);
                 
+                // Update volume Icon
+                    if (sounds.isUnmute) {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                    } else {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
                 typeAccount.typeAmountFrame.dispose();
                 FinalProject_ATM.logInFrame.show();
-                
+
             }
         } else {
             amountField.requestFocus();
@@ -877,12 +890,15 @@ public class typeAmount extends frames {
                 // Show Process and ask for recceipt
                 typeAccount.typeAmountFrame.dispose();
                 process.show();
-                process.fill(new Runnable() {
-                    public void run() {
-                        process.dispose();
-                        askReceipt();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    process.fill(new Runnable() {
+                        public void run() {
+                            process.dispose();
+                            askReceipt();
+                        }
+                    });
                 });
+
             } else {
                 sfx.playError();
 
@@ -891,6 +907,16 @@ public class typeAmount extends frames {
                 JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
                         JOptionPane.WARNING_MESSAGE);
                 
+                // Update volume Icon
+                    if (sounds.isUnmute) {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                    } else {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
                 typeAccount.typeAmountFrame.dispose();
                 FinalProject_ATM.logInFrame.show();
             }
@@ -912,12 +938,15 @@ public class typeAmount extends frames {
                 // Show Process and ask for recceipt
                 typeAccount.typeAmountFrame.dispose();
                 process.show();
-                process.fill(new Runnable() {
-                    public void run() {
-                        process.dispose();
-                        askReceipt();
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    process.fill(new Runnable() {
+                        public void run() {
+                            process.dispose();
+                            askReceipt();
+                        }
+                    });
                 });
+
             } else {
                 sfx.playError();
 
@@ -926,6 +955,16 @@ public class typeAmount extends frames {
                 JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
                         JOptionPane.WARNING_MESSAGE);
                 
+                // Update volume Icon
+                    if (sounds.isUnmute) {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                    } else {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
                 typeAccount.typeAmountFrame.dispose();
                 FinalProject_ATM.logInFrame.show();
             }
@@ -947,12 +986,16 @@ public class typeAmount extends frames {
                 // Show Process and ask for recceipt
                 typeAccount.typeAmountFrame.dispose();
                 process.show();
-                process.fill(new Runnable() {
-                    public void run() {
-                        process.dispose();
-                        askReceipt();
-                    }
+
+                SwingUtilities.invokeLater(() -> {
+                    process.fill(new Runnable() {
+                        public void run() {
+                            process.dispose();
+                            askReceipt();
+                        }
+                    });
                 });
+
             } else {
                 sfx.playError();
 
@@ -961,20 +1004,25 @@ public class typeAmount extends frames {
                 JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
                         JOptionPane.WARNING_MESSAGE);
                 
+                // Update volume Icon
+                    if (sounds.isUnmute) {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                    } else {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
+                    
+                    
                 typeAccount.typeAmountFrame.dispose();
                 FinalProject_ATM.logInFrame.show();
+                
             }
         } else {
             amountField.requestFocus();
         }
     }
 
-    public static void main(String[] args) {
-        typeAmount a = new typeAmount();
-        a.show();
-
-    }
-
 }
-/* changed updateEnterButton */
- /* changed actionlistener for enterbutton */

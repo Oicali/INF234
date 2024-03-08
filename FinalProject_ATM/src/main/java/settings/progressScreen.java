@@ -8,12 +8,12 @@ import Main.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class splashScreen extends JFrame {
+public class progressScreen extends JFrame {
     public static JProgressBar bar = new JProgressBar();
     JPanel Pnl = new JPanel();
     ImageIcon image = new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\Logo.png");
     
-    public splashScreen(){
+    public progressScreen(){
         
         this.setResizable(false);
         this.setSize(700, 400);
@@ -30,7 +30,7 @@ public class splashScreen extends JFrame {
         this.add(Pnl);
         
         bar.setValue(0);
-        bar.setBounds(170, 230, 350, 7);
+        bar.setBounds(170, 225, 350, 7);
         bar.setStringPainted(false);
         bar.setBackground(Color.GRAY);
         bar.setForeground(Color.WHITE);
@@ -71,5 +71,22 @@ public class splashScreen extends JFrame {
         });
         thread.start();
     }
+    
+    /*public static void main (String[]args){
+    progressScreen screen = new progressScreen();
+        screen.setVisible(true);
+
+        // Simulating some work being done
+        progressScreen.fill(() -> {
+            // Work completed, now open your main application window or perform any other action
+            screen.dispose(); // Close the splash screen
+            // Now you can open your main application window or perform any other action
+            // For example:
+            // MainApplicationWindow mainWindow = new MainApplicationWindow();
+            // mainWindow.setVisible(true);
+        });
+    
+    }*/
+
 
 }

@@ -138,6 +138,10 @@ public class viewHistory extends frames {
             lbl1.setText("Deposit to Current");
         } else if (type.equals("Deposit") && account.equals("Savings")) {
             lbl1.setText("Deposit to Savings");
+        } else if (type.equals("Bank Transfer") && account.equals("Current")) {
+            lbl1.setText("Transfer with Current");
+        } else if (type.equals("Bank Transfer") && account.equals("Savings")) {
+            lbl1.setText("Transfer with Savings");
         }
         transactionPanel.add(lbl1);
 
@@ -178,6 +182,8 @@ public class viewHistory extends frames {
             lbl5.setText("- ₱" + format.format(amount));
         } else if (type.equals("Deposit")) {
             lbl5.setText("+ ₱" + format.format(amount));
+        } else if (type.equals("Bank Transfer")) {
+            lbl5.setText("- ₱" + format.format(amount));
         }
         transactionPanel.add(lbl5);
 

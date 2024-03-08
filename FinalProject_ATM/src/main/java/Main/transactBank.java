@@ -9,79 +9,67 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class transaction extends frames {
-
-    // Global variables 
-    static JPanel transactionPnl = new JPanel();
-    static sounds sfx = new sounds();
-    static typeAccount typeAccountFrame = new typeAccount();
-    static viewHistory viewHistoryFrame = new viewHistory();
-    static transactBank transactBankFrame = new transactBank();
-    static JLabel transactionVolume = new JLabel();
-    public static String transactionType = "null";
-
+public class transactBank extends frames {
     
-    // Generate and redesign the transaction frame
-    transaction() {
+    // Global variables 
+    static JPanel transactBankPnl = new JPanel();
+    static sounds sfx = new sounds();
+    static JLabel transactBankVolume = new JLabel();
+    public static String bankName = "null";
+    
+     // Generate and redesign the transaction2 frame for supported banks
+    transactBank(){
         super();
-
-        transactionPnl.setSize(1244, 700);
-        transactionPnl.setBackground(Color.BLACK);
-        transactionPnl.setLayout(null);
-        this.add(transactionPnl);
-
-        JLabel lbl1 = new JLabel("Select Transaction");
+        
+        transactBankPnl.setSize(1244, 700);
+        transactBankPnl.setBackground(Color.BLACK);
+        transactBankPnl.setLayout(null);
+        this.add(transactBankPnl);
+        
+        JLabel lbl1 = new JLabel("Select Supported Banks");
         lbl1.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 30));
         lbl1.setHorizontalAlignment(JLabel.CENTER);
         lbl1.setForeground(new Color(255, 222, 89));
-        lbl1.setBounds(460, 40, 400, 40);
-        transactionPnl.add(lbl1);
-
+        lbl1.setBounds(520, 40, 400, 40);
+        transactBankPnl.add(lbl1);
+        
         JLabel cancelBtn = new JLabel();
         cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
         cancelBtn.setBounds(15, 35, 55, 55);
-        transactionPnl.add(cancelBtn);
+        transactBankPnl.add(cancelBtn);
         
-       addVolumeEffects(transactionPnl);
+        JLabel UBBtn = new JLabel();
+        UBBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\UBButton.png"));
+        UBBtn.setBounds(535, 145,365, 70);
+        transactBankPnl.add(UBBtn);
         
-        JLabel withdrawBtn = new JLabel();
-        withdrawBtn.setIcon(
-                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\withdrawButton.png"));
-        withdrawBtn.setBounds(475, 145,365, 70);
-        transactionPnl.add(withdrawBtn);
+        JLabel BPIBtn = new JLabel();
+        BPIBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\BPIButton.png"));
+        BPIBtn.setBounds(535, 265,365, 70);
+        transactBankPnl.add(BPIBtn);
         
-        JLabel depositBtn = new JLabel();
-        depositBtn.setIcon(
-                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\depositButton.png"));
-        depositBtn.setBounds(475, 265,365, 70);
-        transactionPnl.add(depositBtn);
+        JLabel BDOBtn = new JLabel();
+        BDOBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\BDOButton.png"));
+        BDOBtn.setBounds(535, 385,365, 70);
+        transactBankPnl.add(BDOBtn);
         
-        JLabel balanceBtn = new JLabel();
-        balanceBtn.setIcon(
-                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\balanceButton.png"));
-        balanceBtn.setBounds(475, 385,365, 70);
-        transactionPnl.add(balanceBtn);
+        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(48,47,178), new Color(32,31,171));
+        backBtn.setBounds(670, 500, 125, 50);
+        backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
+        backBtn.setForeground(Color.WHITE);
+        transactBankPnl.add(backBtn);
         
-        JLabel historyBtn = new JLabel();
-        historyBtn.setIcon(
-                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\historyButton.png"));
-        historyBtn.setBounds(475, 505,365, 70);
-        transactionPnl.add(historyBtn);
+        addVolumeEffects(transactBankPnl);
         
-        JLabel bankTransferBtn = new JLabel();
-        bankTransferBtn.setIcon(
-                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\bankTransferButton.png"));
-        bankTransferBtn.setBounds(475, 65,365, 70);
-        transactionPnl.add(bankTransferBtn);
+        JLabel transactBankBG = new JLabel();
+        transactBankBG.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\transaction2BG.png"));
+        transactBankBG.setBounds(0, -15, 1050, 700);
+        transactBankPnl.add(transactBankBG);
         
-        
-        JLabel transactionBG = new JLabel();
-        transactionBG.setIcon(
-                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\transactionBG.png"));
-        transactionBG.setBounds(0, -15, 1050, 700);
-        transactionPnl.add(transactionBG);
-
-                
         /* Buttons functions start here... */
         
         // For cancel button to return to log in frame
@@ -114,8 +102,8 @@ public class transaction extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
                     
-                    transactionType = "";
-                    logIn.transactionFrame.dispose();
+                    bankName = "";
+                    transaction.transactBankFrame.dispose();
                     FinalProject_ATM.logInFrame.show();
                     
                 }
@@ -134,9 +122,8 @@ public class transaction extends frames {
             }
         });
         
-        
-        // For withdraw button and go to typeAccount frame
-        withdrawBtn.addMouseListener(new MouseListener() {
+        // For UB button and go to typeAmount2 frame
+        UBBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // No action needed for mouseClicked
@@ -152,7 +139,7 @@ public class transaction extends frames {
                 sfx.playClick();
                 
                 // Set transaction
-                transactionType = "Withdraw";
+                bankName = "UB";
                 
                 // Update volume icon
                     if(sounds.isUnmute){
@@ -165,24 +152,23 @@ public class transaction extends frames {
                     }
 
                 dispose();
-                typeAccountFrame.show();
+                transaction.typeAccountFrame.show();
                    
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                withdrawBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                UBBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               withdrawBtn.setCursor(Cursor.getDefaultCursor());
+               UBBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
         
-        
-        // For deposit button and go to typeAccount frame
-        depositBtn.addMouseListener(new MouseListener() {
+        // For BPI button and go to typeAmount2 frame
+        BPIBtn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // No action needed for mouseClicked
@@ -198,53 +184,7 @@ public class transaction extends frames {
                 sfx.playClick();
                 
                 // Set transaction
-                transactionType = "Deposit";  
-
-                // Update volume icon
-                    if(sounds.isUnmute){
-                        typeAccount.typeAccountVolume.setIcon(
-                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
-                    
-                    } else {
-                        typeAccount.typeAccountVolume.setIcon(
-                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                    }
-                
-                dispose();
-                typeAccountFrame.show();
-                
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                depositBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-               depositBtn.setCursor(Cursor.getDefaultCursor());
-            }
-        });
-        
-        
-        // For balance button and go to typeAccount frame
-        balanceBtn.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // No action needed for mouseClicked
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // No action needed for mousePressed
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                sfx.playClick();
-                
-                // Set transaction
-                transactionType = "Balance"; 
+                bankName = "BPI";
                 
                 // Update volume icon
                     if(sounds.isUnmute){
@@ -255,122 +195,123 @@ public class transaction extends frames {
                         typeAccount.typeAccountVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
-                    
-                dispose();
-                typeAccountFrame.show();
-                
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                balanceBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-               balanceBtn.setCursor(Cursor.getDefaultCursor());
-            }
-        });
-        
-        // For history button and go to transactional history frame
-        historyBtn.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // No action needed for mouseClicked
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // No action needed for mousePressed
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                sfx.playClick();
-                
-                
-                // Update volume icon
-                    if(sounds.isUnmute){
-                        viewHistory.viewHistoryVolume.setIcon(
-                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
-                    
-                    } else {
-                        viewHistory.viewHistoryVolume.setIcon(
-                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                    }
-                    
-                dispose();
-                viewHistoryFrame.show();
-                
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                historyBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-               historyBtn.setCursor(Cursor.getDefaultCursor());
-            }
-        });
-        
-        // For bankTransfer button and go to transactBank frame
-        bankTransferBtn.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // No action needed for mouseClicked
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // No action needed for mousePressed
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                sfx.playClick();
-                
-                // Set transaction
-                transactionType = "Bank Transfer";
-                
-                // Update volume icon
-                    if(sounds.isUnmute){
-                        transactBank.transactBankVolume.setIcon(
-                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
-                    
-                    } else {
-                        transactBank.transactBankVolume.setIcon(
-                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                    }
 
                 dispose();
-                transactBankFrame.show();
+                transaction.typeAccountFrame.show();
                    
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                bankTransferBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                BPIBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               bankTransferBtn.setCursor(Cursor.getDefaultCursor());
+               BPIBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
         
+        // For BDO button and go to typeAmount2 frame
+        BDOBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                sfx.playClick();
+                
+                // Set transaction
+                bankName = "BDO";
+                
+                // Update volume icon
+                    if(sounds.isUnmute){
+                        typeAccount.typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAccount.typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
+                dispose();
+                transaction.typeAccountFrame.show();
+                   
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                BDOBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+               BDOBtn.setCursor(Cursor.getDefaultCursor());
+            }
+        });
+        
+        
+        // For back button to return to transaction frame
+        backBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                sfx.playClick();
+
+                // Update volume icon
+                    if(sounds.isUnmute){
+                        transaction.transactionVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        transaction.transactionVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+                
+                dispose();
+                logIn.transactionFrame.show();
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                backBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+               backBtn.setCursor(Cursor.getDefaultCursor());
+            }
+        });
+        
+        
+    
     }
-
     
     // Add mute features
     private static void addVolumeEffects(JPanel panel) {
-        transactionVolume.setIcon(
+        transactBankVolume.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
-        transactionVolume.setBounds(980, 620, 40, 40);
-        panel.add(transactionVolume);
+        transactBankVolume.setBounds(980, 620, 40, 40);
+        panel.add(transactBankVolume);
 
-        transactionVolume.addMouseListener(new MouseListener() {
+        transactBankVolume.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // No action needed for mouseClicked
@@ -384,12 +325,12 @@ public class transaction extends frames {
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (sounds.isUnmute) {
-                    transactionVolume.setIcon(
+                    transactBankVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
 
                     sounds.isUnmute = false;
                 } else {
-                    transactionVolume.setIcon(
+                    transactBankVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
                     sounds.isUnmute = true;
                     sfx.playWarning();
@@ -398,19 +339,18 @@ public class transaction extends frames {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                transactionVolume.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                transactBankVolume.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                transactionVolume.setCursor(Cursor.getDefaultCursor());
+                transactBankVolume.setCursor(Cursor.getDefaultCursor());
             }
         });
     }
     
-    public static void main(String[] args) {
-        transaction a = new transaction();
+    public static void main(String args[]){
+        transactBank a = new transactBank();
         a.show();
     }
-    
 }
