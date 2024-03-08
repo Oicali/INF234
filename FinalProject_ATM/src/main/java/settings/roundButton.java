@@ -20,7 +20,7 @@ public class roundButton extends JButton {
     private Color temp1;
     private Color temp2;
     public Color fColor1 = (Color.WHITE);
-    public Color fColor2 = (Color.LIGHT_GRAY);
+    public Color fColor2 = (Color.WHITE);
     public roundButton(String text,Color color1a,Color color2a,Color color1b, Color color2b) {
         super(text);
         setContentAreaFilled(false);

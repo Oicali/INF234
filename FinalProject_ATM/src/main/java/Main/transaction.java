@@ -18,7 +18,7 @@ public class transaction extends frames {
     static viewHistory viewHistoryFrame = new viewHistory();
     static transactBank transactBankFrame = new transactBank();
     static JLabel transactionVolume = new JLabel();
-    static String transactionType = "null";
+    public static String transactionType = "null";
 
     
     // Generate and redesign the transaction frame

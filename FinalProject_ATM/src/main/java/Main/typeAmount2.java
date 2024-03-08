@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -23,7 +24,7 @@ public class typeAmount2 extends frames {
     static JLabel lbl1 = new JLabel();
     final static roundTextField amountField2 = new roundTextField(20, 0.7f);
     final static roundTextField recipientField = new roundTextField(20, 0.7f);
-    static JPasswordField pinField = new JPasswordField();
+    static JPasswordField pinField2 = new JPasswordField();
     static sounds sfx = new sounds();
     static JLabel typeAmount2Volume = new JLabel();
     static double amountToTransact = 0;
@@ -34,6 +35,7 @@ public class typeAmount2 extends frames {
     static boolean isValidRecipient = false;
     static JLabel lbl2b = new JLabel(" - Please enter 12 digit number - ");
     static JLabel lbl3b = new JLabel(" - Please enter any amount up to ₱50,000 - ");
+    public static String rCensoredUID = "";
 
     // Generate and redesign the typeAmount2 frame for supported banks
     typeAmount2() {
@@ -209,6 +211,28 @@ public class typeAmount2 extends frames {
                     e.consume();
                     return;
                 }
+            }
+        });
+        
+        pinField2.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent a) {
+                String value = pinField2.getText();
+                int l = value.length();
+
+                if (l >= 6 && (a.getKeyChar() != KeyEvent.VK_BACK_SPACE && a.getKeyChar() != KeyEvent.VK_ENTER)) {
+                    sfx.playError();
+                    pinField2.setEditable(false);
+                    JOptionPane.showMessageDialog(null, "6 characters only!", "Invalid PIN", JOptionPane.ERROR_MESSAGE);
+                    pinField2.setText("");
+                    pinField2.requestFocus();
+                }
+                if (a.getKeyChar() >= '0' && a.getKeyChar() <= '9' || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
+                    sfx.playClick();
+                    pinField2.setEditable(true);
+                } else {
+                    pinField2.setEditable(false);
+                }
+
             }
         });
 
@@ -433,6 +457,59 @@ public class typeAmount2 extends frames {
                 backBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
+        
+        // For enter button
+        enterBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    amountToTransact = Double.parseDouble(amountField2.getText());
+
+                    pinField2.setText("");
+
+                    // Transfer if sufficient current or savings balance
+                    if (transaction.transactionType.equals("Bank Transfer") && typeAccount.accountType.equals("Current")) {
+                        if (amountToTransact <= account.user.getCurrent()) {
+                            sfx.playClick();
+
+                            checkPIN1();
+
+                        } else {
+                            sfx.playError();
+                            JOptionPane.showMessageDialog(null, "You do not have enough balance!", "Insufficient balance!",
+                                    JOptionPane.ERROR_MESSAGE);
+
+                            JOptionPane.showMessageDialog(null, "Current balance: ₱" + format.format(account.user.getCurrent()), "Available balance",
+                                    JOptionPane.INFORMATION_MESSAGE);
+
+                            amountField2.setText("");
+                            amountField2.requestFocus();
+                        }
+
+                    } else if (transaction.transactionType.equals("Bank Transfer") && typeAccount.accountType.equals("Savings")) {
+                        if (amountToTransact <= account.user.getSavings()) {
+                            sfx.playClick();
+
+                            
+                            checkPIN2();
+
+                        } else {
+                            sfx.playError();
+                            JOptionPane.showMessageDialog(null, "You do not have enough balance!", "Insufficient balance!",
+                                    JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Savings balance: ₱" + format.format(account.user.getSavings()), "Available balance",
+                                    JOptionPane.INFORMATION_MESSAGE);
+
+                            amountField2.setText("");
+                            amountField2.requestFocus();
+                        }
+                    }
+
+                } catch (NumberFormatException ex) {
+                    // Not a valid number, disable the button
+                }
+            }
+        });
     }
 
     // Add mute features
@@ -479,6 +556,255 @@ public class typeAmount2 extends frames {
                 typeAmount2Volume.setCursor(Cursor.getDefaultCursor());
             }
         });
+    }
+    
+    // Bank transfer with current
+    private static void checkPIN1() {
+        int option = JOptionPane.showConfirmDialog(null, pinField2, "Enter PIN to proceed",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            if (pinField2.getText().equals(account.user.getPIN())) {
+                // Computation
+                account.user.setCurrent(account.user.getCurrent() - amountToTransact);
+
+                // Show Process and ask for recceipt
+                typeAccount.typeAmount2Frame.dispose();
+                typeAmount.process.show();
+                SwingUtilities.invokeLater(() -> {
+                    typeAmount.process.fill(new Runnable() {
+                        public void run() {
+                            typeAmount.process.dispose();
+                            askReceipt();
+                        }
+                    });
+                });
+
+            } else {
+                sfx.playError();
+
+                JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
+                        JOptionPane.ERROR_MESSAGE);
+                //pinField.setText("");
+
+                JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
+                        JOptionPane.WARNING_MESSAGE);
+                
+                // Update volume Icon
+                    if (sounds.isUnmute) {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                    } else {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
+                typeAccount.typeAmount2Frame.dispose();
+                FinalProject_ATM.logInFrame.show();
+
+            }
+        } else {
+            amountField2.requestFocus();
+        }
+    }
+    
+    // Bank transfer with savings
+    private static void checkPIN2() {
+        int option = JOptionPane.showConfirmDialog(null, pinField2, "Enter PIN to proceed",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            if (pinField2.getText().equals(account.user.getPIN())) {
+                // Computation
+                account.user.setSavings(account.user.getSavings() - amountToTransact);
+
+                // Show Process and ask for recceipt
+                typeAccount.typeAmount2Frame.dispose();
+                typeAmount.process.show();
+                SwingUtilities.invokeLater(() -> {
+                    typeAmount.process.fill(new Runnable() {
+                        public void run() {
+                            typeAmount.process.dispose();
+                            askReceipt();
+                        }
+                    });
+                });
+
+            } else {
+                sfx.playError();
+
+                JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "Invalid PIN!",
+                        JOptionPane.ERROR_MESSAGE);
+                //pinField.setText("");
+
+                JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
+                        JOptionPane.WARNING_MESSAGE);
+                
+                // Update volume Icon
+                    if (sounds.isUnmute) {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                    } else {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
+                typeAccount.typeAmount2Frame.dispose();
+                FinalProject_ATM.logInFrame.show();
+
+            }
+        } else {
+            amountField2.requestFocus();
+        }
+    }
+    
+    
+    
+    private static void askReceipt() {
+        typeAccount.typeAmount2Frame.show();
+        sfx.playConfirm();
+
+        LocalDateTime now = LocalDateTime.now();
+        dateOfTransaction = dtf.format(now);
+
+        refNo = generateRefNo();
+        
+        String str1 = recipientField.getText().substring(0,8);
+        String str2 = recipientField.getText().substring(8);
+        String maskedStr1 = String.join("", Collections.nCopies(str1.length(), "*"));
+        rCensoredUID = maskedStr1 + str2;
+
+        // Set Jlabels for receipt
+        // lbl 8 or account type
+        if (typeAccount.accountType.equals("Current")) {
+            viewReceipt.lbl8.setText("Current");
+        } else if (typeAccount.accountType.equals("Savings")) {
+            viewReceipt.lbl8.setText("Savings");
+        }
+
+        // lbl 10 or transaction type
+        viewReceipt.lbl10.setText(transaction.transactionType);
+        
+
+        // lbl 12 or amount to transact  
+            viewReceipt.lbl12.setText("- ₱" + format.format(amountToTransact));
+         
+
+        // lbl14 or general balance 
+        if (typeAccount.accountType.equals("Current")) {
+            viewReceipt.lbl14.setText("₱" + format.format(account.user.getCurrent()));
+            generalBalance = account.user.getCurrent();
+        } else if (typeAccount.accountType.equals("Savings")) {
+            viewReceipt.lbl14.setText("₱" + format.format(account.user.getSavings()));
+            generalBalance = account.user.getSavings();
+        }
+
+        // lbl15 and lbl 16 to remove recipient
+        viewReceipt.lbl15.setText("Sent to : ");
+        viewReceipt.lbl16.setText(rCensoredUID + " via " + transactBank.bankName);
+
+        // lbl 18 or add reference number
+        viewReceipt.lbl18.setText(refNo);
+
+        // lbl 19 or add date and time
+        viewReceipt.lbl19.setText(dateOfTransaction);
+
+        // Set viewHistoryTransaction
+        viewHistory.addTransactionPanel(transaction.transactionType, typeAccount.accountType, refNo, dateOfTransaction, amountToTransact, generalBalance);
+
+        // Update volume icon
+        if (sounds.isUnmute) {
+            viewReceipt.viewReceiptVolume.setIcon(
+                    new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+        } else {
+            viewReceipt.viewReceiptVolume.setIcon(
+                    new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+        }
+
+        int choice = JOptionPane.showConfirmDialog(null, "Do you want to print receipt?",
+                "Transaction Complete!", JOptionPane.YES_NO_OPTION);
+
+        if (choice == JOptionPane.YES_OPTION) {
+            typeAccount.typeAmount2Frame.dispose();
+            typeAmount.viewReceiptFrame.show();
+
+            // Timer
+            Timer timer = new Timer(5000, e -> {
+                sfx.playWarning();
+                int choice2 = JOptionPane.showConfirmDialog(null, "Do you want to get a copy of receipt?",
+                        "Print Receipt?", JOptionPane.YES_NO_OPTION);
+
+                if (choice2 == JOptionPane.YES_OPTION) {
+
+                    // Print receipt
+                    try {
+                        printPDFReceipts.printReceipt(transaction.transactionType, typeAccount.accountType, refNo, dateOfTransaction, amountToTransact, generalBalance);
+                    } catch (MalformedURLException ex) {
+                        Logger.getLogger(typeAmount.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(typeAmount.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    // Update volume Icon
+                    if (sounds.isUnmute) {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                    } else {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
+                    typeAmount.viewReceiptFrame.dispose();
+                    FinalProject_ATM.logInFrame.show();
+                } else {
+                    // Update volume Icon
+                    if (sounds.isUnmute) {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                    } else {
+                        logIn.logInVolume.setIcon(
+                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
+                    typeAmount.viewReceiptFrame.dispose();
+                    FinalProject_ATM.logInFrame.show();
+                }
+
+            });
+
+            // Start the timer
+            timer.setRepeats(false); // Set to false to execute only once
+            timer.start();
+
+        } else {
+            // Update volume Icon
+            if (sounds.isUnmute) {
+                logIn.logInVolume.setIcon(
+                        new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+            } else {
+                logIn.logInVolume.setIcon(
+                        new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+            }
+
+            typeAccount.typeAmount2Frame.dispose();
+            FinalProject_ATM.logInFrame.show();
+        }
+
+    }
+    
+     // Method to generate Reference number
+    private static String generateRefNo() {
+        StringBuilder otpBuilder = new StringBuilder();
+        for (int i = 0; i < 12; i++) {
+            otpBuilder.append((char) ((int) (Math.random() * 10) + '0'));
+        }
+        return otpBuilder.toString();
     }
 
     public static void main(String[] args) {

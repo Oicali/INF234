@@ -122,6 +122,8 @@ public class printPDFReceipts extends frames {
         Paragraph p14 = new Paragraph().setFont(font).setTextAlignment(TextAlignment.RIGHT);
         if(transactionType.equalsIgnoreCase("Deposit") || transactionType.equalsIgnoreCase("Withdraw")){
             p14.add("");
+        } else if (transaction.transactionType.equalsIgnoreCase("Bank Transfer")){
+            p14.add(typeAmount2.rCensoredUID + " via " + transactBank.bankName);
         } else {
             p14.add("Meralco");
         }

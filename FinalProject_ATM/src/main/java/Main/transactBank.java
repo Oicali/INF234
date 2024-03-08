@@ -15,7 +15,7 @@ public class transactBank extends frames {
     static JPanel transactBankPnl = new JPanel();
     static sounds sfx = new sounds();
     static JLabel transactBankVolume = new JLabel();
-    static String bankName = "null";
+    public static String bankName = "null";
     
      // Generate and redesign the transaction2 frame for supported banks
     transactBank(){
@@ -44,8 +44,20 @@ public class transactBank extends frames {
         UBBtn.setBounds(535, 145,365, 70);
         transactBankPnl.add(UBBtn);
         
+        JLabel BPIBtn = new JLabel();
+        BPIBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\BPIButton.png"));
+        BPIBtn.setBounds(535, 265,365, 70);
+        transactBankPnl.add(BPIBtn);
+        
+        JLabel BDOBtn = new JLabel();
+        BDOBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\BDOButton.png"));
+        BDOBtn.setBounds(535, 385,365, 70);
+        transactBankPnl.add(BDOBtn);
+        
         final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(48,47,178), new Color(32,31,171));
-        backBtn.setBounds(670, 488, 125, 50);
+        backBtn.setBounds(670, 500, 125, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
         transactBankPnl.add(backBtn);
@@ -128,7 +140,6 @@ public class transactBank extends frames {
                 
                 // Set transaction
                 bankName = "UB";
-                System.out.println(bankName);
                 
                 // Update volume icon
                     if(sounds.isUnmute){
@@ -155,6 +166,97 @@ public class transactBank extends frames {
                UBBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
+        
+        // For BPI button and go to typeAmount2 frame
+        BPIBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                sfx.playClick();
+                
+                // Set transaction
+                bankName = "BPI";
+                
+                // Update volume icon
+                    if(sounds.isUnmute){
+                        typeAccount.typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAccount.typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
+                dispose();
+                transaction.typeAccountFrame.show();
+                   
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                BPIBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+               BPIBtn.setCursor(Cursor.getDefaultCursor());
+            }
+        });
+        
+        // For BDO button and go to typeAmount2 frame
+        BDOBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                sfx.playClick();
+                
+                // Set transaction
+                bankName = "BDO";
+                
+                // Update volume icon
+                    if(sounds.isUnmute){
+                        typeAccount.typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAccount.typeAccountVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
+                dispose();
+                transaction.typeAccountFrame.show();
+                   
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                BDOBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+               BDOBtn.setCursor(Cursor.getDefaultCursor());
+            }
+        });
+        
         
         // For back button to return to transaction frame
         backBtn.addMouseListener(new MouseListener() {
