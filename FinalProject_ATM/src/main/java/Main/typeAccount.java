@@ -15,6 +15,7 @@ public class typeAccount extends frames {
     static sounds sfx = new sounds();
     static typeAmount typeAmountFrame = new typeAmount();
     static viewBalance viewBalanceFrame = new viewBalance();
+    static typeAmount2 typeAmount2Frame = new typeAmount2();
     static JLabel typeAccountVolume = new JLabel();
     static String accountType = "null";
     
@@ -55,10 +56,10 @@ public class typeAccount extends frames {
         savingsBtn.setBounds(475, 305,365, 70);
         typeAccountPnl.add(savingsBtn);
         
-        JLabel backBtn = new JLabel();
-        backBtn.setIcon(
-                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backButton.png"));
-        backBtn.setBounds(475, 435,365, 70);
+        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(48,47,178), new Color(32,31,171));
+        backBtn.setBounds(600, 425, 125, 50);
+        backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
+        backBtn.setForeground(Color.WHITE);
         typeAccountPnl.add(backBtn);
         
         JLabel typeAccountBG = new JLabel();
@@ -153,7 +154,7 @@ public class typeAccount extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
                     
-                // Update volume icon for viewBalanceBG Frame
+                // Update volume icon for viewBalance Frame
                     if(sounds.isUnmute){
                         viewBalance.viewBalanceVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
@@ -162,8 +163,20 @@ public class typeAccount extends frames {
                         viewBalance.viewBalanceVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
+                    
+                // Update volume icon for typeAmount2 Frame
+                    if(sounds.isUnmute){
+                        typeAmount2.typeAmount2Volume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAmount2.typeAmount2Volume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
 
                 typeAmount.amountField.setText("");
+                typeAmount2.amountField2.setText("");
+                typeAmount2.recipientField.setText("");
                 dispose(); 
                 
                 if(transaction.transactionType.equals("Withdraw") && accountType.equals("Current")){ 
@@ -174,7 +187,10 @@ public class typeAccount extends frames {
                     typeAmountFrame.show();
                 } else if (transaction.transactionType.equals("Balance") && accountType.equals("Current")){
                     viewBalanceFrame.show();
-                }
+                } else if (transaction.transactionType.equals("Bank Transfer") && accountType.equals("Current")){
+                    typeAmount2.lbl1.setText("Transfer using your " + accountType); 
+                    typeAmount2Frame.show();
+                } 
                                 
             }
 
@@ -221,7 +237,7 @@ public class typeAccount extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
                     
-                // Update volume icon for viewBalanceBG Frame
+                // Update volume icon for viewBalance Frame
                     if(sounds.isUnmute){
                         viewBalance.viewBalanceVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
@@ -231,7 +247,19 @@ public class typeAccount extends frames {
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
 
+                // Update volume icon for typeAmount2 Frame
+                    if(sounds.isUnmute){
+                        typeAmount2.typeAmount2Volume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAmount2.typeAmount2Volume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
                 typeAmount.amountField.setText("");
+                typeAmount2.amountField2.setText("");
+                typeAmount2.recipientField.setText("");
                 dispose();
                 
                 if(transaction.transactionType.equals("Withdraw") && accountType.equals("Savings")){
@@ -242,6 +270,9 @@ public class typeAccount extends frames {
                     typeAmountFrame.show();
                 } else if (transaction.transactionType.equals("Balance") && accountType.equals("Savings")){
                     viewBalanceFrame.show();
+                } else if (transaction.transactionType.equals("Bank Transfer") && accountType.equals("Savings")){
+                    typeAmount2.lbl1.setText("Transfer using your " + accountType); 
+                    typeAmount2Frame.show();
                 }
             
             }
@@ -346,6 +377,11 @@ public class typeAccount extends frames {
                 typeAccountVolume.setCursor(Cursor.getDefaultCursor());
             }
         });
+    }
+    
+    public static void main(String[]args){
+        typeAccount a = new typeAccount();
+        a.show();
     }
     
 }
