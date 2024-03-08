@@ -32,6 +32,8 @@ public class typeAmount2 extends frames {
     static String refNo = "";
     static boolean isValidAmount = false;
     static boolean isValidRecipient = false;
+    static JLabel lbl2b = new JLabel(" - Please enter 12 digit number - ");
+    static JLabel lbl3b = new JLabel(" - Please enter any amount up to ₱50,000 - ");
 
     // Generate and redesign the typeAmount2 frame for supported banks
     typeAmount2() {
@@ -54,8 +56,16 @@ public class typeAmount2 extends frames {
         lbl2.setHorizontalAlignment(JLabel.CENTER);
         lbl2.setVerticalAlignment(JLabel.CENTER);
         lbl2.setForeground(new Color(255, 222, 89));
-        lbl2.setBounds(560, 150, 400, 50);
+        lbl2.setBounds(560, 145, 400, 50);
         typeAmount2Pnl.add(lbl2);
+        
+        // Display message for recipient field
+        lbl2b.setFont(new Font("Source Sans Pro", Font.PLAIN, 14));
+        lbl2b.setHorizontalAlignment(JLabel.CENTER);
+        lbl2b.setVerticalAlignment(JLabel.CENTER);
+        lbl2b.setForeground(new Color(255, 222, 89));
+        lbl2b.setBounds(560, 170, 400, 50);
+        typeAmount2Pnl.add(lbl2b);
 
         // Display the text field to enter account
         recipientField.setBounds(560, 210, 400, 60);
@@ -70,22 +80,30 @@ public class typeAmount2 extends frames {
         lbl3.setForeground(new Color(255, 222, 89));
         lbl3.setBounds(560, 310, 400, 50);
         typeAmount2Pnl.add(lbl3);
+        
+        // Display message for amount field
+        lbl3b.setFont(new Font("Source Sans Pro", Font.PLAIN, 14));
+        lbl3b.setHorizontalAlignment(JLabel.CENTER);
+        lbl3b.setVerticalAlignment(JLabel.CENTER);
+        lbl3b.setForeground(new Color(255, 222, 89));
+        lbl3b.setBounds(560, 335, 400, 50);
+        typeAmount2Pnl.add(lbl3b);
 
         // Display the text field to enter amount
-        amountField2.setBounds(560, 370, 400, 60);
+        amountField2.setBounds(560, 375, 400, 60);
         amountField2.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
         amountField2.setHorizontalAlignment(JTextField.CENTER);
         typeAmount2Pnl.add(amountField2);
 
         final JButton clearBtn = new roundButton("Clear", new Color(255, 217, 61), new Color(244, 124, 51), new Color(255, 217, 61), new Color(244, 124, 51));
-        clearBtn.setBounds(555, 480, 115, 50);
+        clearBtn.setBounds(555, 485, 115, 50);
         clearBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         clearBtn.setForeground(Color.WHITE);
         clearBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmount2Pnl.add(clearBtn);
 
         final JButton enterBtn = new roundButton("Enter", new Color(73, 223, 12), new Color(51, 168, 22), new Color(73, 223, 12), new Color(51, 168, 22));
-        enterBtn.setBounds(705, 480, 115, 50);
+        enterBtn.setBounds(705, 485, 115, 50);
         enterBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         enterBtn.setForeground(Color.WHITE);
         enterBtn.setEnabled(false);
@@ -93,7 +111,7 @@ public class typeAmount2 extends frames {
         typeAmount2Pnl.add(enterBtn);
 
         final JButton backBtn = new roundButton("Back", new Color(48, 47, 178), new Color(32, 31, 171), new Color(48, 47, 178), new Color(32, 31, 171));
-        backBtn.setBounds(855, 480, 115, 50);
+        backBtn.setBounds(855, 485, 115, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
         typeAmount2Pnl.add(backBtn);
@@ -137,53 +155,60 @@ public class typeAmount2 extends frames {
         });
 
         // Only take numbers
-        amountField2.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent a) {
-                if (a.getKeyChar() >= '1' && a.getKeyChar() <= '9' && (amountField2.getText().indexOf(".") <= 4 && amountField2.getText().length() <= 8)) {
-
-                    sfx.playClick();
-                    amountField2.setEditable(true);
-
-                } else {
-                    amountField2.setEditable(false);
-                }
-
-                // Separated from 1-9 since I want to automatically add decimal if the field is empty 
-                if (a.getKeyChar() == '0') {
-                    if (amountField2.getText().isEmpty()) {
-                        sfx.playClick();
-                        amountField2.setText("0.");
-                    } else {
-                        sfx.playClick();
-                        amountField2.setEditable(true);
-                    }
-                    amountField2.setCaretPosition(amountField2.getText().length());
-                }
-
-                // Can automatically add 0 before decimal if the field is empty  
-                if (a.getKeyChar() == '.') {
-                    if (amountField2.getText().isEmpty()) {
-                        sfx.playClick();
-                        amountField2.setText("0.");
-                    } else if (!amountField2.getText().contains(".")) {
-                        sfx.playClick();
-                        amountField2.setText(amountField2.getText() + ".");
-                    }
-                    amountField2.setCaretPosition(amountField2.getText().length());
-                }
-
-                
-                // Automatically remove all if the field is 0. 
-                if (a.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+        amountField2.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
                     sfx.playClick();
                     if (amountField2.getText().equals("0.")) {
                         amountField2.setText("");
-                    } else {
-                        amountField2.setEditable(true);
                     }
+
+                    amountField2.setCaretPosition(amountField2.getText().length());
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // Not needed for this implementation
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE || c == '.')) {
+                    e.consume();
+                    return;
+                } else {
+                    sfx.playClick();
+                    amountField2.setCaretPosition(amountField2.getText().length());
+                    if (c == '0' && amountField2.getText().isEmpty()) {
+                        e.consume();
+                        amountField2.setText("0.");
+                    }
+                }
+
+                if (c == '.' && amountField2.getText().contains(".")) {
+                    e.consume();
+                    return;
+                } else if (c == '.' && amountField2.getText().isEmpty()) {
+                    sfx.playClick();
+                    amountField2.setCaretPosition(amountField2.getText().length());
+                    amountField2.setText("0.");
+                    e.consume();
+                } else {
+                    sfx.playClick();
                     amountField2.setCaretPosition(amountField2.getText().length());
                 }
 
+                // allow only 2 digits after decimal
+                String text = amountField2.getText();
+                int dotIndex = text.indexOf('.');
+                if (dotIndex != -1 && text.substring(dotIndex).length() > 2) {
+                    e.consume();
+                    return;
+                }
             }
         });
 
@@ -211,17 +236,45 @@ public class typeAmount2 extends frames {
                     public void run() {
                         try {
                             amountToTransact = Double.parseDouble(amountField2.getText().trim());
-                            isValidAmount = amountToTransact != 0;
+
+                            if (amountToTransact > 50000) {
+                                isValidAmount = false;
+                                sfx.playError();
+                                JOptionPane.showMessageDialog(null, "Amount exceeds limit!", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
+                                amountField2.setText("");
+                                amountField2.requestFocus();
+                            } else {
+                                isValidAmount = true;
+                            }
+
+                            if (amountToTransact == 0) {
+                                isValidAmount = false;
+                            } else {
+                                isValidAmount = true;
+                            }
+                            
+                            
+
                         } catch (NumberFormatException ex) {
                             isValidAmount = false;
                         }
+                        
+                        // Unshow message if valid amount
+                        if(isValidAmount){
+                            lbl3b.setText("");
+                            lbl3.setBounds(560, 325, 400, 50);
+                        } else {
+                            lbl3b.setText(" - Please enter any amount up to ₱50,000 - ");
+                            lbl3.setBounds(560, 310, 400, 50);
+                        }
+                        
                         enterBtn.setEnabled(isValidAmount && isValidRecipient);
                     }
                 });
             }
         });
 
-// For text field to enable/disable the enter button
+        // For text field to enable/disable the enter button
         recipientField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -244,6 +297,15 @@ public class typeAmount2 extends frames {
                     @Override
                     public void run() {
                         isValidRecipient = recipientField.getText().length() == 12 && recipientField.getText().matches("\\d+");
+                        
+                        // Unshow message if valid recipient
+                        if(isValidRecipient){
+                            lbl2b.setText("");
+                            lbl2.setBounds(560, 160, 400, 50);
+                        } else {
+                            lbl2b.setText(" - Please enter 12 digit number - ");
+                            lbl2.setBounds(560, 145, 400, 50);
+                        }
                         enterBtn.setEnabled(isValidAmount && isValidRecipient);
                     }
                 });
