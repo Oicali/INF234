@@ -112,8 +112,10 @@ public class printPDFReceipts extends frames {
         Paragraph p13 = new Paragraph().setFont(font).setTextAlignment(TextAlignment.LEFT);
         if(transactionType.equalsIgnoreCase("Deposit") || transactionType.equalsIgnoreCase("Withdraw")){
             p13.add("");
-        } else {
+        } else if  (transactionType.equalsIgnoreCase("Bank Transfer")){
             p13.add("Sent to :");
+        } else if (transactionType.equalsIgnoreCase("Pay Bills")){
+            p13.add("Payment to :");
         }
         p13.setFixedPosition(35, 135, 100);
         document.add(p13);
@@ -124,10 +126,10 @@ public class printPDFReceipts extends frames {
             p14.add("");
         } else if (transaction.transactionType.equalsIgnoreCase("Bank Transfer")){
             p14.add(typeAmount2.rCensoredUID + " via " + transactBank.bankName);
-        } else {
-            p14.add("Meralco");
+        } else if (transactionType.equalsIgnoreCase("Pay Bills")){
+            p14.add(typeAmount3.rCensoredCustomer + " via " + transactBills.serviceName);
         }
-        p14.setFixedPosition(165, 135, 150);
+        p14.setFixedPosition(145, 135, 170);
         document.add(p14);
         
         Paragraph p15 = new Paragraph("Ref no. " + refNo).setFont(font).setTextAlignment(TextAlignment.LEFT).setFontSize(10);

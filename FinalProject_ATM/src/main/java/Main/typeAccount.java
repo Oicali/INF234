@@ -16,6 +16,7 @@ public class typeAccount extends frames {
     static typeAmount typeAmountFrame = new typeAmount();
     static viewBalance viewBalanceFrame = new viewBalance();
     static typeAmount2 typeAmount2Frame = new typeAmount2();
+    static typeAmount3 typeAmount3Frame = new typeAmount3();
     static JLabel typeAccountVolume = new JLabel();
     static String accountType = "null";
     
@@ -173,10 +174,23 @@ public class typeAccount extends frames {
                         typeAmount2.typeAmount2Volume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
+                    
+                // Update volume icon for typeAmount3 Frame
+                    if(sounds.isUnmute){
+                        typeAmount3.typeAmount3Volume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAmount3.typeAmount3Volume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
 
+                // Reset Fields before goint to next frame
                 typeAmount.amountField.setText("");
                 typeAmount2.amountField2.setText("");
                 typeAmount2.recipientField.setText("");
+                typeAmount3.amountField3.setText("");
+                typeAmount3.customerField.setText("");
                 dispose(); 
                 
                 if(transaction.transactionType.equals("Withdraw") && accountType.equals("Current")){ 
@@ -190,7 +204,11 @@ public class typeAccount extends frames {
                 } else if (transaction.transactionType.equals("Bank Transfer") && accountType.equals("Current")){
                     typeAmount2.lbl1.setText("Transfer using your " + accountType); 
                     typeAmount2Frame.show();
-                } 
+                } else if (transaction.transactionType.equals("Pay Bills") && accountType.equals("Current")){
+                    typeAmount3.lbl1.setText("Pay Bills with your " + accountType); 
+                    typeAmount3.lbl3b.setText(" - Paying " + transactBills.serviceName + " Bills - "); 
+                    typeAmount3Frame.show();
+                }
                                 
             }
 
@@ -256,10 +274,23 @@ public class typeAccount extends frames {
                         typeAmount2.typeAmount2Volume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
+                    
+                // Update volume icon for typeAmount3 Frame
+                    if(sounds.isUnmute){
+                        typeAmount3.typeAmount3Volume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAmount3.typeAmount3Volume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
 
+                // Reset fields before going to next frame
                 typeAmount.amountField.setText("");
                 typeAmount2.amountField2.setText("");
                 typeAmount2.recipientField.setText("");
+                typeAmount3.amountField3.setText("");
+                typeAmount3.customerField.setText("");
                 dispose();
                 
                 if(transaction.transactionType.equals("Withdraw") && accountType.equals("Savings")){
@@ -273,6 +304,10 @@ public class typeAccount extends frames {
                 } else if (transaction.transactionType.equals("Bank Transfer") && accountType.equals("Savings")){
                     typeAmount2.lbl1.setText("Transfer using your " + accountType); 
                     typeAmount2Frame.show();
+                } else if (transaction.transactionType.equals("Pay Bills") && accountType.equals("Savings")){
+                    typeAmount3.lbl1.setText("Pay Bills with your " + accountType); 
+                    typeAmount3.lbl3b.setText(" - Paying " + transactBills.serviceName + " Bills - "); 
+                    typeAmount3Frame.show();
                 }
             
             }

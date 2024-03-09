@@ -17,6 +17,7 @@ public class transaction extends frames {
     static typeAccount typeAccountFrame = new typeAccount();
     static viewHistory viewHistoryFrame = new viewHistory();
     static transactBank transactBankFrame = new transactBank();
+    static transactBills transactBillsFrame = new transactBills();
     static JLabel transactionVolume = new JLabel();
     public static String transactionType = "null";
 
@@ -73,6 +74,12 @@ public class transaction extends frames {
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\bankTransferButton.png"));
         bankTransferBtn.setBounds(475, 65,365, 70);
         transactionPnl.add(bankTransferBtn);
+        
+        JLabel payBillsBtn = new JLabel();
+        payBillsBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\paybillsButton.png"));
+        payBillsBtn.setBounds(475, 625,365, 70);
+        transactionPnl.add(payBillsBtn);
         
         
         JLabel transactionBG = new JLabel();
@@ -357,6 +364,51 @@ public class transaction extends frames {
             @Override
             public void mouseExited(MouseEvent e) {
                bankTransferBtn.setCursor(Cursor.getDefaultCursor());
+            }
+        });
+        
+        // For bankTransfer button and go to transactBank frame
+        payBillsBtn.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // No action needed for mouseClicked
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // No action needed for mousePressed
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                sfx.playClick();
+                
+                // Set transaction
+                transactionType = "Pay Bills";
+                
+                // Update volume icon
+                    if(sounds.isUnmute){
+                        transactBills.transactBillsVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        transactBills.transactBillsVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
+
+                dispose();
+                transactBillsFrame.show();
+                   
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                payBillsBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+               payBillsBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
         

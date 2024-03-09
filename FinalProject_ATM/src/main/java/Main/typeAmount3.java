@@ -17,71 +17,71 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class typeAmount2 extends frames {
-
+public class typeAmount3 extends frames {
+    
     // Global variables
-    static JPanel typeAmount2Pnl = new JPanel();
+    static JPanel typeAmount3Pnl = new JPanel();
     static JLabel lbl1 = new JLabel();
-    final static roundTextField amountField2 = new roundTextField(20, 0.7f);
-    final static roundTextField recipientField = new roundTextField(20, 0.7f);
-    static JPasswordField pinField2 = new JPasswordField();
+    final static roundTextField amountField3 = new roundTextField(20, 0.7f);
+    final static roundTextField customerField = new roundTextField(20, 0.7f);
+    static JPasswordField pinField3 = new JPasswordField();
     static sounds sfx = new sounds();
-    static JLabel typeAmount2Volume = new JLabel();
+    static JLabel typeAmount3Volume = new JLabel();
     static double amountToTransact = 0;
     static double generalBalance = 0;
     static String dateOfTransaction = "";
     static String refNo = "";
     static boolean isValidAmount = false;
-    static boolean isValidRecipient = false;
-    static JLabel lbl2b = new JLabel(" - Please enter 12 digit number - ");
-    static JLabel lbl3b = new JLabel(" - Please enter any amount up to ₱50,000 - ");
-    public static String rCensoredUID = "";
-
-    // Generate and redesign the typeAmount2 frame for supported banks
-    typeAmount2() {
+    static boolean isValidCustomer = false;
+    static JLabel lbl2b = new JLabel(" - Please enter 10 digit number - ");
+    static JLabel lbl3b = new JLabel(" - Paying Maynilad Bills - ");
+    public static String rCensoredCustomer = "";
+    
+    // Generate and redesign the typeAmount3 frame for supported banks
+    typeAmount3() {
         super();
 
-        typeAmount2Pnl.setSize(1244, 700);
-        typeAmount2Pnl.setBackground(Color.BLACK);
-        typeAmount2Pnl.setLayout(null);
-        this.add(typeAmount2Pnl);
+        typeAmount3Pnl.setSize(1244, 700);
+        typeAmount3Pnl.setBackground(Color.BLACK);
+        typeAmount3Pnl.setLayout(null);
+        this.add(typeAmount3Pnl);
 
-        lbl1.setText("Transfer with your Savings");
+        lbl1.setText("Pay Bills with your Savings");
         lbl1.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 30));
         lbl1.setHorizontalAlignment(JLabel.CENTER);
         lbl1.setForeground(new Color(255, 222, 89));
         lbl1.setBounds(530, 40, 450, 40);
-        typeAmount2Pnl.add(lbl1);
+        typeAmount3Pnl.add(lbl1);
 
-        JLabel lbl2 = new JLabel("Enter Bank Account Number");
+        JLabel lbl2 = new JLabel("Enter Customer Account Number");
         lbl2.setFont(new Font("Source Sans Pro", Font.BOLD, 21));
         lbl2.setHorizontalAlignment(JLabel.CENTER);
         lbl2.setVerticalAlignment(JLabel.CENTER);
         lbl2.setForeground(new Color(255, 222, 89));
         lbl2.setBounds(560, 145, 400, 50);
-        typeAmount2Pnl.add(lbl2);
+        typeAmount3Pnl.add(lbl2);
         
-        // Display message for recipient field
+        // Display message for customer field
         lbl2b.setFont(new Font("Source Sans Pro", Font.PLAIN, 14));
         lbl2b.setHorizontalAlignment(JLabel.CENTER);
         lbl2b.setVerticalAlignment(JLabel.CENTER);
         lbl2b.setForeground(new Color(255, 222, 89));
         lbl2b.setBounds(560, 170, 400, 50);
-        typeAmount2Pnl.add(lbl2b);
-
-        // Display the text field to enter account
-        recipientField.setBounds(560, 210, 400, 60);
-        recipientField.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
-        recipientField.setHorizontalAlignment(JTextField.CENTER);
-        typeAmount2Pnl.add(recipientField);
-
-        JLabel lbl3 = new JLabel("Enter Amount to Transfer");
+        typeAmount3Pnl.add(lbl2b);
+        
+         // Display the text field to enter account
+        customerField.setBounds(560, 210, 400, 60);
+        customerField.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
+        customerField.setHorizontalAlignment(JTextField.CENTER);
+        typeAmount3Pnl.add(customerField);
+        
+        JLabel lbl3 = new JLabel("Enter Amount to Pay");
         lbl3.setFont(new Font("Source Sans Pro", Font.BOLD, 21));
         lbl3.setHorizontalAlignment(JLabel.CENTER);
         lbl3.setVerticalAlignment(JLabel.CENTER);
         lbl3.setForeground(new Color(255, 222, 89));
         lbl3.setBounds(560, 310, 400, 50);
-        typeAmount2Pnl.add(lbl3);
+        typeAmount3Pnl.add(lbl3);
         
         // Display message for amount field
         lbl3b.setFont(new Font("Source Sans Pro", Font.PLAIN, 14));
@@ -89,84 +89,84 @@ public class typeAmount2 extends frames {
         lbl3b.setVerticalAlignment(JLabel.CENTER);
         lbl3b.setForeground(new Color(255, 222, 89));
         lbl3b.setBounds(560, 335, 400, 50);
-        typeAmount2Pnl.add(lbl3b);
-
+        typeAmount3Pnl.add(lbl3b);
+        
         // Display the text field to enter amount
-        amountField2.setBounds(560, 375, 400, 60);
-        amountField2.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
-        amountField2.setHorizontalAlignment(JTextField.CENTER);
-        typeAmount2Pnl.add(amountField2);
-
+        amountField3.setBounds(560, 375, 400, 60);
+        amountField3.setFont(new Font("Source Sans Pro", Font.BOLD, 30));
+        amountField3.setHorizontalAlignment(JTextField.CENTER);
+        typeAmount3Pnl.add(amountField3);
+        
         final JButton clearBtn = new roundButton("Clear", new Color(255, 217, 61), new Color(244, 124, 51), new Color(255, 217, 61), new Color(244, 124, 51));
         clearBtn.setBounds(555, 485, 115, 50);
         clearBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         clearBtn.setForeground(Color.WHITE);
         clearBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        typeAmount2Pnl.add(clearBtn);
-
+        typeAmount3Pnl.add(clearBtn);
+        
         final JButton enterBtn = new roundButton("Enter", new Color(73, 223, 12), new Color(51, 168, 22), new Color(73, 223, 12), new Color(51, 168, 22));
         enterBtn.setBounds(705, 485, 115, 50);
         enterBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         enterBtn.setForeground(Color.WHITE);
         enterBtn.setEnabled(false);
         enterBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        typeAmount2Pnl.add(enterBtn);
+        typeAmount3Pnl.add(enterBtn);
 
         final JButton backBtn = new roundButton("Back", new Color(48, 47, 178), new Color(32, 31, 171), new Color(48, 47, 178), new Color(32, 31, 171));
         backBtn.setBounds(855, 485, 115, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
-        typeAmount2Pnl.add(backBtn);
-
-        addVolumeEffects(typeAmount2Pnl);
+        typeAmount3Pnl.add(backBtn);
+        
+        addVolumeEffects(typeAmount3Pnl);
 
         JLabel cancelBtn = new JLabel();
         cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
         cancelBtn.setBounds(15, 35, 55, 55);
-        typeAmount2Pnl.add(cancelBtn);
+        typeAmount3Pnl.add(cancelBtn);
 
-        JLabel typeAmount2BG = new JLabel();
-        typeAmount2BG.setIcon(
-                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\typeAmount2BG.png"));
-        typeAmount2BG.setBounds(0, -15, 1050, 700);
-        typeAmount2Pnl.add(typeAmount2BG);
-
+        JLabel typeAmount3BG = new JLabel();
+        typeAmount3BG.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\typeAmount3BG.png"));
+        typeAmount3BG.setBounds(0, -15, 1050, 700);
+        typeAmount3Pnl.add(typeAmount3BG);
+        
         /* Listeners starts here... */
-        // For recipient field and type 12 numbers only
-        recipientField.addKeyListener(new KeyAdapter() {
+        // For customer field and type 10 numbers only
+        customerField.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent a) {
-                String value = recipientField.getText();
+                String value = customerField.getText();
                 int l = value.length();
 
-                if (l >= 12 && (a.getKeyChar() != KeyEvent.VK_BACK_SPACE && a.getKeyChar() != KeyEvent.VK_ENTER)) {
+                if (l >= 10 && (a.getKeyChar() != KeyEvent.VK_BACK_SPACE && a.getKeyChar() != KeyEvent.VK_ENTER)) {
                     sfx.playError();
-                    recipientField.setEditable(false);
-                    JOptionPane.showMessageDialog(null, "12 characters only!", "Invalid Account Number", JOptionPane.ERROR_MESSAGE);
-                    recipientField.setText("");
-                    recipientField.requestFocus();
+                    customerField.setEditable(false);
+                    JOptionPane.showMessageDialog(null, "10 characters only!", "Invalid Account Number", JOptionPane.ERROR_MESSAGE);
+                    customerField.setText("");
+                    customerField.requestFocus();
                 }
                 if (a.getKeyChar() >= '0' && a.getKeyChar() <= '9' || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
                     sfx.playClick();
-                    recipientField.setEditable(true);
-                    recipientField.setForeground(Color.WHITE);
+                    customerField.setEditable(true);
+                    customerField.setForeground(Color.WHITE);
                 } else {
-                    recipientField.setEditable(false);
+                    customerField.setEditable(false);
                 }
 
             }
         });
-
+        
         // Only take numbers
-        amountField2.addKeyListener(new KeyListener() {
+        amountField3.addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
                     sfx.playClick();
-                    if (amountField2.getText().equals("0.")) {
-                        amountField2.setText("");
+                    if (amountField3.getText().equals("0.")) {
+                        amountField3.setText("");
                     }
 
-                    amountField2.setCaretPosition(amountField2.getText().length());
+                    amountField3.setCaretPosition(amountField3.getText().length());
                 }
             }
 
@@ -184,28 +184,28 @@ public class typeAmount2 extends frames {
                     return;
                 } else {
                     sfx.playClick();
-                    amountField2.setCaretPosition(amountField2.getText().length());
-                    if (c == '0' && amountField2.getText().isEmpty()) {
+                    amountField3.setCaretPosition(amountField3.getText().length());
+                    if (c == '0' && amountField3.getText().isEmpty()) {
                         e.consume();
-                        amountField2.setText("0.");
+                        amountField3.setText("0.");
                     }
                 }
 
-                if (c == '.' && amountField2.getText().contains(".")) {
+                if (c == '.' && amountField3.getText().contains(".")) {
                     e.consume();
                     return;
-                } else if (c == '.' && amountField2.getText().isEmpty()) {
+                } else if (c == '.' && amountField3.getText().isEmpty()) {
                     sfx.playClick();
-                    amountField2.setCaretPosition(amountField2.getText().length());
-                    amountField2.setText("0.");
+                    amountField3.setCaretPosition(amountField3.getText().length());
+                    amountField3.setText("0.");
                     e.consume();
                 } else {
                     sfx.playClick();
-                    amountField2.setCaretPosition(amountField2.getText().length());
+                    amountField3.setCaretPosition(amountField3.getText().length());
                 }
 
                 // allow only 2 digits after decimal
-                String text = amountField2.getText();
+                String text = amountField3.getText();
                 int dotIndex = text.indexOf('.');
                 if (dotIndex != -1 && text.substring(dotIndex).length() > 2) {
                     e.consume();
@@ -214,30 +214,30 @@ public class typeAmount2 extends frames {
             }
         });
         
-        pinField2.addKeyListener(new KeyAdapter() {
+        pinField3.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent a) {
-                String value = pinField2.getText();
+                String value = pinField3.getText();
                 int l = value.length();
 
                 if (l >= 6 && (a.getKeyChar() != KeyEvent.VK_BACK_SPACE && a.getKeyChar() != KeyEvent.VK_ENTER)) {
                     sfx.playError();
-                    pinField2.setEditable(false);
+                    pinField3.setEditable(false);
                     JOptionPane.showMessageDialog(null, "6 characters only!", "Invalid PIN", JOptionPane.ERROR_MESSAGE);
-                    pinField2.setText("");
-                    pinField2.requestFocus();
+                    pinField3.setText("");
+                    pinField3.requestFocus();
                 }
                 if (a.getKeyChar() >= '0' && a.getKeyChar() <= '9' || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
                     sfx.playClick();
-                    pinField2.setEditable(true);
+                    pinField3.setEditable(true);
                 } else {
-                    pinField2.setEditable(false);
+                    pinField3.setEditable(false);
                 }
 
             }
         });
-
+        
         // For text field to enable/disable the enter button
-        amountField2.getDocument().addDocumentListener(new DocumentListener() {
+        amountField3.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 updateEnterButton();
@@ -259,14 +259,14 @@ public class typeAmount2 extends frames {
                     @Override
                     public void run() {
                         try {
-                            amountToTransact = Double.parseDouble(amountField2.getText().trim());
+                            amountToTransact = Double.parseDouble(amountField3.getText().trim());
 
-                            if (amountToTransact > 50000) {
+                            if (amountToTransact > 999999999.99) {
                                 isValidAmount = false;
                                 sfx.playError();
                                 JOptionPane.showMessageDialog(null, "Amount exceeds limit!", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
-                                amountField2.setText("");
-                                amountField2.requestFocus();
+                                amountField3.setText("");
+                                amountField3.requestFocus();
                             } else {
                                 isValidAmount = true;
                             }
@@ -283,23 +283,15 @@ public class typeAmount2 extends frames {
                             isValidAmount = false;
                         }
                         
-                        // Unshow message if valid amount
-                        if(isValidAmount){
-                            lbl3b.setText("");
-                            lbl3.setBounds(560, 325, 400, 50);
-                        } else {
-                            lbl3b.setText(" - Please enter any amount up to ₱50,000 - ");
-                            lbl3.setBounds(560, 310, 400, 50);
-                        }
                         
-                        enterBtn.setEnabled(isValidAmount && isValidRecipient);
+                        enterBtn.setEnabled(isValidAmount && isValidCustomer);
                     }
                 });
             }
         });
-
+        
         // For text field to enable/disable the enter button
-        recipientField.getDocument().addDocumentListener(new DocumentListener() {
+        customerField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 updateEnterButton();
@@ -320,23 +312,23 @@ public class typeAmount2 extends frames {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        isValidRecipient = recipientField.getText().length() == 12 && recipientField.getText().matches("\\d+");
+                        isValidCustomer = customerField.getText().length() == 10 && customerField.getText().matches("\\d+");
                         
                         // Unshow message if valid recipient
-                        if(isValidRecipient){
+                        if(isValidCustomer){
                             lbl2b.setText("");
                             lbl2.setBounds(560, 160, 400, 50);
                         } else {
-                            lbl2b.setText(" - Please enter 12 digit number - ");
+                            lbl2b.setText(" - Please enter 10 digit number - ");
                             lbl2.setBounds(560, 145, 400, 50);
                         }
-                        enterBtn.setEnabled(isValidAmount && isValidRecipient);
+                        enterBtn.setEnabled(isValidAmount && isValidCustomer);
                     }
                 });
             }
         });
-
-
+        
+        
         /* Buttons Functions starts here... */
         // For cancel button to end transaction
         cancelBtn.addMouseListener(new MouseListener() {
@@ -378,7 +370,7 @@ public class typeAmount2 extends frames {
                                 "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
             }
         });
-
+        
         // For clear button to clear amountField
         clearBtn.addMouseListener(new MouseListener() {
             @Override
@@ -395,9 +387,9 @@ public class typeAmount2 extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
 
-                amountField2.setText("");
-                recipientField.setText("");
-                recipientField.requestFocus();
+                amountField3.setText("");
+                customerField.setText("");
+                customerField.requestFocus();
 
             }
 
@@ -411,7 +403,7 @@ public class typeAmount2 extends frames {
                 // Do nothing
             }
         });
-
+        
         // For back button to return to log in frame
         backBtn.addMouseListener(new MouseListener() {
             @Override
@@ -443,6 +435,7 @@ public class typeAmount2 extends frames {
 
                     dispose();
                     FinalProject_ATM.logInFrame.show();
+                    
 
                 }
             }
@@ -463,12 +456,12 @@ public class typeAmount2 extends frames {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    amountToTransact = Double.parseDouble(amountField2.getText());
+                    amountToTransact = Double.parseDouble(amountField3.getText());
 
-                    pinField2.setText("");
+                    pinField3.setText("");
 
-                    // Transfer if sufficient current or savings balance
-                    if (transaction.transactionType.equals("Bank Transfer") && typeAccount.accountType.equals("Current")) {
+                    // Pay bills if sufficient current or savings balance
+                    if (transaction.transactionType.equals("Pay Bills") && typeAccount.accountType.equals("Current")) {
                         if (amountToTransact <= account.user.getCurrent()) {
                             sfx.playClick();
 
@@ -482,11 +475,11 @@ public class typeAmount2 extends frames {
                             JOptionPane.showMessageDialog(null, "Current balance: ₱" + format.format(account.user.getCurrent()), "Available balance",
                                     JOptionPane.INFORMATION_MESSAGE);
 
-                            amountField2.setText("");
-                            amountField2.requestFocus();
+                            amountField3.setText("");
+                            amountField3.requestFocus();
                         }
 
-                    } else if (transaction.transactionType.equals("Bank Transfer") && typeAccount.accountType.equals("Savings")) {
+                    } else if (transaction.transactionType.equals("Pay Bills") && typeAccount.accountType.equals("Savings")) {
                         if (amountToTransact <= account.user.getSavings()) {
                             sfx.playClick();
 
@@ -500,8 +493,8 @@ public class typeAmount2 extends frames {
                             JOptionPane.showMessageDialog(null, "Savings balance: ₱" + format.format(account.user.getSavings()), "Available balance",
                                     JOptionPane.INFORMATION_MESSAGE);
 
-                            amountField2.setText("");
-                            amountField2.requestFocus();
+                            amountField3.setText("");
+                            amountField3.requestFocus();
                         }
                     }
 
@@ -510,16 +503,18 @@ public class typeAmount2 extends frames {
                 }
             }
         });
+        
+        
     }
-
+    
     // Add mute features
     private static void addVolumeEffects(JPanel panel) {
-        typeAmount2Volume.setIcon(
+        typeAmount3Volume.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
-        typeAmount2Volume.setBounds(980, 620, 40, 40);
-        panel.add(typeAmount2Volume);
+        typeAmount3Volume.setBounds(980, 620, 40, 40);
+        panel.add(typeAmount3Volume);
 
-        typeAmount2Volume.addMouseListener(new MouseListener() {
+        typeAmount3Volume.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // No action needed for mouseClicked
@@ -533,13 +528,13 @@ public class typeAmount2 extends frames {
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (sounds.isUnmute) {
-                    typeAmount2Volume.setIcon(
+                    typeAmount3Volume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
 
                     sounds.isUnmute = false;
 
                 } else {
-                    typeAmount2Volume.setIcon(
+                    typeAmount3Volume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
                     sounds.isUnmute = true;
                     sfx.playWarning();
@@ -548,28 +543,28 @@ public class typeAmount2 extends frames {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                typeAmount2Volume.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                typeAmount3Volume.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                typeAmount2Volume.setCursor(Cursor.getDefaultCursor());
+                typeAmount3Volume.setCursor(Cursor.getDefaultCursor());
             }
         });
     }
     
-    // Bank transfer with current
+    // Pay bills with current
     private static void checkPIN1() {
-        int option = JOptionPane.showConfirmDialog(null, pinField2, "Enter PIN to proceed",
+        int option = JOptionPane.showConfirmDialog(null, pinField3, "Enter PIN to proceed",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
-            if (pinField2.getText().equals(account.user.getPIN())) {
+            if (pinField3.getText().equals(account.user.getPIN())) {
                 // Computation
                 account.user.setCurrent(account.user.getCurrent() - amountToTransact);
 
                 // Show Process and ask for recceipt
-                typeAccount.typeAmount2Frame.dispose();
+                typeAccount.typeAmount3Frame.dispose();
                 typeAmount.process.show();
                 SwingUtilities.invokeLater(() -> {
                     typeAmount.process.fill(new Runnable() {
@@ -600,27 +595,27 @@ public class typeAmount2 extends frames {
                                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
 
-                typeAccount.typeAmount2Frame.dispose();
+                typeAccount.typeAmount3Frame.dispose();
                 FinalProject_ATM.logInFrame.show();
 
             }
         } else {
-            amountField2.requestFocus();
+            amountField3.requestFocus();
         }
     }
     
-    // Bank transfer with savings
+    // Pay bills with savings
     private static void checkPIN2() {
-        int option = JOptionPane.showConfirmDialog(null, pinField2, "Enter PIN to proceed",
+        int option = JOptionPane.showConfirmDialog(null, pinField3, "Enter PIN to proceed",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
-            if (pinField2.getText().equals(account.user.getPIN())) {
+            if (pinField3.getText().equals(account.user.getPIN())) {
                 // Computation
                 account.user.setSavings(account.user.getSavings() - amountToTransact);
 
                 // Show Process and ask for recceipt
-                typeAccount.typeAmount2Frame.dispose();
+                typeAccount.typeAmount3Frame.dispose();
                 typeAmount.process.show();
                 SwingUtilities.invokeLater(() -> {
                     typeAmount.process.fill(new Runnable() {
@@ -651,19 +646,17 @@ public class typeAmount2 extends frames {
                                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
 
-                typeAccount.typeAmount2Frame.dispose();
+                typeAccount.typeAmount3Frame.dispose();
                 FinalProject_ATM.logInFrame.show();
 
             }
         } else {
-            amountField2.requestFocus();
+            amountField3.requestFocus();
         }
     }
     
-    
-    
     private static void askReceipt() {
-        typeAccount.typeAmount2Frame.show();
+        typeAccount.typeAmount3Frame.show();
         sfx.playConfirm();
 
         LocalDateTime now = LocalDateTime.now();
@@ -671,11 +664,11 @@ public class typeAmount2 extends frames {
 
         refNo = generateRefNo();
         
-        String str1 = recipientField.getText().substring(0,8);
-        String str2 = recipientField.getText().substring(8);
+        String str1 = customerField.getText().substring(0,6);
+        String str2 = customerField.getText().substring(6);
         String maskedStr1 = String.join("", Collections.nCopies(str1.length(), "*"));
-        rCensoredUID = maskedStr1 + str2;
-
+        rCensoredCustomer = maskedStr1 + str2;
+        
         // Set Jlabels for receipt
         // lbl 8 or account type
         if (typeAccount.accountType.equals("Current")) {
@@ -701,9 +694,9 @@ public class typeAmount2 extends frames {
             generalBalance = account.user.getSavings();
         }
 
-        // lbl15 and lbl 16 to add recipient
-        viewReceipt.lbl15.setText("Sent to : ");
-        viewReceipt.lbl16.setText(rCensoredUID + " via " + transactBank.bankName);
+        // lbl15 and lbl 16 to add payment
+        viewReceipt.lbl15.setText("Payment to : ");
+        viewReceipt.lbl16.setText(typeAmount3.rCensoredCustomer + " via " + transactBills.serviceName);
 
         // lbl 18 or add reference number
         viewReceipt.lbl18.setText(refNo);
@@ -728,7 +721,7 @@ public class typeAmount2 extends frames {
                 "Transaction Complete!", JOptionPane.YES_NO_OPTION);
 
         if (choice == JOptionPane.YES_OPTION) {
-            typeAccount.typeAmount2Frame.dispose();
+            typeAccount.typeAmount3Frame.dispose();
             typeAmount.viewReceiptFrame.show();
 
             // Timer
@@ -792,7 +785,7 @@ public class typeAmount2 extends frames {
                         new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
             }
 
-            typeAccount.typeAmount2Frame.dispose();
+            typeAccount.typeAmount3Frame.dispose();
             FinalProject_ATM.logInFrame.show();
         }
 
@@ -806,9 +799,11 @@ public class typeAmount2 extends frames {
         }
         return otpBuilder.toString();
     }
-
-    public static void main(String[] args) {
-        typeAmount2 a = new typeAmount2();
-        a.show();
+    
+    
+    public static void main(String[]args){
+    frames a = new typeAmount3();
+    a.show();
     }
+    
 }
