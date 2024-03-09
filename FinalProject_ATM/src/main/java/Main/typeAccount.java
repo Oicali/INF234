@@ -35,7 +35,7 @@ public class typeAccount extends frames {
         lbl1.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 30));
         lbl1.setHorizontalAlignment(JLabel.CENTER);
         lbl1.setForeground(new Color(255, 222, 89));
-        lbl1.setBounds(450, 40, 400, 40);
+        lbl1.setBounds(535, 40, 400, 40);
         typeAccountPnl.add(lbl1);
         
         addVolumeEffects(typeAccountPnl);
@@ -48,17 +48,17 @@ public class typeAccount extends frames {
         JLabel currentBtn = new JLabel();
         currentBtn.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\currentButton.png"));
-        currentBtn.setBounds(475, 185,365, 70);
+        currentBtn.setBounds(555, 205,365, 70);
         typeAccountPnl.add(currentBtn);
         
         JLabel savingsBtn = new JLabel();
         savingsBtn.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\savingsButton.png"));
-        savingsBtn.setBounds(475, 305,365, 70);
+        savingsBtn.setBounds(555, 345,365, 70);
         typeAccountPnl.add(savingsBtn);
         
         final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(48,47,178), new Color(32,31,171));
-        backBtn.setBounds(600, 425, 125, 50);
+        backBtn.setBounds(680, 485, 125, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
         typeAccountPnl.add(backBtn);
