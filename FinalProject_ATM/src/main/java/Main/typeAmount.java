@@ -155,6 +155,7 @@ public class typeAmount extends frames {
                 if (a.getKeyChar() >= '1' && a.getKeyChar() <= '9' || a.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
 
                     sfx.playClick();
+                    amountField.setCaretPosition(amountField.getText().length());
                     amountField.setEditable(true);
 
                 } else {
@@ -197,15 +198,15 @@ public class typeAmount extends frames {
                         try {
                             amountToTransact = Double.parseDouble(amountText);
 
-                            if ((amountToTransact >= 100 && amountToTransact < 50001) && amountToTransact % 100 == 0) {
+                            if (amountToTransact >= 100 && amountToTransact % 100 == 0) {
                                 enterBtn.setEnabled(true);
                             } else {
                                 enterBtn.setEnabled(false);
                             }
 
-                            if (amountToTransact > 99999) {
+                            if (amountToTransact > 50000) {
                                 sfx.playError();
-                                JOptionPane.showMessageDialog(null, "Amount entered exceed 5 Digits!", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Amount exceeds limit!", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
                                 amountField.setText("");
                                 amountField.requestFocus();
                             } else if (amountToTransact == 0) {
@@ -698,7 +699,7 @@ public class typeAmount extends frames {
             viewReceipt.lbl8.setText("Savings");
         }
 
-        // lbl 10 or transaction type
+        // lbl 10 for transaction type
         if (transaction.transactionType.equals("Withdraw")) {
             viewReceipt.lbl10.setText("Withdraw");
         } else if (transaction.transactionType.equals("Deposit")) {

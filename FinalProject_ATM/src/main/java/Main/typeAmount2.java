@@ -34,7 +34,7 @@ public class typeAmount2 extends frames {
     static boolean isValidAmount = false;
     static boolean isValidRecipient = false;
     static JLabel lbl2b = new JLabel(" - Please enter 12 digit number - ");
-    static JLabel lbl3b = new JLabel(" - Please enter any amount up to ₱50,000 - ");
+    static JLabel lbl3b = new JLabel(" - Transfer any amount up to ₱50,000 - ");
     public static String rCensoredUID = "";
 
     // Generate and redesign the typeAmount2 frame for supported banks
@@ -200,7 +200,6 @@ public class typeAmount2 extends frames {
                     amountField2.setText("0.");
                     e.consume();
                 } else {
-                    sfx.playClick();
                     amountField2.setCaretPosition(amountField2.getText().length());
                 }
 
@@ -283,14 +282,6 @@ public class typeAmount2 extends frames {
                             isValidAmount = false;
                         }
                         
-                        // Unshow message if valid amount
-                        if(isValidAmount){
-                            lbl3b.setText("");
-                            lbl3.setBounds(560, 325, 400, 50);
-                        } else {
-                            lbl3b.setText(" - Please enter any amount up to ₱50,000 - ");
-                            lbl3.setBounds(560, 310, 400, 50);
-                        }
                         
                         enterBtn.setEnabled(isValidAmount && isValidRecipient);
                     }

@@ -264,7 +264,7 @@ public class typeAmount3 extends frames {
                             if (amountToTransact > 999999999.99) {
                                 isValidAmount = false;
                                 sfx.playError();
-                                JOptionPane.showMessageDialog(null, "Amount exceeds limit!", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Amount too high!", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
                                 amountField3.setText("");
                                 amountField3.requestFocus();
                             } else {

@@ -130,22 +130,14 @@ public class viewHistory extends frames {
         lbl1.setForeground(Color.BLACK);
         lbl1.setBounds(20, 20, 400, 130);
         lbl1.setVerticalAlignment(SwingConstants.TOP);
-        if (type.equals("Withdraw") && account.equals("Current")) {
-            lbl1.setText("Withdraw from Current");
-        } else if (type.equals("Withdraw") && account.equals("Savings")) {
-            lbl1.setText("Withdraw from Savings");
-        } else if (type.equals("Deposit") && account.equals("Current")) {
-            lbl1.setText("Deposit to Current");
-        } else if (type.equals("Deposit") && account.equals("Savings")) {
-            lbl1.setText("Deposit to Savings");
-        } else if (type.equals("Bank Transfer") && account.equals("Current")) {
-            lbl1.setText("Transfer with Current");
-        } else if (type.equals("Bank Transfer") && account.equals("Savings")) {
-            lbl1.setText("Transfer with Savings");
-        } else if (type.equals("Pay Bills") && account.equals("Current")) {
-            lbl1.setText("Pay Bills using Current");
-        } else if (type.equals("Pay Bills") && account.equals("Savings")) {
-            lbl1.setText("Pay Bills using Savings");
+        if (type.equals("Withdraw")) {
+            lbl1.setText("Withdraw from " + typeAccount.accountType);
+        } else if (type.equals("Deposit")) {
+            lbl1.setText("Deposit to "  + typeAccount.accountType);
+        } else if (type.equals("Bank Transfer")) {
+            lbl1.setText("Transfer with "  + typeAccount.accountType);
+        }  else if (type.equals("Pay Bills")) {
+            lbl1.setText("Pay Bills using "  + typeAccount.accountType);
         }
         transactionPanel.add(lbl1);
 
