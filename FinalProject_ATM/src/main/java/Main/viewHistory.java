@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
-import javax.swing.border.Border;
 
 public class viewHistory extends frames {
 
@@ -256,21 +255,5 @@ public class viewHistory extends frames {
                 viewHistoryVolume.setCursor(Cursor.getDefaultCursor());
             }
         });
-    }
-
-    public static void main(String[] args) {
-        viewHistory a = new viewHistory();
-        a.show();
-
-        // Add some dummy transactions for testing
-        for (int i = 1; i <= 2; i++) {
-            a.addTransactionPanel("Withdraw", "Savings", "019485285028", "12/12/2024 22:22", 100000, 5000);
-        }
-
-        // Add some dummy transactions for testing
-        for (int i = 1; i <= 2; i++) {
-            a.addTransactionPanel("Deposit", "Current", "019485285028", "12/12/2024 22:22", 15000, 50000);
-        }
-
     }
 }

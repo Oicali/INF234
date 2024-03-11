@@ -156,6 +156,9 @@ public class transaction extends frames {
                 // Set transaction
                 transactionType = "Withdraw";
 
+                withdrawBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\withdrawButton.png"));
+                
                 // Update volume icon
                 if (sounds.isUnmute) {
                     typeAccount.typeAccountVolume.setIcon(
@@ -174,11 +177,15 @@ public class transaction extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 withdrawBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                withdrawBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\withdrawButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 withdrawBtn.setCursor(Cursor.getDefaultCursor());
+                withdrawBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\withdrawButton.png"));
             }
         });
 
@@ -200,6 +207,9 @@ public class transaction extends frames {
 
                 // Set transaction
                 transactionType = "Deposit";
+                
+                depositBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\depositButton.png"));
 
                 // Update volume icon
                 if (sounds.isUnmute) {
@@ -219,11 +229,15 @@ public class transaction extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 depositBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                depositBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\depositButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 depositBtn.setCursor(Cursor.getDefaultCursor());
+                depositBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\depositButton.png"));
             }
         });
 
@@ -245,6 +259,9 @@ public class transaction extends frames {
 
                 // Set transaction
                 transactionType = "Balance";
+                
+                balanceBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\balanceButton.png"));
 
                 // Update volume icon
                 if (sounds.isUnmute) {
@@ -264,11 +281,15 @@ public class transaction extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 balanceBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                balanceBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\balanceButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 balanceBtn.setCursor(Cursor.getDefaultCursor());
+                balanceBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\balanceButton.png"));
             }
         });
 
@@ -287,6 +308,9 @@ public class transaction extends frames {
             @Override
             public void mouseReleased(MouseEvent e) {
                 sfx.playClick();
+                
+                historyBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\historyButton.png"));
 
                 // Update volume icon
                 if (sounds.isUnmute) {
@@ -306,11 +330,15 @@ public class transaction extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 historyBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                historyBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\historyButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 historyBtn.setCursor(Cursor.getDefaultCursor());
+                historyBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\historyButton.png"));
             }
         });
 
@@ -332,6 +360,9 @@ public class transaction extends frames {
 
                 // Set transaction
                 transactionType = "Bank Transfer";
+                
+                bankTransferBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\bankTransferButton.png"));
 
                 // Update volume icon
                 if (sounds.isUnmute) {
@@ -351,11 +382,15 @@ public class transaction extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 bankTransferBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                bankTransferBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\bankTransferButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 bankTransferBtn.setCursor(Cursor.getDefaultCursor());
+                bankTransferBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\bankTransferButton.png"));
             }
         });
 
@@ -377,6 +412,9 @@ public class transaction extends frames {
 
                 // Set transaction
                 transactionType = "Pay Bills";
+                
+                payBillsBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\paybillsButton.png"));
 
                 // Update volume icon
                 if (sounds.isUnmute) {
@@ -396,11 +434,15 @@ public class transaction extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 payBillsBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                payBillsBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\paybillsButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 payBillsBtn.setCursor(Cursor.getDefaultCursor());
+                payBillsBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\paybillsButton.png"));
             }
         });
 
@@ -449,11 +491,6 @@ public class transaction extends frames {
                 transactionVolume.setCursor(Cursor.getDefaultCursor());
             }
         });
-    }
-
-    public static void main(String[] args) {
-        transaction a = new transaction();
-        a.show();
     }
 
 }

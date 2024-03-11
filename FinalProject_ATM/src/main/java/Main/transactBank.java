@@ -56,7 +56,7 @@ public class transactBank extends frames {
         BDOBtn.setBounds(535, 385,365, 70);
         transactBankPnl.add(BDOBtn);
         
-        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(48,47,178), new Color(32,31,171));
+        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(58,57,188), new Color(42,41,181));
         backBtn.setBounds(670, 500, 125, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
@@ -141,6 +141,9 @@ public class transactBank extends frames {
                 // Set transaction
                 bankName = "UB";
                 
+                UBBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\UBButton.png"));
+                
                 // Update volume icon
                     if(sounds.isUnmute){
                         typeAccount.typeAccountVolume.setIcon(
@@ -159,11 +162,15 @@ public class transactBank extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 UBBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                UBBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\UBButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                UBBtn.setCursor(Cursor.getDefaultCursor());
+               UBBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\UBButton.png"));
             }
         });
         
@@ -186,6 +193,9 @@ public class transactBank extends frames {
                 // Set transaction
                 bankName = "BPI";
                 
+                BPIBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\BPIButton.png"));
+                
                 // Update volume icon
                     if(sounds.isUnmute){
                         typeAccount.typeAccountVolume.setIcon(
@@ -204,11 +214,15 @@ public class transactBank extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 BPIBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                BPIBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\BPIButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                BPIBtn.setCursor(Cursor.getDefaultCursor());
+               BPIBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\BPIButton.png"));
             }
         });
         
@@ -231,6 +245,9 @@ public class transactBank extends frames {
                 // Set transaction
                 bankName = "BDO";
                 
+                BDOBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\BDOButton.png"));
+                
                 // Update volume icon
                     if(sounds.isUnmute){
                         typeAccount.typeAccountVolume.setIcon(
@@ -249,11 +266,15 @@ public class transactBank extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 BDOBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                BDOBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\BDOButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                BDOBtn.setCursor(Cursor.getDefaultCursor());
+               BDOBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\BDOButton.png"));
             }
         });
         
@@ -300,8 +321,6 @@ public class transactBank extends frames {
             }
         });
         
-        
-    
     }
     
     // Add mute features
@@ -349,8 +368,4 @@ public class transactBank extends frames {
         });
     }
     
-    public static void main(String args[]){
-        transactBank a = new transactBank();
-        a.show();
-    }
 }

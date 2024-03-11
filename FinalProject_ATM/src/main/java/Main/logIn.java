@@ -67,7 +67,7 @@ public class logIn extends frames {
         forgotPIN.setForeground(new Color(255, 222, 89));
         logInPnl.add(forgotPIN);
 
-        final JButton logInBtn = new roundButton("Login", new Color(73, 223, 12), new Color(51, 168, 22), new Color(73, 223, 12), new Color(51, 168, 22));
+        final JButton logInBtn = new roundButton("Login", new Color(73, 223, 12), new Color(51, 168, 22), new Color(83, 233, 22), new Color(61, 178, 32));
         logInBtn.setBounds(695, 395, 130, 45);
         logInBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         logInBtn.setForeground(Color.WHITE);
@@ -181,7 +181,8 @@ public class logIn extends frames {
 
                 Object[] otpPanel = {"Enter the OTP: ", otpField};
                 int option = JOptionPane.showConfirmDialog(null, otpPanel, "OTP Verification", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
+                
+                
                 if (option == JOptionPane.OK_OPTION) {
                     String enteredOTP = otpField.getText();
                     if (enteredOTP.equals(otp)) {

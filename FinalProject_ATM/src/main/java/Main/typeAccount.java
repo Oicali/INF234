@@ -6,7 +6,6 @@ package Main;
 import settings.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.DecimalFormat;
 import javax.swing.*;
 
 public class typeAccount extends frames {
@@ -57,7 +56,7 @@ public class typeAccount extends frames {
         savingsBtn.setBounds(555, 345,365, 70);
         typeAccountPnl.add(savingsBtn);
         
-        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(48,47,178), new Color(32,31,171));
+        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(58,57,188), new Color(42,41,181));
         backBtn.setBounds(680, 485, 125, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
@@ -71,7 +70,6 @@ public class typeAccount extends frames {
         
         
         /* Buttons functions start here... */
-        
         // For cancel button to return to log in frame
         cancelBtn.addMouseListener(new MouseListener() {
             @Override
@@ -145,6 +143,10 @@ public class typeAccount extends frames {
                 viewBalance.lbl2.setText(accountType);
                 viewBalance.lbl7.setText(format.format(account.user.getCurrent()));
                 
+                currentBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\currentButton.png"));
+                
+                
                 // Update volume icon for typeAmount Frame
                     if(sounds.isUnmute){
                         typeAmount.typeAmountVolume.setIcon(
@@ -215,11 +217,15 @@ public class typeAccount extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 currentBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                currentBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\currentButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                currentBtn.setCursor(Cursor.getDefaultCursor());
+               currentBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\currentButton.png"));
             }
         });
         
@@ -244,6 +250,9 @@ public class typeAccount extends frames {
                 accountType = "Savings"; 
                 viewBalance.lbl2.setText(accountType);
                 viewBalance.lbl7.setText(format.format(account.user.getSavings()));
+                
+                savingsBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\savingsButton.png"));
                 
                 // Update volume icon for typeAmountVolume Frame
                     if(sounds.isUnmute){
@@ -315,11 +324,15 @@ public class typeAccount extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 savingsBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                savingsBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\savingsButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                savingsBtn.setCursor(Cursor.getDefaultCursor());
+               savingsBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\savingsButton.png"));
             }
         });
         
@@ -412,11 +425,6 @@ public class typeAccount extends frames {
                 typeAccountVolume.setCursor(Cursor.getDefaultCursor());
             }
         });
-    }
-    
-    public static void main(String[]args){
-        typeAccount a = new typeAccount();
-        a.show();
     }
     
 }

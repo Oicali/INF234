@@ -97,14 +97,14 @@ public class typeAmount3 extends frames {
         amountField3.setHorizontalAlignment(JTextField.CENTER);
         typeAmount3Pnl.add(amountField3);
 
-        final JButton clearBtn = new roundButton("Clear", new Color(255, 217, 61), new Color(244, 124, 51), new Color(255, 217, 61), new Color(244, 124, 51));
+        final JButton clearBtn = new roundButton("Clear", new Color(245, 207, 51), new Color(234, 124, 51), new Color(255, 217, 61), new Color(244, 134, 61));
         clearBtn.setBounds(555, 485, 115, 50);
         clearBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         clearBtn.setForeground(Color.WHITE);
         clearBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmount3Pnl.add(clearBtn);
 
-        final JButton enterBtn = new roundButton("Enter", new Color(73, 223, 12), new Color(51, 168, 22), new Color(73, 223, 12), new Color(51, 168, 22));
+        final JButton enterBtn = new roundButton("Enter", new Color(73, 223, 12), new Color(51, 168, 22), new Color(83, 233, 22), new Color(61, 178, 32));
         enterBtn.setBounds(705, 485, 115, 50);
         enterBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         enterBtn.setForeground(Color.WHITE);
@@ -112,7 +112,7 @@ public class typeAmount3 extends frames {
         enterBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmount3Pnl.add(enterBtn);
 
-        final JButton backBtn = new roundButton("Back", new Color(48, 47, 178), new Color(32, 31, 171), new Color(48, 47, 178), new Color(32, 31, 171));
+        final JButton backBtn = new roundButton("Back", new Color(48, 47, 178), new Color(32, 31, 171), new Color(58, 57, 188), new Color(42, 41, 181));
         backBtn.setBounds(855, 485, 115, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
@@ -477,11 +477,13 @@ public class typeAmount3 extends frames {
                     amountToTransact = Double.parseDouble(amountField3.getText());
 
                     pinField3.setText("");
+                    sfx.playWarning();
+                    /*JOptionPane.showMessageDialog(null, "You are trying to pay ₱" + format.format(amountToTransact) + "\nusing your " + typeAccount.accountType.toLowerCase() + " account for \n" + customerField.getText() + " via " + transactBills.serviceName + ". Enter \nyour PIN to proceed.",
+                            "Transaction Details", JOptionPane.INFORMATION_MESSAGE);*/
 
                     // Pay bills if sufficient current or savings balance
                     if (transaction.transactionType.equals("Pay Bills") && typeAccount.accountType.equals("Current")) {
                         if (amountToTransact <= account.user.getCurrent()) {
-                            sfx.playClick();
 
                             checkPIN1();
 
@@ -499,7 +501,6 @@ public class typeAmount3 extends frames {
 
                     } else if (transaction.transactionType.equals("Pay Bills") && typeAccount.accountType.equals("Savings")) {
                         if (amountToTransact <= account.user.getSavings()) {
-                            sfx.playClick();
 
                             checkPIN2();
 
@@ -571,7 +572,7 @@ public class typeAmount3 extends frames {
 
     // Pay bills with current
     private static void checkPIN1() {
-        int option = JOptionPane.showConfirmDialog(null, pinField3, "Enter PIN to proceed",
+        int option = JOptionPane.showConfirmDialog(null, pinField3, "Enter PIN to Proceed",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
@@ -622,7 +623,7 @@ public class typeAmount3 extends frames {
 
     // Pay bills with savings
     private static void checkPIN2() {
-        int option = JOptionPane.showConfirmDialog(null, pinField3, "Enter PIN to proceed",
+        int option = JOptionPane.showConfirmDialog(null, pinField3, "Enter PIN to Proceed",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
@@ -812,11 +813,6 @@ public class typeAmount3 extends frames {
             otpBuilder.append((char) ((int) (Math.random() * 10) + '0'));
         }
         return otpBuilder.toString();
-    }
-
-    public static void main(String[] args) {
-        frames a = new typeAmount3();
-        a.show();
     }
 
 }

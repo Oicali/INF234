@@ -52,7 +52,7 @@ public class transactBills extends frames {
         cancelBtn.setBounds(15, 35, 55, 55);
         transactBillsPnl.add(cancelBtn);
         
-        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(48,47,178), new Color(32,31,171));
+        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(58,57,188), new Color(42,41,181));
         backBtn.setBounds(680, 475, 125, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
@@ -65,7 +65,6 @@ public class transactBills extends frames {
         transactBillsPnl.add(transactBillsBG);
         
         /* Buttons functions start here... */
-        
         // For cancel button to return to log in frame
         cancelBtn.addMouseListener(new MouseListener() {
             @Override
@@ -177,6 +176,9 @@ public class transactBills extends frames {
                 // Set transaction
                 serviceName = "Meralco";
                 
+                MeralcoBtn .setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\MeralcoButton.png"));
+                
                 // Update volume icon
                     if(sounds.isUnmute){
                         typeAccount.typeAccountVolume.setIcon(
@@ -195,11 +197,15 @@ public class transactBills extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 MeralcoBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                MeralcoBtn .setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\MeralcoButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                MeralcoBtn.setCursor(Cursor.getDefaultCursor());
+               MeralcoBtn .setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\MeralcoButton.png"));
             }
         });
         
@@ -222,6 +228,9 @@ public class transactBills extends frames {
                 // Set transaction
                 serviceName = "Maynilad";
                 
+                MayniladBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mayniladButton.png"));
+                
                 // Update volume icon
                     if(sounds.isUnmute){
                         typeAccount.typeAccountVolume.setIcon(
@@ -240,15 +249,18 @@ public class transactBills extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 MayniladBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                MayniladBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mayniladButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                MayniladBtn.setCursor(Cursor.getDefaultCursor());
+               MayniladBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mayniladButton.png"));
             }
         });
-        
-        
+           
     }
     
     // Add mute features
@@ -294,13 +306,6 @@ public class transactBills extends frames {
                 transactBillsVolume.setCursor(Cursor.getDefaultCursor());
             }
         });
-    }
-    
-    
-    
-    public static void main (String[]args){
-        frames a = new transactBills();
-        a.show();
     }
     
 }

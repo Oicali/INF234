@@ -70,49 +70,49 @@ public class typeAmount extends frames {
         lbl3.setBounds(475, 255, 475, 60);
         typeAmountPnl.add(lbl3);
 
-        final JButton fiveHBtn = new roundButton("₱500", new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton fiveHBtn = new roundButton("₱500", new Color(5, 38, 59), new Color(5, 38, 59), new Color(15, 48, 69), new Color(15, 48, 69));
         fiveHBtn.setBounds(508, 325, 125, 50);
         fiveHBtn.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         fiveHBtn.setForeground(Color.WHITE);
         fiveHBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(fiveHBtn);
 
-        final JButton oneKBtn = new roundButton("₱1,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton oneKBtn = new roundButton("₱1,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(15, 48, 69), new Color(15, 48, 69));
         oneKBtn.setBounds(658, 325, 125, 50);
         oneKBtn.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         oneKBtn.setForeground(Color.WHITE);
         oneKBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(oneKBtn);
 
-        final JButton twoKBtn = new roundButton("₱2,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton twoKBtn = new roundButton("₱2,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(15, 48, 69), new Color(15, 48, 69));
         twoKBtn.setBounds(808, 325, 125, 50);
         twoKBtn.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         twoKBtn.setForeground(Color.WHITE);
         twoKBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(twoKBtn);
 
-        final JButton fiveKBtn = new roundButton("₱5,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton fiveKBtn = new roundButton("₱5,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(15, 48, 69), new Color(15, 48, 69));
         fiveKBtn.setBounds(508, 410, 125, 50);
         fiveKBtn.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         fiveKBtn.setForeground(Color.WHITE);
         fiveKBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(fiveKBtn);
 
-        final JButton eightKBtn = new roundButton("₱8,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton eightKBtn = new roundButton("₱8,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(15, 48, 69), new Color(15, 48, 69));
         eightKBtn.setBounds(658, 410, 125, 50);
         eightKBtn.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         eightKBtn.setForeground(Color.WHITE);
         eightKBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(eightKBtn);
 
-        final JButton tenKBtn = new roundButton("₱10,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59), new Color(5, 38, 59));
+        final JButton tenKBtn = new roundButton("₱10,000", new Color(5, 38, 59), new Color(5, 38, 59), new Color(15, 48, 69), new Color(15, 48, 69));
         tenKBtn.setBounds(808, 410, 125, 50);
         tenKBtn.setFont(new Font("Source Sans Pro", Font.BOLD, 20));
         tenKBtn.setForeground(Color.WHITE);
         tenKBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(tenKBtn);
 
-        final JButton enterBtn = new roundButton("Enter", new Color(73, 223, 12), new Color(51, 168, 22), new Color(73, 223, 12), new Color(51, 168, 22));
+        final JButton enterBtn = new roundButton("Enter", new Color(73, 223, 12), new Color(51, 168, 22), new Color(83, 233, 22), new Color(61, 178, 32));
         enterBtn.setBounds(658, 490, 125, 50);
         enterBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         enterBtn.setForeground(Color.WHITE);
@@ -120,7 +120,7 @@ public class typeAmount extends frames {
         enterBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmountPnl.add(enterBtn);
 
-        final JButton clearBtn = new roundButton("Clear", new Color(255, 217, 61), new Color(244, 124, 51), new Color(255, 217, 61), new Color(244, 124, 51));
+        final JButton clearBtn = new roundButton("Clear", new Color(245, 217, 61), new Color(234, 124, 51), new Color(255, 217, 61), new Color(244, 134, 61));
         clearBtn.setBounds(508, 490, 125, 50);
         clearBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         clearBtn.setForeground(Color.WHITE);
@@ -134,7 +134,7 @@ public class typeAmount extends frames {
 
         //JLabel backBtn = new JLabel();
         //backBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backBtn.png"));
-        final JButton backBtn = new roundButton("Back", new Color(48, 47, 178), new Color(32, 31, 171), new Color(48, 47, 178), new Color(32, 31, 171));
+        final JButton backBtn = new roundButton("Back", new Color(48, 47, 178), new Color(32, 31, 171), new Color(58, 57, 188), new Color(42, 41, 181));
         backBtn.setBounds(808, 488, 125, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
@@ -161,7 +161,7 @@ public class typeAmount extends frames {
                     amountField.setCaretPosition(amountField.getText().length());
                 }
             }
-            
+
             public void keyTyped(KeyEvent a) {
                 char c = a.getKeyChar();
                 amountField.setCaretPosition(amountField.getText().length());
@@ -181,7 +181,6 @@ public class typeAmount extends frames {
                     }
                     amountField.setForeground(Color.WHITE);
 
-                    
                 }
 
             }
@@ -367,10 +366,13 @@ public class typeAmount extends frames {
 
                     pinField.setText("");
 
+                    sfx.playWarning();
+                    /*JOptionPane.showMessageDialog(null, "You are trying to " + transaction.transactionType.toLowerCase() +  " ₱" + format.format(amountToTransact) + "\nusing your " + typeAccount.accountType.toLowerCase() + " account. Type \nyour PIN to proceed.",
+                            "Transaction Details", JOptionPane.INFORMATION_MESSAGE);*/
+
                     // Withdraw if sufficient current or savings balance
                     if (transaction.transactionType.equals("Withdraw") && typeAccount.accountType.equals("Current")) {
                         if (amountToTransact <= account.user.getCurrent()) {
-                            sfx.playClick();
 
                             checkPIN1();
 
@@ -388,7 +390,6 @@ public class typeAmount extends frames {
 
                     } else if (transaction.transactionType.equals("Withdraw") && typeAccount.accountType.equals("Savings")) {
                         if (amountToTransact <= account.user.getSavings()) {
-                            sfx.playClick();
 
                             checkPIN2();
 
@@ -407,7 +408,6 @@ public class typeAmount extends frames {
                     // Deposit to current or savings balance if less than 99,999,999,999,999.00
                     if (transaction.transactionType.equals("Deposit") && typeAccount.accountType.equals("Current")) {
                         if (amountToTransact + account.user.getCurrent() < 99999999999999.0) {
-                            sfx.playClick();
 
                             checkPIN3();
 
@@ -421,7 +421,6 @@ public class typeAmount extends frames {
 
                     } else if (transaction.transactionType.equals("Deposit") && typeAccount.accountType.equals("Savings")) {
                         if (amountToTransact + account.user.getSavings() < 99999999999999.0) {
-                            sfx.playClick();
 
                             checkPIN4();
 
@@ -640,7 +639,7 @@ public class typeAmount extends frames {
                     pinField.requestFocus();
                 }
                 if (a.getKeyChar() >= '0' && a.getKeyChar() <= '9' || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
-                    if (!(a.getKeyChar() == KeyEvent.VK_BACK_SPACE && (pinField.getText().isEmpty() || pinField.getCaretPosition() == 0 ))) {
+                    if (!(a.getKeyChar() == KeyEvent.VK_BACK_SPACE && (pinField.getText().isEmpty() || pinField.getCaretPosition() == 0))) {
                         sfx.playClick();
                     }
                     pinField.setEditable(true);
@@ -847,7 +846,7 @@ public class typeAmount extends frames {
 
     // Withdraw current
     private static void checkPIN1() {
-        int option = JOptionPane.showConfirmDialog(null, pinField, "Enter PIN to proceed",
+        int option = JOptionPane.showConfirmDialog(null, pinField, "Enter PIN to Proceed",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
@@ -898,7 +897,7 @@ public class typeAmount extends frames {
 
     // Withdraw savings
     private static void checkPIN2() {
-        int option = JOptionPane.showConfirmDialog(null, pinField, "Enter PIN to proceed",
+        int option = JOptionPane.showConfirmDialog(null, pinField, "Enter PIN to Proceed",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
@@ -946,7 +945,7 @@ public class typeAmount extends frames {
 
     // Deposit Current
     private static void checkPIN3() {
-        int option = JOptionPane.showConfirmDialog(null, pinField, "Enter PIN to proceed",
+        int option = JOptionPane.showConfirmDialog(null, pinField, "Enter PIN to Proceed",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {

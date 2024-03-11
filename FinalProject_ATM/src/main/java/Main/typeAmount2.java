@@ -97,14 +97,14 @@ public class typeAmount2 extends frames {
         amountField2.setHorizontalAlignment(JTextField.CENTER);
         typeAmount2Pnl.add(amountField2);
 
-        final JButton clearBtn = new roundButton("Clear", new Color(255, 217, 61), new Color(244, 124, 51), new Color(255, 217, 61), new Color(244, 124, 51));
+        final JButton clearBtn = new roundButton("Clear", new Color(245, 207, 51), new Color(234, 124, 51), new Color(255, 217, 61), new Color(244, 134, 61));
         clearBtn.setBounds(555, 485, 115, 50);
         clearBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         clearBtn.setForeground(Color.WHITE);
         clearBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmount2Pnl.add(clearBtn);
 
-        final JButton enterBtn = new roundButton("Enter", new Color(73, 223, 12), new Color(51, 168, 22), new Color(73, 223, 12), new Color(51, 168, 22));
+        final JButton enterBtn = new roundButton("Enter", new Color(73, 223, 12), new Color(51, 168, 22), new Color(83, 233, 22), new Color(61, 178, 32));
         enterBtn.setBounds(705, 485, 115, 50);
         enterBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         enterBtn.setForeground(Color.WHITE);
@@ -112,7 +112,7 @@ public class typeAmount2 extends frames {
         enterBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         typeAmount2Pnl.add(enterBtn);
 
-        final JButton backBtn = new roundButton("Back", new Color(48, 47, 178), new Color(32, 31, 171), new Color(48, 47, 178), new Color(32, 31, 171));
+        final JButton backBtn = new roundButton("Back", new Color(48, 47, 178), new Color(32, 31, 171), new Color(58, 57, 188), new Color(42, 41, 181));
         backBtn.setBounds(855, 485, 115, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
@@ -474,11 +474,14 @@ public class typeAmount2 extends frames {
                     amountToTransact = Double.parseDouble(amountField2.getText());
 
                     pinField2.setText("");
+                    
+                    sfx.playWarning();
+                    /*JOptionPane.showMessageDialog(null, "You are trying to transfer ₱" + format.format(amountToTransact) + " using \nyour " + typeAccount.accountType.toLowerCase() + " account for user number \n" + recipientField.getText() + " via " + transactBank.bankName + ". Enter your PIN \nto proceed.",
+                            "Transaction Details", JOptionPane.INFORMATION_MESSAGE);*/
 
                     // Transfer if sufficient current or savings balance
                     if (transaction.transactionType.equals("Bank Transfer") && typeAccount.accountType.equals("Current")) {
                         if (amountToTransact <= account.user.getCurrent()) {
-                            sfx.playClick();
 
                             checkPIN1();
 
@@ -496,7 +499,6 @@ public class typeAmount2 extends frames {
 
                     } else if (transaction.transactionType.equals("Bank Transfer") && typeAccount.accountType.equals("Savings")) {
                         if (amountToTransact <= account.user.getSavings()) {
-                            sfx.playClick();
 
                             checkPIN2();
 
@@ -567,7 +569,7 @@ public class typeAmount2 extends frames {
 
     // Bank transfer with current
     private static void checkPIN1() {
-        int option = JOptionPane.showConfirmDialog(null, pinField2, "Enter PIN to proceed",
+        int option = JOptionPane.showConfirmDialog(null, pinField2, "Enter PIN to Proceed",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
@@ -618,7 +620,7 @@ public class typeAmount2 extends frames {
 
     // Bank transfer with savings
     private static void checkPIN2() {
-        int option = JOptionPane.showConfirmDialog(null, pinField2, "Enter PIN to proceed",
+        int option = JOptionPane.showConfirmDialog(null, pinField2, "Enter PIN to Proceed",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
@@ -810,8 +812,4 @@ public class typeAmount2 extends frames {
         return otpBuilder.toString();
     }
 
-    public static void main(String[] args) {
-        typeAmount2 a = new typeAmount2();
-        a.show();
-    }
 }
