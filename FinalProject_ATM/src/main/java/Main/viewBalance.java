@@ -25,13 +25,12 @@ public class viewBalance extends frames {
     static JLabel lbl7 = new JLabel();
     public static String str1 = account.user.getUID().substring(0, 8);
     public static String str2 = account.user.getUID().substring(8);
-        
+
     // Replace each character with "*"
     public static String maskedStr1 = String.join("", Collections.nCopies(str1.length(), "*"));
-        
-    public static String censoredUID = maskedStr1 + str2; 
 
-    
+    public static String censoredUID = maskedStr1 + str2;
+
     // Generate and redesign the balance frame
     viewBalance() {
         super();
@@ -47,7 +46,7 @@ public class viewBalance extends frames {
         lbl1.setForeground(new Color(255, 222, 89));
         lbl1.setBounds(515, 40, 400, 40);
         viewBalancePnl.add(lbl1);
-        
+
         // Displays accountType
         lbl2.setFont(new Font("Source Sans Pro", Font.BOLD, 28));
         lbl2.setHorizontalAlignment(JLabel.CENTER);
@@ -76,21 +75,21 @@ public class viewBalance extends frames {
         lbl5.setForeground(Color.BLACK);
         lbl5.setBounds(580, 294, 340, 40);
         viewBalancePnl.add(lbl5);
-        
+
         JLabel lbl6 = new JLabel("Available Balance");
         lbl6.setFont(new Font("Source Sans Pro", Font.PLAIN, 23));
         lbl6.setHorizontalAlignment(JLabel.RIGHT);
         lbl6.setForeground(Color.BLACK);
         lbl6.setBounds(585, 345, 340, 40);
         viewBalancePnl.add(lbl6);
-        
+
         // Displays current or savings balance amount
         lbl7.setFont(new Font("Source Sans Pro", Font.BOLD, 35));
         lbl7.setHorizontalAlignment(JLabel.RIGHT);
         lbl7.setForeground(Color.BLACK);
         lbl7.setBounds(560, 385, 365, 40);
         viewBalancePnl.add(lbl7);
-        
+
         JLabel lbl8 = new JLabel("PHP");
         lbl8.setFont(new Font("Source Sans Pro", Font.BOLD, 15));
         lbl8.setHorizontalAlignment(JLabel.LEFT);
@@ -104,19 +103,14 @@ public class viewBalance extends frames {
         viewBalancePnl.add(cancelBtn);
 
         addVolumeEffects(viewBalancePnl);
-        
-        final JButton printBtn = new roundButton("Print",  new Color(5, 38, 59), new Color(5, 38, 59),  new Color(5, 38, 59), new Color(5, 38, 59));
+
+        final JButton printBtn = new roundButton("Print", new Color(5, 38, 59), new Color(5, 38, 59), new Color(15, 48, 69), new Color(15, 48, 69));
         printBtn.setBounds(515, 488, 125, 50);
         printBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         printBtn.setForeground(Color.WHITE);
         viewBalancePnl.add(printBtn);
-        
-        //JLabel backBtn = new JLabel();
-        //backBtn.setIcon(
-                //new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\backButton.png"));
-        //backBtn.setBounds(540, 500,365, 70);
-        //backBtn.setBounds(808, 488, 125, 50);
-        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(48,47,178), new Color(32,31,171));
+
+        final JButton backBtn = new roundButton("Back", new Color(48, 47, 178), new Color(32, 31, 171), new Color(58, 57, 188), new Color(42, 41, 181));
         backBtn.setBounds(800, 488, 125, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
@@ -128,9 +122,7 @@ public class viewBalance extends frames {
         viewBalanceBG.setBounds(0, -15, 1050, 700);
         viewBalancePnl.add(viewBalanceBG);
 
-        
         /* Buttons functions starts here... */
-        
         // For cancel button to return to log in frame
         cancelBtn.addMouseListener(new MouseListener() {
             @Override
@@ -177,8 +169,7 @@ public class viewBalance extends frames {
                 cancelBtn.setIcon(new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
             }
         });
-        
-        
+
         // For back button to return to typeAccount frame
         backBtn.addMouseListener(new MouseListener() {
             @Override
@@ -196,18 +187,18 @@ public class viewBalance extends frames {
                 sfx.playClick();
 
                 // Update volume icon
-                    if(sounds.isUnmute){
-                        typeAccount.typeAccountVolume.setIcon(
+                if (sounds.isUnmute) {
+                    typeAccount.typeAccountVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
-                    
-                    } else {
-                        typeAccount.typeAccountVolume.setIcon(
+
+                } else {
+                    typeAccount.typeAccountVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                    }
-                
+                }
+
                 dispose();
                 transaction.typeAccountFrame.show();
-                
+
             }
 
             @Override
@@ -217,10 +208,10 @@ public class viewBalance extends frames {
 
             @Override
             public void mouseExited(MouseEvent e) {
-               backBtn.setCursor(Cursor.getDefaultCursor());
+                backBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
-        
+
         // For back button to return to typeAccount frame
         printBtn.addMouseListener(new MouseListener() {
             @Override
@@ -237,18 +228,41 @@ public class viewBalance extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playWarning();
 
-               int choice = JOptionPane.showConfirmDialog(null, "Do you want a copy of your balance?", "Print a copy?", JOptionPane.YES_NO_OPTION);
+                int choice = JOptionPane.showConfirmDialog(null, "Do you want a copy of your balance?\nClick yes to continue and return to\nlog in page.", "Print a copy", JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
                     LocalDateTime now = LocalDateTime.now();
                     String date = dtf.format(now);
-                    
-                    try {
-                        printPDFReceipts.printBalance(typeAccount.accountType, date);
-                    } catch (MalformedURLException ex) {
-                        Logger.getLogger(viewBalance.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(viewBalance.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+
+                    typeAccount.viewBalanceFrame.dispose();
+                    typeAmount.process.show();
+                    SwingUtilities.invokeLater(() -> {
+                        typeAmount.process.fill(new Runnable() {
+                            public void run() {
+                                typeAmount.process.dispose();
+
+                                try {
+                                    printPDFReceipts.printBalance(typeAccount.accountType, date);
+                                } catch (MalformedURLException ex) {
+                                    Logger.getLogger(viewBalance.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(viewBalance.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                                // Update volume Icon
+                                if (sounds.isUnmute) {
+                                    logIn.logInVolume.setIcon(
+                                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                                } else {
+                                    logIn.logInVolume.setIcon(
+                                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                                }
+                                
+                                FinalProject_ATM.logInFrame.show();
+                            }
+                        });
+                    });
+
                 }
             }
 
@@ -259,12 +273,11 @@ public class viewBalance extends frames {
 
             @Override
             public void mouseExited(MouseEvent e) {
-               printBtn.setCursor(Cursor.getDefaultCursor());
+                printBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
     }
 
-    
     // Add mute features
     private static void addVolumeEffects(JPanel panel) {
         viewBalanceVolume.setIcon(
@@ -310,10 +323,5 @@ public class viewBalance extends frames {
         });
 
     }
-    
-    public static void main(String[]args){
-        viewBalance a = new viewBalance();
-        a.show();
-    }
-    
+
 }

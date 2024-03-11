@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
-import javax.swing.border.Border;
 
 public class viewHistory extends frames {
 
@@ -130,18 +129,14 @@ public class viewHistory extends frames {
         lbl1.setForeground(Color.BLACK);
         lbl1.setBounds(20, 20, 400, 130);
         lbl1.setVerticalAlignment(SwingConstants.TOP);
-        if (type.equals("Withdraw") && account.equals("Current")) {
-            lbl1.setText("Withdraw from Current");
-        } else if (type.equals("Withdraw") && account.equals("Savings")) {
-            lbl1.setText("Withdraw from Savings");
-        } else if (type.equals("Deposit") && account.equals("Current")) {
-            lbl1.setText("Deposit to Current");
-        } else if (type.equals("Deposit") && account.equals("Savings")) {
-            lbl1.setText("Deposit to Savings");
-        } else if (type.equals("Bank Transfer") && account.equals("Current")) {
-            lbl1.setText("Transfer with Current");
-        } else if (type.equals("Bank Transfer") && account.equals("Savings")) {
-            lbl1.setText("Transfer with Savings");
+        if (type.equals("Withdraw")) {
+            lbl1.setText("Withdraw from " + typeAccount.accountType);
+        } else if (type.equals("Deposit")) {
+            lbl1.setText("Deposit to "  + typeAccount.accountType);
+        } else if (type.equals("Bank Transfer")) {
+            lbl1.setText("Transfer with "  + typeAccount.accountType);
+        }  else if (type.equals("Pay Bills")) {
+            lbl1.setText("Pay Bills using "  + typeAccount.accountType);
         }
         transactionPanel.add(lbl1);
 
@@ -183,6 +178,8 @@ public class viewHistory extends frames {
         } else if (type.equals("Deposit")) {
             lbl5.setText("+ ₱" + format.format(amount));
         } else if (type.equals("Bank Transfer")) {
+            lbl5.setText("- ₱" + format.format(amount));
+        } else if (type.equals("Pay Bills")) {
             lbl5.setText("- ₱" + format.format(amount));
         }
         transactionPanel.add(lbl5);
@@ -258,21 +255,5 @@ public class viewHistory extends frames {
                 viewHistoryVolume.setCursor(Cursor.getDefaultCursor());
             }
         });
-    }
-
-    public static void main(String[] args) {
-        viewHistory a = new viewHistory();
-        a.show();
-
-        // Add some dummy transactions for testing
-        for (int i = 1; i <= 2; i++) {
-            a.addTransactionPanel("Withdraw", "Savings", "019485285028", "12/12/2024 22:22", 100000, 5000);
-        }
-
-        // Add some dummy transactions for testing
-        for (int i = 1; i <= 2; i++) {
-            a.addTransactionPanel("Deposit", "Current", "019485285028", "12/12/2024 22:22", 15000, 50000);
-        }
-
     }
 }

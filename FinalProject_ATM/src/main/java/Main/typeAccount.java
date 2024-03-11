@@ -6,7 +6,6 @@ package Main;
 import settings.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.DecimalFormat;
 import javax.swing.*;
 
 public class typeAccount extends frames {
@@ -16,6 +15,7 @@ public class typeAccount extends frames {
     static typeAmount typeAmountFrame = new typeAmount();
     static viewBalance viewBalanceFrame = new viewBalance();
     static typeAmount2 typeAmount2Frame = new typeAmount2();
+    static typeAmount3 typeAmount3Frame = new typeAmount3();
     static JLabel typeAccountVolume = new JLabel();
     static String accountType = "null";
     
@@ -34,7 +34,7 @@ public class typeAccount extends frames {
         lbl1.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 30));
         lbl1.setHorizontalAlignment(JLabel.CENTER);
         lbl1.setForeground(new Color(255, 222, 89));
-        lbl1.setBounds(450, 40, 400, 40);
+        lbl1.setBounds(535, 40, 400, 40);
         typeAccountPnl.add(lbl1);
         
         addVolumeEffects(typeAccountPnl);
@@ -47,17 +47,17 @@ public class typeAccount extends frames {
         JLabel currentBtn = new JLabel();
         currentBtn.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\currentButton.png"));
-        currentBtn.setBounds(475, 185,365, 70);
+        currentBtn.setBounds(555, 205,365, 70);
         typeAccountPnl.add(currentBtn);
         
         JLabel savingsBtn = new JLabel();
         savingsBtn.setIcon(
                 new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\savingsButton.png"));
-        savingsBtn.setBounds(475, 305,365, 70);
+        savingsBtn.setBounds(555, 345,365, 70);
         typeAccountPnl.add(savingsBtn);
         
-        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(48,47,178), new Color(32,31,171));
-        backBtn.setBounds(600, 425, 125, 50);
+        final JButton backBtn = new roundButton("Back", new Color(48,47,178), new Color(32,31,171),  new Color(58,57,188), new Color(42,41,181));
+        backBtn.setBounds(680, 485, 125, 50);
         backBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         backBtn.setForeground(Color.WHITE);
         typeAccountPnl.add(backBtn);
@@ -70,7 +70,6 @@ public class typeAccount extends frames {
         
         
         /* Buttons functions start here... */
-        
         // For cancel button to return to log in frame
         cancelBtn.addMouseListener(new MouseListener() {
             @Override
@@ -144,6 +143,10 @@ public class typeAccount extends frames {
                 viewBalance.lbl2.setText(accountType);
                 viewBalance.lbl7.setText(format.format(account.user.getCurrent()));
                 
+                currentBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\currentButton.png"));
+                
+                
                 // Update volume icon for typeAmount Frame
                     if(sounds.isUnmute){
                         typeAmount.typeAmountVolume.setIcon(
@@ -173,10 +176,23 @@ public class typeAccount extends frames {
                         typeAmount2.typeAmount2Volume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
+                    
+                // Update volume icon for typeAmount3 Frame
+                    if(sounds.isUnmute){
+                        typeAmount3.typeAmount3Volume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAmount3.typeAmount3Volume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
 
+                // Reset Fields before goint to next frame
                 typeAmount.amountField.setText("");
                 typeAmount2.amountField2.setText("");
                 typeAmount2.recipientField.setText("");
+                typeAmount3.amountField3.setText("");
+                typeAmount3.customerField.setText("");
                 dispose(); 
                 
                 if(transaction.transactionType.equals("Withdraw") && accountType.equals("Current")){ 
@@ -190,18 +206,26 @@ public class typeAccount extends frames {
                 } else if (transaction.transactionType.equals("Bank Transfer") && accountType.equals("Current")){
                     typeAmount2.lbl1.setText("Transfer using your " + accountType); 
                     typeAmount2Frame.show();
-                } 
+                } else if (transaction.transactionType.equals("Pay Bills") && accountType.equals("Current")){
+                    typeAmount3.lbl1.setText("Pay Bills with your " + accountType); 
+                    typeAmount3.lbl3b.setText(" - Paying " + transactBills.serviceName + " Bills - "); 
+                    typeAmount3Frame.show();
+                }
                                 
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
                 currentBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                currentBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\currentButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                currentBtn.setCursor(Cursor.getDefaultCursor());
+               currentBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\currentButton.png"));
             }
         });
         
@@ -226,6 +250,9 @@ public class typeAccount extends frames {
                 accountType = "Savings"; 
                 viewBalance.lbl2.setText(accountType);
                 viewBalance.lbl7.setText(format.format(account.user.getSavings()));
+                
+                savingsBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\savingsButton.png"));
                 
                 // Update volume icon for typeAmountVolume Frame
                     if(sounds.isUnmute){
@@ -256,10 +283,23 @@ public class typeAccount extends frames {
                         typeAmount2.typeAmount2Volume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
                     }
+                    
+                // Update volume icon for typeAmount3 Frame
+                    if(sounds.isUnmute){
+                        typeAmount3.typeAmount3Volume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                    
+                    } else {
+                        typeAmount3.typeAmount3Volume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                    }
 
+                // Reset fields before going to next frame
                 typeAmount.amountField.setText("");
                 typeAmount2.amountField2.setText("");
                 typeAmount2.recipientField.setText("");
+                typeAmount3.amountField3.setText("");
+                typeAmount3.customerField.setText("");
                 dispose();
                 
                 if(transaction.transactionType.equals("Withdraw") && accountType.equals("Savings")){
@@ -273,6 +313,10 @@ public class typeAccount extends frames {
                 } else if (transaction.transactionType.equals("Bank Transfer") && accountType.equals("Savings")){
                     typeAmount2.lbl1.setText("Transfer using your " + accountType); 
                     typeAmount2Frame.show();
+                } else if (transaction.transactionType.equals("Pay Bills") && accountType.equals("Savings")){
+                    typeAmount3.lbl1.setText("Pay Bills with your " + accountType); 
+                    typeAmount3.lbl3b.setText(" - Paying " + transactBills.serviceName + " Bills - "); 
+                    typeAmount3Frame.show();
                 }
             
             }
@@ -280,11 +324,15 @@ public class typeAccount extends frames {
             @Override
             public void mouseEntered(MouseEvent e) {
                 savingsBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                savingsBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\savingsButton2.png"));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                savingsBtn.setCursor(Cursor.getDefaultCursor());
+               savingsBtn.setIcon(
+                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\savingsButton.png"));
             }
         });
         
@@ -377,11 +425,6 @@ public class typeAccount extends frames {
                 typeAccountVolume.setCursor(Cursor.getDefaultCursor());
             }
         });
-    }
-    
-    public static void main(String[]args){
-        typeAccount a = new typeAccount();
-        a.show();
     }
     
 }

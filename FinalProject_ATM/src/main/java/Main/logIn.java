@@ -20,12 +20,12 @@ public class logIn extends frames {
     static sounds sfx = new sounds();
     static transaction transactionFrame = new transaction();
     static JLabel logInVolume = new JLabel();
-    
-    
+    static JTextField otpField = new JTextField();
+
     // Generate and redesign the Log In frame
     public logIn() {
         super();
-        
+
         logInPnl.setSize(1244, 700);
         logInPnl.setBackground(Color.BLACK);
         logInPnl.setLayout(null);
@@ -56,7 +56,7 @@ public class logIn extends frames {
         PINStr.setBorder(null);
         ((JTextField) PINStr).setHorizontalAlignment(JTextField.CENTER);
         logInPnl.add(PINStr);
-        
+
         final JButton forgotPIN = new JButton("<html><i><u>Forgot PIN?</u></i></html>");
         forgotPIN.setBounds(685, 510, 160, 35);
         forgotPIN.setFont(new Font("Source Sans Pro", Font.PLAIN, 18));
@@ -66,18 +66,17 @@ public class logIn extends frames {
         forgotPIN.setOpaque(false);
         forgotPIN.setForeground(new Color(255, 222, 89));
         logInPnl.add(forgotPIN);
-        
-        final JButton logInBtn = new roundButton("Login", new Color(73,223,12), new Color(51,168,22), new Color(73,223,12), new Color(51,168,22));
+
+        final JButton logInBtn = new roundButton("Login", new Color(73, 223, 12), new Color(51, 168, 22), new Color(83, 233, 22), new Color(61, 178, 32));
         logInBtn.setBounds(695, 395, 130, 45);
         logInBtn.setFont(new Font("Source Sans Pro", Font.ITALIC + Font.BOLD, 25));
         logInBtn.setForeground(Color.WHITE);
         logInBtn.setEnabled(false);
         logInBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         logInPnl.add(logInBtn);
-        
-        
+
         addVolumeEffects(logInPnl);
-        
+
         JLabel cancelBtn = new JLabel();
         cancelBtn.setIcon(
                 new ImageIcon(
@@ -91,15 +90,13 @@ public class logIn extends frames {
         logInBG.setBounds(0, -15, 1050, 700);
         logInPnl.add(logInBG);
 
-         
         /* Listeners starts here... */
-        
         // For PIN password field and type 6 numbers only
         PINStr.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent a) {
                 String value = PINStr.getText();
                 int l = value.length();
-                
+
                 if (l >= 6 && (a.getKeyChar() != KeyEvent.VK_BACK_SPACE && a.getKeyChar() != KeyEvent.VK_ENTER)) {
                     sfx.playError();
                     PINStr.setEditable(false);
@@ -107,19 +104,20 @@ public class logIn extends frames {
                     PINStr.setText("");
                     PINStr.requestFocus();
                 }
-                if (a.getKeyChar() >= '0' && a.getKeyChar() <= '9' || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
-                    sfx.playClick();
+                if ((a.getKeyChar() >= '0' && a.getKeyChar() <= '9') || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
+                    if (!(a.getKeyChar() == KeyEvent.VK_BACK_SPACE && (PINStr.getText().isEmpty() || PINStr.getCaretPosition() == 0))) {
+                        sfx.playClick();
+                    }
                     PINStr.setEditable(true);
                     PINStr.setForeground(Color.WHITE);
-                } else if (l == 6 && a.getKeyChar()== KeyEvent.VK_ENTER){
+                } else if (l == 6 && a.getKeyChar() == KeyEvent.VK_ENTER) {
                     verifyPIN();
-                } 
-                
-                else {
+                } else {
                     PINStr.setEditable(false);
                 }
 
-            }});
+            }
+        });
 
         // For PIN JPasswordField to enable/disable the login button
         PINStr.getDocument().addDocumentListener(new DocumentListener() {
@@ -145,7 +143,6 @@ public class logIn extends frames {
             }
         });
 
-        
         // For log in button to check pin
         logInBtn.addActionListener(new ActionListener() {
             @Override
@@ -153,8 +150,7 @@ public class logIn extends frames {
                 verifyPIN();
             }
         });
-  
-        
+
         // For forgot password field to change PIN
         forgotPIN.addMouseListener(new MouseListener() {
             @Override
@@ -171,32 +167,22 @@ public class logIn extends frames {
             public void mouseReleased(MouseEvent e) {
                 sfx.playWarning();
 
+                otpField.setText("");
+                passwordField.setText("");
+
                 // Generate OTP
                 String otp = generateOTP();
 
                 JLabel label = new JLabel("<html><center>You will receive a 5-number OTP. <br> Kindly remember them to change <br> your PIN.");
                 label.setHorizontalAlignment(SwingConstants.CENTER);
-                
+
                 JOptionPane.showMessageDialog(null, label, "Request to change PIN", JOptionPane.INFORMATION_MESSAGE);
                 JOptionPane.showMessageDialog(null, "Your OTP: " + otp, "OTP Verification", JOptionPane.INFORMATION_MESSAGE);
 
-                // Field for inputting OTP
-                JTextField otpField = new JTextField();
-                otpField.addKeyListener(new KeyAdapter() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        char c = e.getKeyChar();
-                        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE)) {
-                            e.consume(); // Ignore the event
-                        } else {
-                            sfx.playClick();
-                        }
-                    }
-                });
-
                 Object[] otpPanel = {"Enter the OTP: ", otpField};
                 int option = JOptionPane.showConfirmDialog(null, otpPanel, "OTP Verification", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
+                
+                
                 if (option == JOptionPane.OK_OPTION) {
                     String enteredOTP = otpField.getText();
                     if (enteredOTP.equals(otp)) {
@@ -205,7 +191,7 @@ public class logIn extends frames {
                         sfx.playError();
                         JOptionPane.showMessageDialog(null, "Invalid OTP. PIN change aborted.", "OTP Verification", JOptionPane.ERROR_MESSAGE);
                     }
-                }
+                } else PINStr.requestFocus();
 
             }
 
@@ -222,23 +208,105 @@ public class logIn extends frames {
             }
         });
 
-        
         // Field to input new PIN
         passwordField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE)) {
-                    e.consume(); // Ignore the event
+            public void keyPressed(KeyEvent a) {
+                if ((a.getKeyChar() >= '0' && a.getKeyChar() <= '9') || a.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+                    if (!(a.getKeyChar() == KeyEvent.VK_BACK_SPACE && (passwordField.getText().isEmpty() || passwordField.getCaretPosition() == 0 ))) {
+                        sfx.playClick();
+                    }
+                    passwordField.setEditable(true);
+                    passwordField.setForeground(Color.BLACK);
+
                 } else {
-                    sfx.playClick();
+                    passwordField.setEditable(false);
                 }
             }
         });
-    
+
+        // Field for inputting OTP
+        otpField.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent a) {
+                if ((a.getKeyChar() >= '0' && a.getKeyChar() <= '9') || a.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+                    if (!(a.getKeyChar() == KeyEvent.VK_BACK_SPACE && (otpField.getText().isEmpty() || otpField.getCaretPosition() == 0))) {
+                        sfx.playClick();
+                    }
+                    otpField.setEditable(true);
+                    otpField.setForeground(Color.BLACK);
+
+                } else {
+                    otpField.setEditable(false);
+                }
+            }
+        });
+
+        // For otp field to check if 5 chars only
+        otpField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateEnterButton();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateEnterButton();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateEnterButton();
+            }
+
+            // Method to enable/disable the enter button based on the amount typed
+            private void updateEnterButton() {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (otpField.getText().length() > 5) {
+                            sfx.playError();
+                            JOptionPane.showMessageDialog(null, "Input only 5 numbers!", "Invalid OTP", JOptionPane.ERROR_MESSAGE);
+                            otpField.setText("");
+                            otpField.requestFocus();
+                        }
+                    }
+                });
+            }
+        });
         
+        // For password field to check if 6 chars only
+        passwordField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateEnterButton();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateEnterButton();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateEnterButton();
+            }
+
+            // Method to enable/disable the enter button based on the amount typed
+            private void updateEnterButton() {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (passwordField.getText().length() > 6) {
+                            sfx.playError();
+                            JOptionPane.showMessageDialog(null, "Input only 6 numbers!", "Invalid New PIN", JOptionPane.ERROR_MESSAGE);
+                            passwordField.setText("");
+                            passwordField.requestFocus();
+                        }
+                    }
+                });
+            }
+        });
+
         /* Button functions start here...*/
-        
         // For cancel button to exit system
         cancelBtn.addMouseListener(new MouseListener() {
             @Override
@@ -279,12 +347,10 @@ public class logIn extends frames {
                                 "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\cancelButton.png"));
             }
         });
-    
+
     }
 
-    
     /* Recursive methods */
-    
     // For entering new PIN
     public static void verifyNewPIN() {
 
@@ -305,7 +371,7 @@ public class logIn extends frames {
                         break;
                     }
                 }
-
+                
                 if (isValidPassword) {
                     account.user.setPIN(new String(newPasswordChars));
                     sfx.playConfirm();
@@ -329,49 +395,47 @@ public class logIn extends frames {
 
     }
 
-    
     // For entering PIN
-    public static void verifyPIN(){
+    public static void verifyPIN() {
         if (!PINStr.getText().equals(account.user.getPIN())) {
-                    sfx.playError();
+            sfx.playError();
 
-                    JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "PIN Incorrect", JOptionPane.ERROR_MESSAGE);
-                    attempt--;
-                    JOptionPane.showMessageDialog(null, "Attempts remaining: " + attempt, "PIN Incorrect",
-                            JOptionPane.WARNING_MESSAGE);
-                    PINStr.setText("");
-                    PINStr.requestFocus();
-                    //getRootPane().setDefaultButton(logInBtn);
-                    if (attempt < 1) {
-                        sfx.playWarning();
-                        JOptionPane.showMessageDialog(null, "You have reached your maximum attempt!", "System Security",
-                                JOptionPane.WARNING_MESSAGE);
-                        System.exit(0);
-                    }
-                } else {
-                    sfx.playConfirm();
+            JOptionPane.showMessageDialog(null, "You entered a wrong PIN!", "PIN Incorrect", JOptionPane.ERROR_MESSAGE);
+            attempt--;
+            JOptionPane.showMessageDialog(null, "Attempts remaining: " + attempt, "PIN Incorrect",
+                    JOptionPane.WARNING_MESSAGE);
+            PINStr.setText("");
+            PINStr.requestFocus();
+            //getRootPane().setDefaultButton(logInBtn);
+            if (attempt < 1) {
+                sfx.playWarning();
+                JOptionPane.showMessageDialog(null, "You have reached your maximum attempt!", "System Security",
+                        JOptionPane.WARNING_MESSAGE);
+                System.exit(0);
+            }
+        } else {
+            sfx.playConfirm();
 
-                    JOptionPane.showMessageDialog(null, "Login Successful!" ,"", JOptionPane.INFORMATION_MESSAGE);
-                    attempt = 3;
-                    
-                    // Update volume icon
-                    if(sounds.isUnmute){
-                        transaction.transactionVolume.setIcon(
-                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
-                    
-                    } else {
-                        transaction.transactionVolume.setIcon(
-                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                    }
-                    
-                    FinalProject_ATM.logInFrame.dispose();
-                    PINStr.setText("");
-                    transactionFrame.show();
-                    
-                }
+            JOptionPane.showMessageDialog(null, "Login Successful!", "", JOptionPane.INFORMATION_MESSAGE);
+            attempt = 3;
+
+            // Update volume icon
+            if (sounds.isUnmute) {
+                transaction.transactionVolume.setIcon(
+                        new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+            } else {
+                transaction.transactionVolume.setIcon(
+                        new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+            }
+
+            FinalProject_ATM.logInFrame.dispose();
+            PINStr.setText("");
+            transactionFrame.show();
+
+        }
     }
-    
-    
+
     // Method to generate OTP
     private String generateOTP() {
         StringBuilder otpBuilder = new StringBuilder();
@@ -380,8 +444,7 @@ public class logIn extends frames {
         }
         return otpBuilder.toString();
     }
-        
-    
+
     // Add mute features
     private static void addVolumeEffects(JPanel panel) {
         logInVolume.setIcon(
@@ -408,8 +471,6 @@ public class logIn extends frames {
 
                     sounds.isUnmute = false;
 
-
-
                 } else {
                     logInVolume.setIcon(
                             new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
@@ -432,7 +493,7 @@ public class logIn extends frames {
         });
 
     }
-    
+
 }
 
 /* commented getRootpane() in verify password but no error encounters yet. The set of code was extracted from logInbtn key listener */
