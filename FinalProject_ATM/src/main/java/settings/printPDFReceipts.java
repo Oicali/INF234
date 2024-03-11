@@ -19,11 +19,17 @@ import java.io.*;
 import java.net.*;
 import java.awt.Desktop;
 import Main.*;
+import com.itextpdf.kernel.pdf.EncryptionConstants;
+import com.itextpdf.kernel.pdf.PdfEncryptor;
+import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.WriterProperties;
+import com.itextpdf.layout.element.AreaBreak;
 
 public class printPDFReceipts extends frames {
    
     public static final String path1 = "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\PDF\\ATMReceipt.pdf";
     public static final String path2 = "C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\PDF\\balanceReceipt.pdf";
+    
 
     public static void printReceipt(String transactionType, String accountType, String refNo, String date, double amount, double balance) throws FileNotFoundException, MalformedURLException, IOException {
         PdfWriter writer = new PdfWriter(path1);
@@ -241,6 +247,54 @@ public class printPDFReceipts extends frames {
         document.close();
         openPDFFile(path2);
     }
+    
+
+    /*public static void printHistory(String transactionType, String accountType, String refNo, String date, double amount, double balance) throws FileNotFoundException, MalformedURLException, IOException {
+        PdfWriter writer = new PdfWriter(path1);
+        PdfDocument pdf = new PdfDocument(writer);
+        PageSize ps = new PageSize(350, 475);
+        Document document = new Document(pdf, ps);
+
+        // Encrypt the document
+        PdfEncryptor.encrypt(
+                pdf,
+                new PdfReader(new byte[0]), // Create an empty reader to trigger encryption
+                new WriterProperties()
+                        .setStandardEncryption(
+                                null, // User password (null for no user password)
+                                "owner_password".getBytes(), // Owner password
+                                EncryptionConstants.ALLOW_PRINTING | EncryptionConstants.ALLOW_MODIFY_CONTENTS, // Permissions
+                                EncryptionConstants.ENCRYPTION_AES_128 | EncryptionConstants.DO_NOT_ENCRYPT_METADATA
+                        )
+        );
+
+        PdfFont font = PdfFontFactory.createFont(FontConstants.COURIER);
+
+        // Define a threshold for y position to determine when to add a new page
+        float pageHeightThreshold = 50;
+
+        float currentYPosition = ps.getHeight() - 40; // Start below the top margin
+
+        document.add(new Paragraph("BANK OF INCLUSIVE TRANSACTIONS").setTextAlignment(TextAlignment.CENTER).setFontSize(20).setFont(font).setBold());
+        currentYPosition -= 30;
+
+        // Add other paragraphs using similar logic below
+
+        // Example:
+        Paragraph p1 = new Paragraph("Username : ").setFont(font).setTextAlignment(TextAlignment.LEFT);
+        if (currentYPosition - p1.getHeight() < pageHeightThreshold) {
+            document.add(new AreaBreak()); // Add a new page
+            currentYPosition = ps.getHeight() - 40; // Reset y position
+        }
+        p1.setFixedPosition(35, currentYPosition, 200);
+        document.add(p1);
+        currentYPosition -= p1.getHeight();
+
+        // Add other paragraphs using similar logic
+
+        document.close();
+        openPDFFile(path1);
+    }*/
     
     public static void openPDFFile(String filePath) {
         try {

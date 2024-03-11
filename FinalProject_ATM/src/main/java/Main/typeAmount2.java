@@ -60,7 +60,7 @@ public class typeAmount2 extends frames {
         lbl2.setForeground(new Color(255, 222, 89));
         lbl2.setBounds(560, 145, 400, 50);
         typeAmount2Pnl.add(lbl2);
-        
+
         // Display message for recipient field
         lbl2b.setFont(new Font("Source Sans Pro", Font.PLAIN, 14));
         lbl2b.setHorizontalAlignment(JLabel.CENTER);
@@ -82,7 +82,7 @@ public class typeAmount2 extends frames {
         lbl3.setForeground(new Color(255, 222, 89));
         lbl3.setBounds(560, 310, 400, 50);
         typeAmount2Pnl.add(lbl3);
-        
+
         // Display message for amount field
         lbl3b.setFont(new Font("Source Sans Pro", Font.PLAIN, 14));
         lbl3b.setHorizontalAlignment(JLabel.CENTER);
@@ -145,10 +145,13 @@ public class typeAmount2 extends frames {
                     recipientField.setText("");
                     recipientField.requestFocus();
                 }
-                if (a.getKeyChar() >= '0' && a.getKeyChar() <= '9' || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
-                    sfx.playClick();
+                if ((a.getKeyChar() >= '0' && a.getKeyChar() <= '9') || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
+                    if (!(a.getKeyChar() == KeyEvent.VK_BACK_SPACE && (recipientField.getText().isEmpty() || recipientField.getCaretPosition() == 0))) {
+                        sfx.playClick();
+                    }
                     recipientField.setEditable(true);
                     recipientField.setForeground(Color.WHITE);
+
                 } else {
                     recipientField.setEditable(false);
                 }
@@ -160,7 +163,7 @@ public class typeAmount2 extends frames {
         amountField2.addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+                if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE && !amountField2.getText().isEmpty()) {
                     sfx.playClick();
                     if (amountField2.getText().equals("0.")) {
                         amountField2.setText("");
@@ -178,16 +181,23 @@ public class typeAmount2 extends frames {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
+                String textValue = amountField2.getText();
+                int dotIndex = textValue.indexOf('.');
+                boolean moreThan2Dec = dotIndex != -1 && textValue.substring(dotIndex).length() > 2;
 
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE || c == '.')) {
+                if (!(Character.isDigit(c) || c == '.')) {
                     e.consume();
                     return;
                 } else {
-                    sfx.playClick();
                     amountField2.setCaretPosition(amountField2.getText().length());
                     if (c == '0' && amountField2.getText().isEmpty()) {
                         e.consume();
+                        sfx.playClick();
                         amountField2.setText("0.");
+                    } else if (Character.isDigit(c)) {
+                        if (!(moreThan2Dec)) {
+                            sfx.playClick();
+                        }
                     }
                 }
 
@@ -199,20 +209,18 @@ public class typeAmount2 extends frames {
                     amountField2.setCaretPosition(amountField2.getText().length());
                     amountField2.setText("0.");
                     e.consume();
-                } else {
-                    amountField2.setCaretPosition(amountField2.getText().length());
+                } else if (c == '.' && !(amountField2.getText().isEmpty())) {
+                    sfx.playClick();
                 }
 
                 // allow only 2 digits after decimal
-                String text = amountField2.getText();
-                int dotIndex = text.indexOf('.');
-                if (dotIndex != -1 && text.substring(dotIndex).length() > 2) {
+                if (moreThan2Dec) {
                     e.consume();
                     return;
                 }
             }
         });
-        
+
         pinField2.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent a) {
                 String value = pinField2.getText();
@@ -226,8 +234,11 @@ public class typeAmount2 extends frames {
                     pinField2.requestFocus();
                 }
                 if (a.getKeyChar() >= '0' && a.getKeyChar() <= '9' || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
-                    sfx.playClick();
+                    if (!(a.getKeyChar() == KeyEvent.VK_BACK_SPACE && (pinField2.getText().isEmpty() || pinField2.getCaretPosition() == 0 ))) {
+                        sfx.playClick();
+                    }
                     pinField2.setEditable(true);
+                    pinField2.setForeground(Color.BLACK);
                 } else {
                     pinField2.setEditable(false);
                 }
@@ -275,14 +286,20 @@ public class typeAmount2 extends frames {
                             } else {
                                 isValidAmount = true;
                             }
-                            
-                            
 
                         } catch (NumberFormatException ex) {
                             isValidAmount = false;
                         }
-                        
-                        
+
+                        // Unshow message if valid amount
+                        if (isValidAmount) {
+                            lbl3b.setText("");
+                            lbl3.setBounds(560, 325, 400, 50);
+                        } else {
+                            lbl3b.setText(" - Please enter any amount up to ₱50,000 - ");
+                            lbl3.setBounds(560, 310, 400, 50);
+                        }
+
                         enterBtn.setEnabled(isValidAmount && isValidRecipient);
                     }
                 });
@@ -312,9 +329,9 @@ public class typeAmount2 extends frames {
                     @Override
                     public void run() {
                         isValidRecipient = recipientField.getText().length() == 12 && recipientField.getText().matches("\\d+");
-                        
+
                         // Unshow message if valid recipient
-                        if(isValidRecipient){
+                        if (isValidRecipient) {
                             lbl2b.setText("");
                             lbl2.setBounds(560, 160, 400, 50);
                         } else {
@@ -448,7 +465,7 @@ public class typeAmount2 extends frames {
                 backBtn.setCursor(Cursor.getDefaultCursor());
             }
         });
-        
+
         // For enter button
         enterBtn.addActionListener(new ActionListener() {
             @Override
@@ -481,7 +498,6 @@ public class typeAmount2 extends frames {
                         if (amountToTransact <= account.user.getSavings()) {
                             sfx.playClick();
 
-                            
                             checkPIN2();
 
                         } else {
@@ -548,7 +564,7 @@ public class typeAmount2 extends frames {
             }
         });
     }
-    
+
     // Bank transfer with current
     private static void checkPIN1() {
         int option = JOptionPane.showConfirmDialog(null, pinField2, "Enter PIN to proceed",
@@ -580,16 +596,16 @@ public class typeAmount2 extends frames {
 
                 JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
                         JOptionPane.WARNING_MESSAGE);
-                
-                // Update volume Icon
-                    if (sounds.isUnmute) {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
 
-                    } else {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                    }
+                // Update volume Icon
+                if (sounds.isUnmute) {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                } else {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                }
 
                 typeAccount.typeAmount2Frame.dispose();
                 FinalProject_ATM.logInFrame.show();
@@ -599,7 +615,7 @@ public class typeAmount2 extends frames {
             amountField2.requestFocus();
         }
     }
-    
+
     // Bank transfer with savings
     private static void checkPIN2() {
         int option = JOptionPane.showConfirmDialog(null, pinField2, "Enter PIN to proceed",
@@ -631,16 +647,16 @@ public class typeAmount2 extends frames {
 
                 JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
                         JOptionPane.WARNING_MESSAGE);
-                
-                // Update volume Icon
-                    if (sounds.isUnmute) {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
 
-                    } else {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                    }
+                // Update volume Icon
+                if (sounds.isUnmute) {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                } else {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                }
 
                 typeAccount.typeAmount2Frame.dispose();
                 FinalProject_ATM.logInFrame.show();
@@ -650,9 +666,7 @@ public class typeAmount2 extends frames {
             amountField2.requestFocus();
         }
     }
-    
-    
-    
+
     private static void askReceipt() {
         typeAccount.typeAmount2Frame.show();
         sfx.playConfirm();
@@ -661,8 +675,8 @@ public class typeAmount2 extends frames {
         dateOfTransaction = dtf.format(now);
 
         refNo = generateRefNo();
-        
-        String str1 = recipientField.getText().substring(0,8);
+
+        String str1 = recipientField.getText().substring(0, 8);
         String str2 = recipientField.getText().substring(8);
         String maskedStr1 = String.join("", Collections.nCopies(str1.length(), "*"));
         rCensoredUID = maskedStr1 + str2;
@@ -677,11 +691,9 @@ public class typeAmount2 extends frames {
 
         // lbl 10 or transaction type
         viewReceipt.lbl10.setText(transaction.transactionType);
-        
 
         // lbl 12 or amount to transact  
-            viewReceipt.lbl12.setText("- ₱" + format.format(amountToTransact));
-         
+        viewReceipt.lbl12.setText("- ₱" + format.format(amountToTransact));
 
         // lbl14 or general balance 
         if (typeAccount.accountType.equals("Current")) {
@@ -788,8 +800,8 @@ public class typeAmount2 extends frames {
         }
 
     }
-    
-     // Method to generate Reference number
+
+    // Method to generate Reference number
     private static String generateRefNo() {
         StringBuilder otpBuilder = new StringBuilder();
         for (int i = 0; i < 12; i++) {

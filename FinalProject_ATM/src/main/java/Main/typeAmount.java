@@ -63,7 +63,7 @@ public class typeAmount extends frames {
         amountField.setHorizontalAlignment(JTextField.CENTER);
         typeAmountPnl.add(amountField);
 
-        JLabel lbl3 = new JLabel("Enter amount from ₱100 up to ₱50,000");
+        JLabel lbl3 = new JLabel("Enter valid amount from ₱100 up to ₱50,000");
         lbl3.setFont(new Font("Source Sans Pro", Font.ITALIC, 17));
         lbl3.setHorizontalAlignment(JLabel.CENTER);
         lbl3.setForeground(new Color(255, 222, 89));
@@ -151,24 +151,39 @@ public class typeAmount extends frames {
         /* Listeners start here... */
         // For amount field to type amount
         amountField.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent a) {
-                if (a.getKeyChar() >= '1' && a.getKeyChar() <= '9' || a.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
-
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE && !amountField.getText().isEmpty()) {
                     sfx.playClick();
+                    if (amountField.getText().equals("0.")) {
+                        amountField.setText("");
+                    }
+
                     amountField.setCaretPosition(amountField.getText().length());
-                    amountField.setEditable(true);
+                }
+            }
+            
+            public void keyTyped(KeyEvent a) {
+                char c = a.getKeyChar();
+                amountField.setCaretPosition(amountField.getText().length());
+                if (!(Character.isDigit(c))) {
+
+                    a.consume();
+                    return;
 
                 } else {
-                    amountField.setEditable(false);
+                    if (a.getKeyChar() == '0') {
+                        if (!amountField.getText().isEmpty()) {
+                            sfx.playClick();
+                        }
+
+                    } else if (!(a.getKeyChar() == KeyEvent.VK_BACK_SPACE && (amountField.getText().isEmpty() || amountField.getCaretPosition() == 0))) {
+                        sfx.playClick();
+                    }
+                    amountField.setForeground(Color.WHITE);
+
+                    
                 }
 
-                if (a.getKeyChar() == '0') {
-                    if (!amountField.getText().isEmpty()) {
-                        sfx.playClick();
-                        amountField.setEditable(true);
-                    }
-                    amountField.setCaretPosition(amountField.getText().length());
-                }
             }
         });
 
@@ -625,8 +640,11 @@ public class typeAmount extends frames {
                     pinField.requestFocus();
                 }
                 if (a.getKeyChar() >= '0' && a.getKeyChar() <= '9' || (a.getKeyChar() == KeyEvent.VK_BACK_SPACE)) {
-                    sfx.playClick();
+                    if (!(a.getKeyChar() == KeyEvent.VK_BACK_SPACE && (pinField.getText().isEmpty() || pinField.getCaretPosition() == 0 ))) {
+                        sfx.playClick();
+                    }
                     pinField.setEditable(true);
+                    pinField.setForeground(Color.BLACK);
                 } else {
                     pinField.setEditable(false);
                 }
@@ -858,16 +876,16 @@ public class typeAmount extends frames {
 
                 JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
                         JOptionPane.WARNING_MESSAGE);
-                
-                // Update volume Icon
-                    if (sounds.isUnmute) {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
 
-                    } else {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                    }
+                // Update volume Icon
+                if (sounds.isUnmute) {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                } else {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                }
 
                 typeAccount.typeAmountFrame.dispose();
                 FinalProject_ATM.logInFrame.show();
@@ -907,16 +925,16 @@ public class typeAmount extends frames {
                         JOptionPane.ERROR_MESSAGE);
                 JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
                         JOptionPane.WARNING_MESSAGE);
-                
-                // Update volume Icon
-                    if (sounds.isUnmute) {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
 
-                    } else {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                    }
+                // Update volume Icon
+                if (sounds.isUnmute) {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                } else {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                }
 
                 typeAccount.typeAmountFrame.dispose();
                 FinalProject_ATM.logInFrame.show();
@@ -955,16 +973,16 @@ public class typeAmount extends frames {
                         JOptionPane.ERROR_MESSAGE);
                 JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
                         JOptionPane.WARNING_MESSAGE);
-                
-                // Update volume Icon
-                    if (sounds.isUnmute) {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
 
-                    } else {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                    }
+                // Update volume Icon
+                if (sounds.isUnmute) {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+
+                } else {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                }
 
                 typeAccount.typeAmountFrame.dispose();
                 FinalProject_ATM.logInFrame.show();
@@ -1004,22 +1022,20 @@ public class typeAmount extends frames {
                         JOptionPane.ERROR_MESSAGE);
                 JOptionPane.showMessageDialog(null, "System will return to log in page!", "",
                         JOptionPane.WARNING_MESSAGE);
-                
+
                 // Update volume Icon
-                    if (sounds.isUnmute) {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
+                if (sounds.isUnmute) {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\unmute.png"));
 
-                    } else {
-                        logIn.logInVolume.setIcon(
-                                new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
-                    }
+                } else {
+                    logIn.logInVolume.setIcon(
+                            new ImageIcon("C:\\Users\\jairus\\Documents\\GitHub\\INF234\\FinalProject_ATM\\src\\main\\java\\resources\\mute.png"));
+                }
 
-                    
-                    
                 typeAccount.typeAmountFrame.dispose();
                 FinalProject_ATM.logInFrame.show();
-                
+
             }
         } else {
             amountField.requestFocus();
